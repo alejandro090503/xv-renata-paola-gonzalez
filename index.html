@@ -2283,6 +2283,122 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   .mtr-car{opacity:1 !important;transform:scale(1) !important}
 }
 
+
+/* ============================================================
+   RITMO DE FONDOS · noche + rosa gold
+   Cada sección tiene su propio clima para que la invitación
+   respire: unas en noche profunda, otras con el rosa subiendo.
+   Los degradados arrancan y cierran en el negro base para que
+   las costuras entre secciones no se noten.
+   ============================================================ */
+
+/* 1 · INVITACIÓN FAMILIAR — amanece el rosa desde arriba */
+#invite{
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(232,180,168,.16) 0%, rgba(232,180,168,.05) 42%, transparent 72%),
+    linear-gradient(180deg, #0B0B0D 0%, #121013 55%, #0B0B0D 100%) !important;
+}
+
+/* 2 · UBICACIÓN — banda rosa cálida al centro */
+#location{
+  background:
+    linear-gradient(180deg,
+      #0B0B0D 0%,
+      rgba(232,180,168,.07) 24%,
+      rgba(232,180,168,.19) 52%,
+      rgba(232,180,168,.07) 78%,
+      #0B0B0D 100%) !important;
+}
+
+/* 3 · CUENTA REGRESIVA — destello central, resto en noche */
+#countdown{
+  background:
+    radial-gradient(75% 55% at 50% 50%, rgba(232,180,168,.20) 0%, rgba(232,180,168,.05) 46%, transparent 74%),
+    radial-gradient(90% 60% at 50% 50%, rgba(201,204,209,.07) 0%, transparent 68%),
+    #0B0B0D !important;
+}
+
+/* 4 · GUARDA LA FECHA — diagonal rosa/plata, la más gráfica */
+#calendar{
+  background:
+    linear-gradient(152deg,
+      rgba(232,180,168,.24) 0%,
+      rgba(185,134,121,.12) 30%,
+      #0E0E11 58%,
+      rgba(201,204,209,.09) 82%,
+      #0B0B0D 100%) !important;
+}
+
+/* 5 · ITINERARIO METRO — noche urbana, el rosa sólo abajo */
+#itinerary{
+  background:
+    radial-gradient(90% 45% at 50% 100%, rgba(232,180,168,.16) 0%, transparent 68%),
+    linear-gradient(180deg, #0B0B0D 0%, #101014 50%, #0D0C0F 100%) !important;
+}
+
+/* 6 · PADRINOS — luz lateral, casi en penumbra */
+#padrinos{
+  background:
+    radial-gradient(70% 90% at 0% 50%, rgba(232,180,168,.15) 0%, transparent 62%),
+    radial-gradient(70% 90% at 100% 50%, rgba(201,204,209,.09) 0%, transparent 62%),
+    #0B0B0D !important;
+}
+
+/* 7 · MESA DE REGALOS — velo de plata, sobrio */
+#gifts{
+  background:
+    radial-gradient(110% 60% at 50% 0%, rgba(201,204,209,.11) 0%, transparent 62%),
+    linear-gradient(180deg, #0B0B0D 0%, #131316 52%, #0B0B0D 100%) !important;
+}
+
+/* 8 · ÁLBUM — banda rosa invertida respecto a Ubicación */
+#album{
+  background:
+    linear-gradient(180deg,
+      #0B0B0D 0%,
+      rgba(232,180,168,.06) 18%,
+      rgba(232,180,168,.17) 50%,
+      rgba(232,180,168,.06) 82%,
+      #0B0B0D 100%) !important;
+}
+
+/* 9 · CÓDIGO DE VESTIMENTA — la más rosada de todas */
+#dresscode{
+  background:
+    radial-gradient(100% 65% at 50% 25%, rgba(240,199,188,.22) 0%, transparent 68%),
+    linear-gradient(180deg,
+      rgba(232,180,168,.22) 0%,
+      rgba(185,134,121,.14) 45%,
+      rgba(232,180,168,.08) 78%,
+      #0B0B0D 100%) !important;
+}
+
+/* 10 · GALERÍA — negro profundo para que manden las fotos */
+#gallery{
+  background:
+    radial-gradient(90% 50% at 50% 50%, rgba(232,180,168,.07) 0%, transparent 70%),
+    linear-gradient(180deg, #0B0B0D 0%, #060607 50%, #0B0B0D 100%) !important;
+}
+
+/* 11 · RSVP — el clímax: rosa envolviendo la tarjeta */
+#rsvp{
+  background:
+    radial-gradient(85% 55% at 50% 42%, rgba(232,180,168,.26) 0%, rgba(232,180,168,.08) 48%, transparent 76%),
+    linear-gradient(180deg, #0B0B0D 0%, #171113 50%, #0B0B0D 100%) !important;
+}
+
+/* 12 · FOOTER — se apaga la noche con un último halo */
+#footer, footer{
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(232,180,168,.14) 0%, transparent 66%),
+    linear-gradient(180deg, #0D0C0F 0%, #070708 100%) !important;
+}
+
+/* Las tarjetas se despegan del fondo ahora que hay color detrás */
+.loc-card,.gf-bankcard,.rsvp-card,.pad-card,.dc-avoid{
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+}
+
   </style>
 </head>
 <body>
