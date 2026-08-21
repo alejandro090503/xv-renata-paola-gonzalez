@@ -2100,6 +2100,189 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   }
 }
 
+
+/* ============================================================
+   ITINERARIO · LÍNEA DE METRO DE NUEVA YORK
+   Vía con rieles y traviesas, vagones como paradas y
+   señalamientos tipo MTA para cada actividad.
+   ============================================================ */
+#itinerary{position:relative;overflow:hidden}
+#itinerary::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background:
+    linear-gradient(180deg,var(--night) 0%,transparent 18%,transparent 82%,var(--night) 100%),
+    repeating-linear-gradient(90deg,transparent 0 46px,rgba(201,204,209,.05) 46px 47px),
+    repeating-linear-gradient(0deg,transparent 0 46px,rgba(201,204,209,.04) 46px 47px);
+}
+#itinerary > *{position:relative;z-index:1}
+
+/* Cabecera: nombre de la línea */
+.mtr-line-name{
+  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:2.6px;text-transform:uppercase;color:var(--silver-lt);
+  margin:18px 0 34px;
+}
+
+/* Bala MTA: disco sólido con letra/número */
+.mtr-bullet{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:14px;
+  letter-spacing:0;color:#0B0B0D;
+  box-shadow:0 3px 12px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.mtr-bullet--rp{
+  width:38px;height:38px;font-size:13px;letter-spacing:.5px;
+  background:linear-gradient(140deg,#FBE4DD,#E8B4A8 46%,#B98679);
+}
+.mtr-bullet--1{background:linear-gradient(140deg,#FFFFFF,#C9CCD1 48%,#8E9297)}
+.mtr-bullet--2{background:linear-gradient(140deg,#FBE4DD,#E8B4A8 48%,#B98679)}
+
+/* Rejilla del recorrido */
+.mtr{position:relative;padding:6px 0;max-width:560px;margin:0 auto}
+.mtr-svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
+.mtr-rail{fill:none;stroke-linecap:round;stroke-linejoin:round}
+/* balasto: traviesas de la vía */
+.mtr-rail--bed{stroke:rgba(201,204,209,.22);stroke-width:13;stroke-dasharray:2 9}
+/* dos rieles paralelos */
+.mtr-rail--a{stroke:rgba(201,204,209,.5);stroke-width:1.1;transform:translateX(-4px)}
+.mtr-rail--b{stroke:rgba(201,204,209,.5);stroke-width:1.1;transform:translateX(4px)}
+/* riel vivo: el tren avanza al hacer scroll */
+.mtr-rail--live{stroke:var(--rose);stroke-width:2.2;filter:drop-shadow(0 0 7px rgba(232,180,168,.75))}
+
+.mtr-row{display:flex;align-items:center;position:relative;z-index:1;min-height:112px;padding:6px 0}
+.mtr-row--r{flex-direction:row-reverse}
+.mtr-sign{width:47%;flex-shrink:0;padding:0 10px}
+.mtr-row--r .mtr-sign{text-align:right}
+.mtr-spacer{flex:1}
+
+/* Señalamiento de estación (placa negra con filo, tipo MTA) */
+.mtr-sign-top{display:flex;align-items:center;gap:10px}
+.mtr-row--r .mtr-sign-top{flex-direction:row-reverse}
+.mtr-stop{
+  font-family:'Inter',sans-serif;font-weight:700;
+  font-size:16px;line-height:1.25;letter-spacing:.6px;
+  text-transform:uppercase;color:#FFFFFF;
+}
+.mtr-sign-time{
+  display:inline-block;margin-top:10px;padding:6px 13px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--night);
+  background:linear-gradient(120deg,#E8EAED,#C9CCD1);
+  border-radius:4px;
+}
+
+/* Vagón de metro como punto de parada */
+.mtr-car-wrap{flex-shrink:0;width:52px;display:flex;align-items:center;justify-content:center}
+.mtr-car{width:46px;height:34px;opacity:0;transform:scale(.6);overflow:visible}
+.mtr-car-body{
+  fill:#16161A;stroke:var(--silver);stroke-width:1.5;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.7));
+}
+.mtr-car-win{fill:rgba(232,180,168,.85)}
+.mtr-car-door{fill:rgba(201,204,209,.55)}
+.mtr-car-lamp{fill:#FFF3EE}
+.mtr-row--r .mtr-car{transform:scale(.6) scaleX(-1)}
+
+.mtr-foot{
+  text-align:center;margin-top:28px;
+  font-family:'Inter',sans-serif;font-weight:500;font-size:14px;
+  letter-spacing:1.4px;color:var(--silver-lt);opacity:.85;
+}
+
+@media (max-width:400px){
+  .mtr-sign{width:52%;padding:0 6px}
+  .mtr-stop{font-size:15px}
+}
+
+/* ============================================================
+   RESERVA ESTA FECHA · los años que corren hasta mis XV
+   ============================================================ */
+.date-hero{
+  position:relative;padding:min(18vh,150px) 24px;text-align:center;
+  isolation:isolate;overflow:hidden;background:var(--night-2);
+}
+.date-hero::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,var(--night) 0%,rgba(11,11,13,.35) 22%,rgba(11,11,13,.35) 78%,var(--night) 100%),
+    url('assets/gallery/foto-hero-crop.jpg') center/cover no-repeat;
+  filter:grayscale(.5) contrast(1.05);
+  opacity:.5;
+}
+.dh-glow{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:120%;max-width:620px;aspect-ratio:1;z-index:1;pointer-events:none;
+  background:radial-gradient(circle,rgba(232,180,168,.22) 0%,rgba(11,11,13,.45) 46%,transparent 72%);
+}
+.dh-inner{position:relative;z-index:2}
+.date-eyebrow{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:12px;
+  letter-spacing:.55em;text-transform:uppercase;color:var(--rose-lt);
+  padding-left:.55em;margin-bottom:24px;display:inline-block;
+}
+.date-h{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(40px,9vw,76px);line-height:1.1;margin-bottom:8px;
+  background-image:linear-gradient(100deg,
+    #8E9297 0%,#C9CCD1 18%,#FFFFFF 34%,#C9CCD1 50%,#8E9297 64%,#C9CCD1 84%,#8E9297 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 5.5s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(201,204,209,.35));
+}
+.date-h em{
+  font-style:italic;
+  background-image:linear-gradient(100deg,
+    #B98679 0%,#E8B4A8 20%,#FBE4DD 36%,#E8B4A8 52%,#B98679 68%,#E8B4A8 88%,#B98679 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 6s linear infinite;
+}
+.date-numbers{
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:clamp(26px,10vw,72px);font-variant-numeric:tabular-nums;margin:46px 0 26px;
+}
+.date-block{text-align:center;position:relative;opacity:0}
+.date-block + .date-block::before{
+  content:"\00b7";position:absolute;left:calc(-1 * clamp(26px,10vw,72px) / 2);
+  top:32%;transform:translateX(-50%);color:var(--rose);font-size:32px;
+}
+.date-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:clamp(52px,13vw,108px);line-height:1;
+  background-image:linear-gradient(100deg,
+    #B98679 0%,#E8B4A8 16%,#FBE4DD 30%,#F4F6F8 40%,#C9CCD1 54%,#E8B4A8 72%,#B98679 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 6.5s linear infinite;
+  filter:drop-shadow(0 4px 18px rgba(0,0,0,.6));
+}
+.date-lbl{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:.5em;text-transform:uppercase;color:var(--paper);
+  margin-top:16px;padding-left:.5em;
+}
+.date-roman{
+  font-family:'Cinzel',serif;font-size:17px;letter-spacing:.38em;
+  color:var(--rose-lt);margin-top:26px;padding-left:.38em;
+}
+.date-note{
+  font-family:'Inter',sans-serif;font-weight:500;font-size:16px;line-height:1.6;
+  color:var(--paper);opacity:.9;margin-top:26px;
+  max-width:34ch;margin-left:auto;margin-right:auto;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .date-h,.date-h em,.date-num,.mtr-rail--live{animation:none !important}
+  .date-block{opacity:1 !important}
+  .mtr-car{opacity:1 !important;transform:scale(1) !important}
+}
+
   </style>
 </head>
 <body>
@@ -2281,6 +2464,30 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 </section>
 
 
+<!-- ═══════════════ RESERVA ESTA FECHA ══════════ -->
+<section class="date-hero" id="dateHero">
+  <div class="dh-glow" aria-hidden="true"></div>
+  <div class="dh-inner">
+    <div class="date-eyebrow">Reserva esta fecha</div>
+    <h2 class="date-h">Mi <em>gran</em> día</h2>
+
+    <div class="date-numbers">
+      <div class="date-block">
+        <div class="date-num" data-count-from="2" data-count-to="3">2</div>
+        <div class="date-lbl">Abril</div>
+      </div>
+      <div class="date-block">
+        <div class="date-num" data-count-from="2012" data-count-to="2027">2012</div>
+        <div class="date-lbl">Sábado</div>
+      </div>
+    </div>
+
+    <div class="date-roman">III · IV · MMXXVII</div>
+    <p class="date-note">De la niña que fui a la mujer que soy · quince años de camino</p>
+  </div>
+</section>
+
+
 <!-- ═══════════════ 2. CUENTA REGRESIVA ══════════════ -->
 <section id="countdown">
   <!-- ondas decorativas superiores -->
@@ -2347,26 +2554,66 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 
 <!-- ═══════════════ 5. ITINERARIO ════════════════════ -->
 <section id="itinerary">
-  <span class="lbl">La noche de mis XV</span>
+  <span class="lbl">Programa del día</span>
   <h2 class="ttl">Itinerario</h2>
   <div class="gline"></div>
-  <div class="itv3">
-    <div class="itv3-track"></div>
-    <div class="itv3-glow" id="itvGlow"></div>
+  <p class="mtr-line-name"><span class="mtr-bullet mtr-bullet--rp">RP</span> Línea Renata Paola &middot; 3 ABR 2027</p>
 
-    <div class="itv3-item">
-      <div class="itv3-gem"></div>
-      <div class="itv3-time" style="font-size:14px;letter-spacing:2px">Por confirmar</div>
-      <div class="itv3-ev">Misa de XV Años</div>
+  <div class="mtr" id="mtr">
+    <!-- Vía de metro: rieles + traviesas, dibujada por JS -->
+    <svg class="mtr-svg" id="mtrSvg" aria-hidden="true">
+      <polyline class="mtr-rail mtr-rail--bed" id="mtrBed" points="0,0"/>
+      <polyline class="mtr-rail mtr-rail--a"   id="mtrRailA" points="0,0"/>
+      <polyline class="mtr-rail mtr-rail--b"   id="mtrRailB" points="0,0"/>
+      <polyline class="mtr-rail mtr-rail--live" id="mtrLive" points="0,0"/>
+    </svg>
+
+    <!-- PARADA 1 -->
+    <div class="mtr-row">
+      <div class="mtr-sign">
+        <div class="mtr-sign-top">
+          <span class="mtr-bullet mtr-bullet--1">1</span>
+          <span class="mtr-stop">Misa de XV Años</span>
+        </div>
+        <div class="mtr-sign-time">Por confirmar</div>
+      </div>
+      <div class="mtr-car-wrap">
+        <svg class="mtr-car" viewBox="0 0 46 34" aria-hidden="true">
+          <rect class="mtr-car-body" x="3" y="4" width="40" height="26" rx="7"/>
+          <rect class="mtr-car-win"  x="8" y="9"  width="12" height="9" rx="2"/>
+          <rect class="mtr-car-win"  x="26" y="9" width="12" height="9" rx="2"/>
+          <rect class="mtr-car-door" x="21.4" y="9" width="3.2" height="16" rx="1.2"/>
+          <circle class="mtr-car-lamp" cx="12" cy="25" r="2.1"/>
+          <circle class="mtr-car-lamp" cx="34" cy="25" r="2.1"/>
+        </svg>
+      </div>
+      <div class="mtr-spacer"></div>
     </div>
 
-    <div class="itv3-item">
-      <div class="itv3-gem itv3-gem-beige"></div>
-      <div class="itv3-time" style="font-size:14px;letter-spacing:2px">Por confirmar</div>
-      <div class="itv3-ev">Recepción</div>
+    <!-- PARADA 2 -->
+    <div class="mtr-row mtr-row--r">
+      <div class="mtr-sign">
+        <div class="mtr-sign-top">
+          <span class="mtr-bullet mtr-bullet--2">2</span>
+          <span class="mtr-stop">Recepción</span>
+        </div>
+        <div class="mtr-sign-time">Por confirmar</div>
+      </div>
+      <div class="mtr-car-wrap">
+        <svg class="mtr-car" viewBox="0 0 46 34" aria-hidden="true">
+          <rect class="mtr-car-body" x="3" y="4" width="40" height="26" rx="7"/>
+          <rect class="mtr-car-win"  x="8" y="9"  width="12" height="9" rx="2"/>
+          <rect class="mtr-car-win"  x="26" y="9" width="12" height="9" rx="2"/>
+          <rect class="mtr-car-door" x="21.4" y="9" width="3.2" height="16" rx="1.2"/>
+          <circle class="mtr-car-lamp" cx="12" cy="25" r="2.1"/>
+          <circle class="mtr-car-lamp" cx="34" cy="25" r="2.1"/>
+        </svg>
+      </div>
+      <div class="mtr-spacer"></div>
     </div>
-
   </div>
+
+  <p class="mtr-foot">Los horarios se confirmarán próximamente</p>
 </section>
 
 
@@ -3766,6 +4013,117 @@ function toast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+/* ============================================================
+   ITINERARIO METRO · traza la vía y hace avanzar el tren
+   ============================================================ */
+function initMetro(){
+  requestAnimationFrame(function(){
+    var wrap = document.getElementById('mtr');
+    if(!wrap) return;
+    var cars = wrap.querySelectorAll('.mtr-car');
+    var rows = wrap.querySelectorAll('.mtr-row');
+    var rails = ['mtrBed','mtrRailA','mtrRailB','mtrLive'].map(function(id){
+      return document.getElementById(id);
+    });
+    var wrapRect = wrap.getBoundingClientRect();
+    var pts = [];
+
+    wrap.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
+      var r = cw.getBoundingClientRect();
+      pts.push((r.left + r.width/2 - wrapRect.left) + ',' + (r.top + r.height/2 - wrapRect.top));
+    });
+    if(pts.length < 2) return;
+
+    /* prolongar la vía arriba y abajo: el tren viene y sigue de largo */
+    var first = pts[0].split(','), last = pts[pts.length-1].split(',');
+    pts.unshift(first[0] + ',0');
+    pts.push(last[0] + ',' + wrapRect.height);
+
+    var d = pts.join(' ');
+    rails.forEach(function(r){ if(r) r.setAttribute('points', d); });
+
+    var live = document.getElementById('mtrLive');
+    var len = live.getTotalLength() || 600;
+    gsap.set(live, {strokeDasharray: len, strokeDashoffset: len});
+    gsap.to(live, {
+      strokeDashoffset: 0, ease: 'none',
+      scrollTrigger: {trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1}
+    });
+
+    cars.forEach(function(car, i){
+      var flip = rows[i].classList.contains('mtr-row--r');
+      gsap.to(car, {
+        opacity: 1, scale: 1, scaleX: flip ? -1 : 1,
+        duration: .6, ease: 'back.out(2.1)',
+        scrollTrigger: {trigger: rows[i], start: 'top 84%', toggleActions: 'play none none none'}
+      });
+    });
+
+    rows.forEach(function(row){
+      var sign = row.querySelector('.mtr-sign');
+      var dir = row.classList.contains('mtr-row--r') ? 26 : -26;
+      gsap.fromTo(sign, {x: dir, opacity: 0},
+        {x: 0, opacity: 1, duration: .9, ease: 'power2.out',
+         scrollTrigger: {trigger: row, start: 'top 86%'}});
+    });
+  });
+}
+
+/* ============================================================
+   RESERVA ESTA FECHA · los números corren de 2012 a 2027
+   ============================================================ */
+function initDateHero(){
+  document.querySelectorAll('[data-count-to]').forEach(function(el){
+    var to   = parseInt(el.dataset.countTo, 10);
+    var from = el.dataset.countFrom !== undefined ? parseInt(el.dataset.countFrom, 10) : 0;
+    var obj  = {v: from};
+    el.textContent = from;
+    gsap.to(obj, {
+      v: to, duration: 2.6, ease: 'power3.out',
+      onUpdate: function(){ el.textContent = Math.round(obj.v); },
+      scrollTrigger: {trigger: el, start: 'top 82%'}
+    });
+  });
+  gsap.fromTo('.date-h', {opacity: 0, scale: .92, y: 30},
+    {opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out',
+     scrollTrigger: {trigger: '.date-h', start: 'top 82%'}});
+  gsap.to('.date-block',
+    {opacity: 1, y: 0, duration: 1.2, stagger: .15, ease: 'power4.out',
+     scrollTrigger: {trigger: '.date-numbers', start: 'top 82%'}});
+  gsap.fromTo('.date-block', {y: 40}, {y: 0, duration: 1.2, stagger: .15,
+     scrollTrigger: {trigger: '.date-numbers', start: 'top 82%'}});
+  gsap.fromTo('.date-roman', {opacity: 0, letterSpacing: '1em'},
+    {opacity: 1, letterSpacing: '.38em', duration: 1.2, ease: 'power3.out',
+     scrollTrigger: {trigger: '.date-roman', start: 'top 86%'}});
+  gsap.fromTo('.date-note', {opacity: 0, y: 18},
+    {opacity: 1, y: 0, duration: 1, ease: 'power2.out',
+     scrollTrigger: {trigger: '.date-note', start: 'top 88%'}});
+}
+
+initMetro();
+initDateHero();
+window.addEventListener('resize', function(){
+  clearTimeout(window.__mtrRz);
+  window.__mtrRz = setTimeout(function(){
+    var w = document.getElementById('mtr');
+    if(!w) return;
+    var wr = w.getBoundingClientRect(), pts = [];
+    w.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
+      var r = cw.getBoundingClientRect();
+      pts.push((r.left + r.width/2 - wr.left) + ',' + (r.top + r.height/2 - wr.top));
+    });
+    if(pts.length < 2) return;
+    var f = pts[0].split(','), l = pts[pts.length-1].split(',');
+    pts.unshift(f[0] + ',0'); pts.push(l[0] + ',' + wr.height);
+    var d = pts.join(' ');
+    ['mtrBed','mtrRailA','mtrRailB','mtrLive'].forEach(function(id){
+      var e = document.getElementById(id); if(e) e.setAttribute('points', d);
+    });
+    ScrollTrigger.refresh();
+  }, 220);
+});
+
 </script>
 </body>
 </html>
