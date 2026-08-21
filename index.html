@@ -4016,57 +4016,78 @@ function toast(msg) {
 
 /* ============================================================
    ITINERARIO METRO · traza la vía y hace avanzar el tren
+   El contenido vive oculto hasta que se abre el sobre, así que
+   el trazado se recalcula cada vez que la sección cambia de
+   tamaño o entra en pantalla (si no, las medidas salen en 0).
    ============================================================ */
+function drawRail(){
+  var wrap = document.getElementById('mtr');
+  if(!wrap) return false;
+  var wrapRect = wrap.getBoundingClientRect();
+  if(wrapRect.height < 40) return false;          // aún oculto
+
+  var pts = [];
+  wrap.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
+    var r = cw.getBoundingClientRect();
+    pts.push((r.left + r.width/2 - wrapRect.left) + ',' + (r.top + r.height/2 - wrapRect.top));
+  });
+  if(pts.length < 2) return false;
+
+  /* prolongar la vía arriba y abajo: el tren viene y sigue de largo */
+  var first = pts[0].split(','), last = pts[pts.length-1].split(',');
+  pts.unshift(first[0] + ',0');
+  pts.push(last[0] + ',' + wrapRect.height);
+
+  var d = pts.join(' ');
+  ['mtrBed','mtrRailA','mtrRailB','mtrLive'].forEach(function(id){
+    var e = document.getElementById(id); if(e) e.setAttribute('points', d);
+  });
+
+  var live = document.getElementById('mtrLive');
+  var len = live.getTotalLength() || 600;
+  if(window.__mtrTween) window.__mtrTween.scrollTrigger.kill();
+  gsap.set(live, {strokeDasharray: len, strokeDashoffset: len});
+  window.__mtrTween = gsap.to(live, {
+    strokeDashoffset: 0, ease: 'none',
+    scrollTrigger: {trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1}
+  });
+  return true;
+}
+
 function initMetro(){
-  requestAnimationFrame(function(){
-    var wrap = document.getElementById('mtr');
-    if(!wrap) return;
-    var cars = wrap.querySelectorAll('.mtr-car');
-    var rows = wrap.querySelectorAll('.mtr-row');
-    var rails = ['mtrBed','mtrRailA','mtrRailB','mtrLive'].map(function(id){
-      return document.getElementById(id);
+  var wrap = document.getElementById('mtr');
+  if(!wrap) return;
+  var cars = wrap.querySelectorAll('.mtr-car');
+  var rows = wrap.querySelectorAll('.mtr-row');
+
+  cars.forEach(function(car, i){
+    var flip = rows[i].classList.contains('mtr-row--r');
+    gsap.to(car, {
+      opacity: 1, scale: 1, scaleX: flip ? -1 : 1,
+      duration: .6, ease: 'back.out(2.1)',
+      scrollTrigger: {trigger: rows[i], start: 'top 84%', toggleActions: 'play none none none'}
     });
-    var wrapRect = wrap.getBoundingClientRect();
-    var pts = [];
+  });
+  rows.forEach(function(row){
+    var sign = row.querySelector('.mtr-sign');
+    var dir = row.classList.contains('mtr-row--r') ? 26 : -26;
+    gsap.fromTo(sign, {x: dir, opacity: 0},
+      {x: 0, opacity: 1, duration: .9, ease: 'power2.out',
+       scrollTrigger: {trigger: row, start: 'top 86%'}});
+  });
 
-    wrap.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
-      var r = cw.getBoundingClientRect();
-      pts.push((r.left + r.width/2 - wrapRect.left) + ',' + (r.top + r.height/2 - wrapRect.top));
-    });
-    if(pts.length < 2) return;
-
-    /* prolongar la vía arriba y abajo: el tren viene y sigue de largo */
-    var first = pts[0].split(','), last = pts[pts.length-1].split(',');
-    pts.unshift(first[0] + ',0');
-    pts.push(last[0] + ',' + wrapRect.height);
-
-    var d = pts.join(' ');
-    rails.forEach(function(r){ if(r) r.setAttribute('points', d); });
-
-    var live = document.getElementById('mtrLive');
-    var len = live.getTotalLength() || 600;
-    gsap.set(live, {strokeDasharray: len, strokeDashoffset: len});
-    gsap.to(live, {
-      strokeDashoffset: 0, ease: 'none',
-      scrollTrigger: {trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1}
-    });
-
-    cars.forEach(function(car, i){
-      var flip = rows[i].classList.contains('mtr-row--r');
-      gsap.to(car, {
-        opacity: 1, scale: 1, scaleX: flip ? -1 : 1,
-        duration: .6, ease: 'back.out(2.1)',
-        scrollTrigger: {trigger: rows[i], start: 'top 84%', toggleActions: 'play none none none'}
-      });
-    });
-
-    rows.forEach(function(row){
-      var sign = row.querySelector('.mtr-sign');
-      var dir = row.classList.contains('mtr-row--r') ? 26 : -26;
-      gsap.fromTo(sign, {x: dir, opacity: 0},
-        {x: 0, opacity: 1, duration: .9, ease: 'power2.out',
-         scrollTrigger: {trigger: row, start: 'top 86%'}});
-    });
+  drawRail();
+  /* el sobre puede tardar: reintenta mientras la sección siga sin medidas */
+  if(window.ResizeObserver){
+    new ResizeObserver(function(){ drawRail(); }).observe(wrap);
+  }
+  var tries = 0;
+  var iv = setInterval(function(){
+    if(drawRail() || ++tries > 40) clearInterval(iv);
+  }, 500);
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__mtrRz);
+    window.__mtrRz = setTimeout(function(){ drawRail(); ScrollTrigger.refresh(); }, 220);
   });
 }
 
@@ -4088,10 +4109,8 @@ function initDateHero(){
   gsap.fromTo('.date-h', {opacity: 0, scale: .92, y: 30},
     {opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out',
      scrollTrigger: {trigger: '.date-h', start: 'top 82%'}});
-  gsap.to('.date-block',
+  gsap.fromTo('.date-block', {opacity: 0, y: 40},
     {opacity: 1, y: 0, duration: 1.2, stagger: .15, ease: 'power4.out',
-     scrollTrigger: {trigger: '.date-numbers', start: 'top 82%'}});
-  gsap.fromTo('.date-block', {y: 40}, {y: 0, duration: 1.2, stagger: .15,
      scrollTrigger: {trigger: '.date-numbers', start: 'top 82%'}});
   gsap.fromTo('.date-roman', {opacity: 0, letterSpacing: '1em'},
     {opacity: 1, letterSpacing: '.38em', duration: 1.2, ease: 'power3.out',
@@ -4103,26 +4122,6 @@ function initDateHero(){
 
 initMetro();
 initDateHero();
-window.addEventListener('resize', function(){
-  clearTimeout(window.__mtrRz);
-  window.__mtrRz = setTimeout(function(){
-    var w = document.getElementById('mtr');
-    if(!w) return;
-    var wr = w.getBoundingClientRect(), pts = [];
-    w.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
-      var r = cw.getBoundingClientRect();
-      pts.push((r.left + r.width/2 - wr.left) + ',' + (r.top + r.height/2 - wr.top));
-    });
-    if(pts.length < 2) return;
-    var f = pts[0].split(','), l = pts[pts.length-1].split(',');
-    pts.unshift(f[0] + ',0'); pts.push(l[0] + ',' + wr.height);
-    var d = pts.join(' ');
-    ['mtrBed','mtrRailA','mtrRailB','mtrLive'].forEach(function(id){
-      var e = document.getElementById(id); if(e) e.setAttribute('points', d);
-    });
-    ScrollTrigger.refresh();
-  }, 220);
-});
 
 </script>
 </body>
