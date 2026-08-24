@@ -4214,17 +4214,28 @@ function initSkyline(){
   var towers = [].slice.call(strip.querySelectorAll('.sky-tower'));
   var imgs   = towers.map(function(t){ return t.querySelector('img'); });
 
-  /* carga diferida manual: loading="lazy" no dispara dentro de un
-     contenedor con scroll horizontal oculto tras el sobre */
-  function loadNear(){
-    var r = strip.getBoundingClientRect();
-    if(r.top > window.innerHeight * 1.4) return;
+  /* Carga diferida propia: loading="lazy" no dispara dentro de un
+     contenedor con scroll horizontal que además nace oculto tras el
+     sobre, así que la resolvemos con IntersectionObserver sobre la
+     sección y un respaldo por si el observer no está disponible. */
+  function loadAll(){
     imgs.forEach(function(img){
-      if(img.dataset.src && !img.src){ img.src = img.dataset.src; }
+      if(img.dataset.src && !img.getAttribute('src')) img.src = img.dataset.src;
     });
   }
-  loadNear();
-  window.addEventListener('scroll', loadNear, {passive:true});
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      if(entries.some(function(e){ return e.isIntersecting; })){
+        loadAll(); io.disconnect();
+      }
+    }, {rootMargin: '600px 0px'});
+    io.observe(document.getElementById('gallery'));
+  } else {
+    loadAll();
+  }
+  /* el sobre puede retrasar el layout: reintento al abrirlo */
+  var env = document.getElementById('envelope-screen');
+  if(env) env.addEventListener('click', function(){ setTimeout(loadAll, 2500); }, {once:true});
 
   /* cada torre se levanta al entrar en pantalla */
   towers.forEach(function(t, i){
