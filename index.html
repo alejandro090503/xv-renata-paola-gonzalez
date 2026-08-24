@@ -3201,18 +3201,14 @@ function launchPage() {
   __pageLaunched = true;
   const ldr = document.getElementById('loader');
   if (ldr) ldr.remove();
-  addSectionWaves();
-  addSectionMedals();
-  addCorners();
-  addWindOrns();
-  addAuras();
-  heroAnim();
-  spawnParticles();
-  scrollAnims();
-  countdown();
+  /* Cada módulo va aislado: si uno falla, la invitación se muestra igual.
+     (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
+  [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
+   heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
+   initSkyline, initMetro, initDateHero].forEach(function (fn) {
+    try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
+  });
   setInterval(countdown, 1000);
-  ambientWind();
-  initGallery();
   if (window.ScrollTrigger) ScrollTrigger.refresh();
 }
 
@@ -4304,7 +4300,6 @@ function initSkyline(){
     if(e.key === 'ArrowRight') next();
   });
 }
-initSkyline();
 
 /* ============================================================
    ITINERARIO METRO · traza la vía y hace avanzar el tren
@@ -4412,8 +4407,7 @@ function initDateHero(){
      scrollTrigger: {trigger: '.date-note', start: 'top 88%'}});
 }
 
-initMetro();
-initDateHero();
+
 
 </script>
 </body>
