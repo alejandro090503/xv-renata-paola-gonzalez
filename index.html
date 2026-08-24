@@ -287,16 +287,9 @@ section{padding:64px 22px}
 }
 
 /* ── 3D WHEEL GALLERY ────────────────────────────────── */
-.wheel-card{
-  position:absolute;width:200px;height:280px;
-  left:50%;top:50%;margin-left:-100px;margin-top:-140px;
-  border-radius:18px;overflow:hidden;
-  border:2px solid rgba(232,180,168,.30);
-  box-shadow:0 12px 40px rgba(0,0,0,.22);
-  user-select:none;-webkit-user-select:none;
-}
-.wheel-card img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;pointer-events:none}
-.wheel-ring.dragging{cursor:grabbing}
+
+
+
 
 /* ── #E8EAED ACCENT (35% presence) ───────────────────── */
 #countdown{background:linear-gradient(180deg,var(--ink) 0%,#141417 50%,var(--ink) 100%)}
@@ -2207,7 +2200,7 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
     linear-gradient(180deg,var(--night) 0%,rgba(11,11,13,.35) 22%,rgba(11,11,13,.35) 78%,var(--night) 100%),
-    url('assets/gallery/foto-hero-crop.jpg') center/cover no-repeat;
+    url('assets/gallery/hero-rp.jpg') center/cover no-repeat;
   filter:grayscale(.5) contrast(1.05);
   opacity:.5;
 }
@@ -2399,6 +2392,134 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
 }
 
+
+/* ============================================================
+   GALERÍA · SKYLINE DE RECUERDOS
+   Las fotos son torres de una avenida: se construyen desde la
+   acera al entrar en pantalla, con un skyline detrás cuyas
+   ventanas se van encendiendo.
+   ============================================================ */
+#gallery{position:relative;padding:72px 0 60px;text-align:center;overflow:hidden}
+#gallery > .lbl,#gallery > .ttl,#gallery > .gline,#gallery > .sky-sub{position:relative;z-index:3}
+.gal-script{font-family:'Great Vibes',cursive;color:var(--rose);font-size:42px}
+.sky-sub{
+  font-family:'Inter',sans-serif;font-weight:500;font-size:16px;line-height:1.6;
+  color:var(--paper);opacity:.85;max-width:32ch;margin:14px auto 0;padding:0 24px;
+}
+
+/* Skyline de fondo */
+.sky-bg{position:absolute;left:0;right:0;bottom:56px;height:260px;z-index:0;pointer-events:none;opacity:.55}
+.sky-silhouette{width:100%;height:100%;display:block}
+.sky-far rect{fill:#131318}
+.sky-near rect,.sky-near path{fill:#0D0D11;stroke:rgba(201,204,209,.16);stroke-width:1}
+.sky-win rect{fill:#F0C7BC;opacity:.15;animation:skyWin 5s ease-in-out infinite}
+.sky-win rect:nth-child(3n){animation-delay:1.4s}
+.sky-win rect:nth-child(3n+1){animation-delay:2.7s}
+.sky-win rect:nth-child(4n){animation-delay:.7s}
+@keyframes skyWin{0%,100%{opacity:.12}50%{opacity:.85}}
+
+/* La avenida */
+.sky-strip{
+  position:relative;z-index:2;
+  display:flex;align-items:flex-end;gap:16px;
+  padding:52px 24px 0;margin-top:26px;
+  overflow-x:auto;overflow-y:visible;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.sky-strip::-webkit-scrollbar{display:none}
+.sky-strip::before,.sky-strip::after{content:'';flex:0 0 max(0px,calc(50vw - 132px))}
+
+/* Cada torre */
+.sky-tower{
+  position:relative;flex:0 0 auto;width:212px;
+  scroll-snap-align:center;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  transform-origin:bottom center;
+  cursor:pointer;
+}
+.sky-tower--h1{height:340px}
+.sky-tower--h2{height:392px}
+.sky-tower--h3{height:306px}
+
+/* La antena/corona del rascacielos */
+.sky-crown{
+  width:2px;height:26px;margin:0 auto 6px;
+  background:linear-gradient(to top,var(--silver),transparent);
+  position:relative;
+}
+.sky-crown::after{
+  content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:6px;height:6px;border-radius:50%;background:var(--rose-lt);
+  box-shadow:0 0 8px rgba(240,199,188,.9);
+  animation:skyBeacon 2.4s ease-in-out infinite;
+}
+@keyframes skyBeacon{0%,100%{opacity:.35;transform:translateX(-50%) scale(.8)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
+
+/* El cuerpo del edificio: la foto */
+.sky-frame{
+  position:relative;flex:1;overflow:hidden;
+  border:1px solid rgba(201,204,209,.3);
+  border-bottom:none;
+  border-radius:6px 6px 0 0;
+  background:#0E0E11;
+  box-shadow:0 -6px 30px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.04);
+  /* se construye desde la acera hacia arriba */
+  clip-path:inset(100% 0 0 0);
+}
+.sky-frame img{width:100%;height:100%;object-fit:cover;display:block}
+/* retícula de ventanas sobre la foto: la vuelve fachada */
+.sky-frame::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 32px,rgba(11,11,13,.28) 32px 34px),
+    repeating-linear-gradient(0deg,transparent 0 40px,rgba(11,11,13,.28) 40px 42px);
+  opacity:.55;transition:opacity .45s var(--smooth);
+}
+/* luz rosada que sube por la fachada */
+.sky-frame::after{
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(to top,rgba(232,180,168,.34) 0%,transparent 42%);
+  transition:opacity .45s var(--smooth);
+}
+.sky-tower:hover .sky-frame::before,.sky-tower:active .sky-frame::before{opacity:.2}
+.sky-tower:hover .sky-frame::after{opacity:.6}
+
+/* Placa de número, como el portal de un edificio */
+.sky-plate{
+  flex:0 0 auto;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;
+  color:var(--night);
+  background:linear-gradient(120deg,#E8EAED,#C9CCD1);
+  padding:6px 0;border-radius:0 0 4px 4px;
+  border:1px solid rgba(201,204,209,.3);border-top:none;
+}
+
+/* La acera */
+.sky-street{position:relative;z-index:2;height:56px;margin-top:-1px;
+  background:linear-gradient(180deg,rgba(201,204,209,.16) 0%,transparent 58%);
+}
+.sky-street-line{
+  position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,204,209,.55) 18%,rgba(232,180,168,.7) 50%,rgba(201,204,209,.55) 82%,transparent);
+}
+.sky-street::after{
+  content:'';position:absolute;left:0;right:0;top:26px;height:2px;
+  background:repeating-linear-gradient(90deg,rgba(232,180,168,.45) 0 22px,transparent 22px 46px);
+}
+.sky-hint{position:relative;z-index:3;margin-top:18px}
+
+@media (max-width:400px){
+  .sky-tower{width:186px}
+  .sky-tower--h1{height:306px}.sky-tower--h2{height:352px}.sky-tower--h3{height:276px}
+  .sky-strip::before,.sky-strip::after{flex:0 0 max(0px,calc(50vw - 117px))}
+}
+@media (prefers-reduced-motion:reduce){
+  .sky-win rect,.sky-crown::after{animation:none}
+  .sky-frame{clip-path:none !important}
+}
+
   </style>
 </head>
 <body>
@@ -2456,8 +2577,8 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 <section id="hero">
   <!-- Background photo (parallax target) -->
   <div class="h-bg" id="heroBg">
-    <img src="assets/gallery/foto-hero-crop.jpg"
-         alt="Renata Paola" loading="eager" id="heroPic" style="object-position:center center">
+    <img src="assets/gallery/hero-rp.jpg"
+         alt="Renata Paola" loading="eager" id="heroPic" style="object-position:62% center">
   </div>
   <div class="h-ov"></div>
   <div class="h-frame"></div>
@@ -2864,22 +2985,95 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 
 
 <!-- ═══════════════ 11. GALERÍA · RUEDA 3D ═══════════════ -->
-<section id="gallery" style="padding:72px 28px 80px;text-align:center;overflow:visible">
-  <span class="lbl">Nuestra historia</span>
-  <h2 class="ttl">Momentos <span style="font-family:'Great Vibes',cursive;color:var(--olive);font-size:42px">juntos</span></h2>
+<section id="gallery">
+  <span class="lbl">Mi ciudad de recuerdos</span>
+  <h2 class="ttl">Momentos <span class="gal-script">juntos</span></h2>
   <div class="gline"></div>
+  <p class="sky-sub">Cada torre, un recuerdo. Desliza para recorrer la avenida.</p>
 
-  <div class="wheel-scene" id="wheel-scene" style="position:relative;width:100%;height:520px;margin:40px auto 0;perspective:1400px;transform-style:preserve-3d;overflow:visible">
-    <div class="wheel-ring" id="wheel-ring" style="position:absolute;width:100%;height:100%;transform-style:preserve-3d;cursor:grab">
-      <div class="wheel-card"><img src="assets/gallery/foto-1.jpg" alt="Renata Paola" loading="lazy" style="object-position:60% center"></div>
-      <div class="wheel-card"><img src="assets/gallery/foto-2.jpg" alt="Renata Paola" loading="lazy" style="object-position:50% center"></div>
-      <div class="wheel-card"><img src="assets/gallery/foto-3.jpg" alt="Renata Paola" loading="lazy" style="object-position:50% center"></div>
-      <div class="wheel-card"><img src="assets/gallery/foto-4.jpg" alt="Renata Paola" loading="lazy" style="object-position:62% center"></div>
-      <div class="wheel-card"><img src="assets/gallery/foto-5.jpg" alt="Renata Paola" loading="lazy" style="object-position:47% center"></div>
-      <div class="wheel-card"><img src="assets/gallery/foto-6.jpg" alt="Renata Paola" loading="lazy" style="object-position:84% center"></div>
+  <!-- Skyline: siluetas de rascacielos al fondo -->
+  <div class="sky-bg" aria-hidden="true">
+    <svg class="sky-silhouette" viewBox="0 0 1200 260" preserveAspectRatio="none">
+      <g class="sky-far">
+        <rect x="0"    y="150" width="70"  height="110"/>
+        <rect x="78"   y="120" width="54"  height="140"/>
+        <rect x="140"  y="168" width="86"  height="92"/>
+        <rect x="234"  y="132" width="60"  height="128"/>
+        <rect x="302"  y="176" width="74"  height="84"/>
+        <rect x="900"  y="140" width="66"  height="120"/>
+        <rect x="974"  y="170" width="90"  height="90"/>
+        <rect x="1072" y="126" width="58"  height="134"/>
+        <rect x="1138" y="162" width="62"  height="98"/>
+      </g>
+      <g class="sky-near">
+        <rect x="384" y="150" width="78" height="110"/>
+        <rect x="470" y="118" width="62" height="142"/>
+        <!-- torre alta al centro, guiño al Empire State -->
+        <path d="M556 260 L556 96 L566 96 L566 62 L578 30 L590 62 L590 96 L600 96 L600 260 Z"/>
+        <rect x="612" y="128" width="70" height="132"/>
+        <rect x="690" y="158" width="86" height="102"/>
+        <rect x="784" y="134" width="64" height="126"/>
+        <rect x="856" y="166" width="52" height="94"/>
+      </g>
+      <!-- ventanas encendidas -->
+      <g class="sky-win">
+        <rect x="92"  y="140" width="5" height="7"/><rect x="106" y="140" width="5" height="7"/>
+        <rect x="92"  y="158" width="5" height="7"/><rect x="118" y="176" width="5" height="7"/>
+        <rect x="248" y="152" width="5" height="7"/><rect x="266" y="170" width="5" height="7"/>
+        <rect x="484" y="138" width="5" height="7"/><rect x="502" y="156" width="5" height="7"/>
+        <rect x="484" y="174" width="5" height="7"/><rect x="516" y="192" width="5" height="7"/>
+        <rect x="570" y="120" width="5" height="7"/><rect x="582" y="146" width="5" height="7"/>
+        <rect x="570" y="172" width="5" height="7"/><rect x="582" y="198" width="5" height="7"/>
+        <rect x="628" y="148" width="5" height="7"/><rect x="650" y="166" width="5" height="7"/>
+        <rect x="628" y="184" width="5" height="7"/><rect x="800" y="154" width="5" height="7"/>
+        <rect x="818" y="172" width="5" height="7"/><rect x="1086" y="146" width="5" height="7"/>
+        <rect x="1104" y="164" width="5" height="7"/><rect x="1086" y="182" width="5" height="7"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Avenida de torres-fotografía -->
+  <div class="sky-strip" id="skyStrip">
+    <div class="sky-tower sky-tower--h1">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g1.jpg" alt="Renata Paola" style="object-position:50% 32%"></div>
+      <div class="sky-plate">01</div>
+    </div>
+    <div class="sky-tower sky-tower--h2">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g2.jpg" alt="Renata Paola" style="object-position:50% 40%"></div>
+      <div class="sky-plate">02</div>
+    </div>
+    <div class="sky-tower sky-tower--h3">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g3.jpg" alt="Renata Paola" style="object-position:50% 38%"></div>
+      <div class="sky-plate">03</div>
+    </div>
+    <div class="sky-tower sky-tower--h1">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g4.jpg" alt="Renata Paola" style="object-position:50% 34%"></div>
+      <div class="sky-plate">04</div>
+    </div>
+    <div class="sky-tower sky-tower--h2">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g5.jpg" alt="Renata Paola" style="object-position:50% 36%"></div>
+      <div class="sky-plate">05</div>
+    </div>
+    <div class="sky-tower sky-tower--h3">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g6.jpg" alt="Renata Paola" style="object-position:50% 36%"></div>
+      <div class="sky-plate">06</div>
+    </div>
+    <div class="sky-tower sky-tower--h1">
+      <div class="sky-crown" aria-hidden="true"></div>
+      <div class="sky-frame"><img data-src="assets/gallery/g7.jpg" alt="Renata Paola" style="object-position:50% 30%"></div>
+      <div class="sky-plate">07</div>
     </div>
   </div>
-  <p class="gal-hint" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:3px;color:var(--olive);margin-top:24px;opacity:.8">Arrastra para girar</p>
+
+  <!-- la calle: acera con la linea de la avenida -->
+  <div class="sky-street" aria-hidden="true"><span class="sky-street-line"></span></div>
+  <p class="gal-hint sky-hint">Desliza &middot; toca una foto para ampliarla</p>
 </section>
 
 <!-- ═══ Lightbox fullscreen ═══ -->
@@ -3491,9 +3685,9 @@ function scrollAnims() {
     scrollTrigger: { trigger: '#album', start: 'top 80%', once: true }
   });
 
-  // Gallery — 3D wheel fade-in
-  gsap.from('#wheel-scene', {
-    opacity: 0, y: 24,
+  // Galería skyline — el encabezado entra antes que las torres
+  gsap.from('#gallery .lbl, #gallery .ttl, .sky-sub', {
+    opacity: 0, y: 22, stagger: .08,
     duration: .9, ease: 'power3.out',
     scrollTrigger: { trigger: '#gallery', start: 'top 82%', once: true }
   });
@@ -4011,124 +4205,95 @@ function ambientWind() {
 }
 
 /* ── GALLERY · CORRIENTE + LIGHTBOX FULLSCREEN ───────── */
-function initGallery() {
-  // 3D Wheel Carousel
-  var ring = document.getElementById('wheel-ring');
-  if (!ring) return;
-  var cards = ring.querySelectorAll('.wheel-card');
-  var n = cards.length;
-  if (!n) return;
-  var radius = 210;
-  var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null;
+/* ============================================================
+   GALERÍA SKYLINE · las torres se construyen desde la acera
+   ============================================================ */
+function initSkyline(){
+  var strip = document.getElementById('skyStrip');
+  if(!strip) return;
+  var towers = [].slice.call(strip.querySelectorAll('.sky-tower'));
+  var imgs   = towers.map(function(t){ return t.querySelector('img'); });
 
-  cards.forEach(function(card, i) {
-    card.style.transform = 'rotateY(' + (360 / n * i) + 'deg) translateZ(' + radius + 'px)';
+  /* carga diferida manual: loading="lazy" no dispara dentro de un
+     contenedor con scroll horizontal oculto tras el sobre */
+  function loadNear(){
+    var r = strip.getBoundingClientRect();
+    if(r.top > window.innerHeight * 1.4) return;
+    imgs.forEach(function(img){
+      if(img.dataset.src && !img.src){ img.src = img.dataset.src; }
+    });
+  }
+  loadNear();
+  window.addEventListener('scroll', loadNear, {passive:true});
+
+  /* cada torre se levanta al entrar en pantalla */
+  towers.forEach(function(t, i){
+    var frame = t.querySelector('.sky-frame');
+    gsap.fromTo(frame,
+      {clipPath:'inset(100% 0 0 0)'},
+      {clipPath:'inset(0% 0 0 0)', duration:1.15, ease:'power3.out', delay:i * 0.09,
+       scrollTrigger:{trigger:'#gallery', start:'top 68%', once:true}});
+    gsap.fromTo(t,
+      {y:26, opacity:0},
+      {y:0, opacity:1, duration:.9, ease:'power2.out', delay:i * 0.09,
+       scrollTrigger:{trigger:'#gallery', start:'top 68%', once:true}});
   });
 
-  function setRot() { gsap.set(ring, { rotateY: rot }); }
-  setRot();
+  /* la acera se ilumina de lado a lado */
+  gsap.fromTo('.sky-street-line', {scaleX:0}, {scaleX:1, duration:1.4, ease:'power2.out',
+    scrollTrigger:{trigger:'.sky-street', start:'top 92%', once:true}});
 
-  function inertia() {
-    if (isDrag) return;
-    rot += vel; vel *= 0.94; setRot();
-    if (Math.abs(vel) > 0.05) rafId = requestAnimationFrame(inertia);
-  }
-
-  function pointerDown(x) {
-    isDrag = true; ring.classList.add('dragging');
-    startX = x; lastX = x; startRot = rot; vel = 0;
-    if (rafId) cancelAnimationFrame(rafId);
-  }
-  function pointerMove(x) {
-    if (!isDrag) return;
-    rot = startRot + (x - startX) * 0.45;
-    vel = (x - lastX) * 0.5; lastX = x; setRot();
-  }
-  function pointerUp() {
-    if (!isDrag) return;
-    isDrag = false; ring.classList.remove('dragging');
-    rafId = requestAnimationFrame(inertia);
-  }
-
-  ring.addEventListener('mousedown', function(e) { e.preventDefault(); pointerDown(e.clientX); });
-  window.addEventListener('mousemove', function(e) { pointerMove(e.clientX); });
-  window.addEventListener('mouseup', pointerUp);
-  ring.addEventListener('touchstart', function(e) { pointerDown(e.touches[0].clientX); }, { passive: true });
-  ring.addEventListener('touchmove', function(e) { pointerMove(e.touches[0].clientX); }, { passive: true });
-  ring.addEventListener('touchend', pointerUp);
-
-  var autoSpin = true;
-  (function spin() {
-    if (autoSpin && !isDrag) { rot += 0.12; setRot(); }
-    requestAnimationFrame(spin);
-  })();
-  ring.addEventListener('mousedown', function() { autoSpin = false; });
-  ring.addEventListener('touchstart', function() { autoSpin = false; });
-
-  // Lightbox
+  /* ── Lightbox ── */
   var lb = document.getElementById('galLightbox');
-  var lbImg = document.getElementById('galLbImg');
+  if(!lb) return;
+  var lbImg   = document.getElementById('galLbImg');
   var lbCount = document.getElementById('galLbCounter');
-  var btnClose = document.getElementById('galLbClose');
+  var btnClose= document.getElementById('galLbClose');
   var btnPrev = document.getElementById('galLbPrev');
   var btnNext = document.getElementById('galLbNext');
-  if (!lb) return;
 
-  var items = [...cards].map(c => { var img = c.querySelector('img'); return { src: img.src, alt: img.alt }; });
+  var items = imgs.map(function(img){
+    return {src: img.dataset.src || img.src, alt: img.alt};
+  });
   var idx = 0;
 
-  function update() {
+  function update(){
     lbImg.src = items[idx].src;
     lbImg.alt = items[idx].alt;
     lbCount.textContent = (idx + 1) + ' / ' + items.length;
   }
-  function open(i) {
+  function open(i){
     idx = i; update();
     lb.removeAttribute('hidden');
-    requestAnimationFrame(function() { lb.classList.add('on'); });
+    requestAnimationFrame(function(){ lb.classList.add('on'); });
     document.body.style.overflow = 'hidden';
     btnClose.focus();
   }
-  function close() {
+  function close(){
     lb.classList.remove('on');
     document.body.style.overflow = '';
-    setTimeout(function() { lb.setAttribute('hidden',''); }, 360);
+    setTimeout(function(){ lb.setAttribute('hidden',''); }, 360);
   }
-  function prev() { idx = (idx - 1 + items.length) % items.length; update(); }
-  function next() { idx = (idx + 1) % items.length; update(); }
+  function prev(){ idx = (idx - 1 + items.length) % items.length; update(); }
+  function next(){ idx = (idx + 1) % items.length; update(); }
 
-  cards.forEach(function(card, i) {
-    card.addEventListener('click', function() { open(i); });
+  towers.forEach(function(t, i){
+    t.addEventListener('click', function(){ open(i); });
   });
-
   btnClose.addEventListener('click', close);
-  btnPrev.addEventListener('click', function(e) { e.stopPropagation(); prev(); });
-  btnNext.addEventListener('click', function(e) { e.stopPropagation(); next(); });
-  lb.addEventListener('click', function(e) { if (e.target === lb || e.target.classList.contains('gal-lb-inner')) close(); });
-  document.addEventListener('keydown', function(e) {
-    if (!lb.classList.contains('on')) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') prev();
-    if (e.key === 'ArrowRight') next();
+  btnPrev.addEventListener('click', function(e){ e.stopPropagation(); prev(); });
+  btnNext.addEventListener('click', function(e){ e.stopPropagation(); next(); });
+  lb.addEventListener('click', function(e){
+    if(e.target === lb || e.target.classList.contains('gal-lb-inner')) close();
   });
-
-  var tx = 0, ty = 0;
-  lb.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
-  lb.addEventListener('touchend', function(e) {
-    var dx = e.changedTouches[0].clientX - tx;
-    var dy = e.changedTouches[0].clientY - ty;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { dx > 0 ? prev() : next(); }
-    else if (dy > 80) { close(); }
-  }, { passive: true });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft') prev();
+    if(e.key === 'ArrowRight') next();
+  });
 }
-
-/* ── TOAST ───────────────────────────────────────────── */
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
+initSkyline();
 
 /* ============================================================
    ITINERARIO METRO · traza la vía y hace avanzar el tren
