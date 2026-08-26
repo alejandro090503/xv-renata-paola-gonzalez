@@ -4900,8 +4900,13 @@ function drawRail(){
     if(!train) return;
     var l = len * Math.max(0, Math.min(1, prog));
     var pt = live.getPointAtLength(l);
-    var nx = live.getPointAtLength(Math.min(len, l + 6));
-    var ang = Math.atan2(nx.y - pt.y, nx.x - pt.x) * 180 / Math.PI - 90;
+    /* al final de la vía no hay punto siguiente: se mira hacia atrás,
+       si no la tangente se degenera y el tren gira 90 grados de golpe */
+    var ahead = l + 6 <= len;
+    var ref = live.getPointAtLength(ahead ? l + 6 : Math.max(0, l - 6));
+    var dx  = ahead ? ref.x - pt.x : pt.x - ref.x;
+    var dy  = ahead ? ref.y - pt.y : pt.y - ref.y;
+    var ang = Math.atan2(dy, dx) * 180 / Math.PI - 90;
     train.style.left = pt.x + 'px';
     train.style.top  = pt.y + 'px';
     train.style.transform = 'rotate(' + ang.toFixed(1) + 'deg)';
