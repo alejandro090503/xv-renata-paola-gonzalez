@@ -2518,8 +2518,8 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 .h-ov::after{display:none}
 .h-cnt::before{
   content:'';position:absolute;z-index:-1;pointer-events:none;
-  left:50%;top:56%;transform:translate(-50%,-50%);
-  width:132%;max-width:440px;aspect-ratio:1;
+  left:50%;top:40%;transform:translate(-50%,-50%);
+  width:150%;max-width:460px;aspect-ratio:1;
   background:radial-gradient(circle,
     rgba(232,180,168,.26) 0%,
     rgba(11,11,13,.55) 42%,
@@ -4459,7 +4459,7 @@ function addWindOrns() {
     orn.className = 'wind-orn';
     orn.textContent = '✦';
     gsap.set(orn, { opacity: 0 });
-    sec.insertBefore(orn, lbl);
+    lbl.parentNode.insertBefore(orn, lbl);
     ScrollTrigger.create({
       trigger: sec, start: 'top 88%', once: true,
       onEnter() { gsap.to(orn, { opacity: 1, duration: 1.2, ease: 'power2.out' }); }
