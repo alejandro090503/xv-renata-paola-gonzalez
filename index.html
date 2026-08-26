@@ -2541,29 +2541,9 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 }
 /* halo rosa detrás de las figuras: sin él las zonas oscuras
    del dibujo se funden con el fondo negro */
-.dc-halo{
-  position:relative;display:inline-flex;align-items:flex-end;justify-content:center;
-  padding:10px 18px 0;
-}
-.dc-halo::before{
-  content:'';position:absolute;z-index:0;pointer-events:none;
-  left:50%;bottom:6%;transform:translateX(-50%);
-  width:180px;height:180px;border-radius:50%;
-  background:radial-gradient(circle,
-    rgba(240,199,188,.55) 0%,
-    rgba(232,180,168,.30) 38%,
-    rgba(232,180,168,.10) 60%,
-    transparent 76%);
-  filter:blur(6px);
-  animation:dcHalo 5s ease-in-out infinite;
-}
-@keyframes dcHalo{0%,100%{opacity:.75;transform:translateX(-50%) scale(.96)}50%{opacity:1;transform:translateX(-50%) scale(1.05)}}
-.dc-halo img{
-  position:relative;z-index:1;
-  height:220px;width:auto;display:block;
-  filter:drop-shadow(0 0 14px rgba(240,199,188,.55))
-         drop-shadow(0 6px 16px rgba(0,0,0,.5));
-}
+
+
+
 
 /* — ITINERARIO: estaciones como puntos, un solo tren — */
 .mtr-car-wrap{flex-shrink:0;width:52px;display:flex;align-items:center;justify-content:center}
@@ -2592,7 +2572,7 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 .mtr-bullet--b{background:linear-gradient(140deg,#FFFFFF,#C9CCD1 48%,#8E9297)}
 
 @media (prefers-reduced-motion:reduce){
-  .dc-halo::before,.mtr-stopdot::after{animation:none}
+  .mtr-stopdot::after{animation:none}
   .mtr-train{opacity:1}
 }
 
@@ -2761,6 +2741,75 @@ body.gbx-locked{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   .env-body.landed,.env-tap-hint.show,.gbx-cta{animation:none !important}
   .env-interactive{opacity:1 !important}
+}
+
+
+/* ============================================================
+   VESTIMENTA · las figuras van sobre tarjeta rosa
+   Los dibujos son de trazo oscuro: sobre el fondo negro se
+   perdían (el glow no bastaba), así que el lienzo va en rosa
+   claro y el contraste lo da la propia tarjeta.
+   ============================================================ */
+.dc-figures{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  max-width:420px;margin:30px auto 0;padding:0 4px;
+}
+.dc-card{
+  margin:0;display:flex;flex-direction:column;
+  border-radius:16px;overflow:hidden;
+  border:1px solid rgba(232,180,168,.5);
+  background:linear-gradient(168deg,#FBE4DD 0%,#F0C7BC 52%,#E3AFA2 100%);
+  box-shadow:0 16px 40px rgba(0,0,0,.5),
+             0 0 26px rgba(232,180,168,.22),
+             inset 0 1px 0 rgba(255,255,255,.6);
+}
+/* lienzo de la figura */
+.dc-card-art{
+  position:relative;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:18px 10px 0;min-height:196px;
+}
+/* viñeta suave para que la figura no flote sobre un plano liso */
+.dc-card-art::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 68% 58% at 50% 74%,
+    rgba(255,255,255,.6) 0%, transparent 66%);
+}
+/* sombra de apoyo en el suelo */
+.dc-card-art::after{
+  content:'';position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
+  width:64%;height:12px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(120,72,62,.34) 0%,transparent 70%);
+  filter:blur(2px);
+}
+.dc-card-art img{
+  position:relative;z-index:1;
+  height:186px;width:auto;display:block;
+  filter:drop-shadow(0 6px 10px rgba(90,56,48,.28));
+}
+
+/* pie de la tarjeta */
+.dc-card-cap{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:12px 8px 15px;
+  background:linear-gradient(180deg,rgba(90,56,48,.10),rgba(90,56,48,.20));
+  border-top:1px solid rgba(255,255,255,.45);
+}
+.dc-card-rol{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:19px;font-weight:600;letter-spacing:.5px;color:#4A2C25;
+}
+.dc-card-txt{
+  font-family:'Inter',sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:2.6px;text-transform:uppercase;color:#6B4038;
+}
+
+@media (max-width:360px){
+  .dc-figures{gap:11px}
+  .dc-card-art{min-height:168px;padding:14px 6px 0}
+  .dc-card-art img{height:158px}
+  .dc-card-rol{font-size:17px}
+  .dc-card-txt{font-size:10px;letter-spacing:2px}
 }
 
   </style>
@@ -3275,18 +3324,26 @@ body.gbx-locked{overflow:hidden}
   <p class="dc-main-label" style="text-align:center;margin:16px 0 8px">Casual Formal</p>
   <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#E8EAED;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
 
-  <div class="dc-figures" style="display:flex;align-items:center;justify-content:center;gap:30px;margin:28px auto;max-width:380px">
-    <div class="dc-fig" style="display:flex;flex-direction:column;align-items:center;gap:14px;flex:1">
-      <span class="dc-halo"><img src="assets/caballero.png" alt="Caballero, casual formal" loading="lazy"></span>
-      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--rose-lt)">Caballeros</span>
-      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--silver-lt);margin-top:-8px">casual formal</span>
-    </div>
-    <div style="width:1px;height:180px;background:linear-gradient(to bottom,transparent,var(--olive-lt),transparent)" aria-hidden="true"></div>
-    <div class="dc-fig" style="display:flex;flex-direction:column;align-items:center;gap:14px;flex:1">
-      <span class="dc-halo"><img src="assets/dama.png" alt="Dama, casual formal" loading="lazy"></span>
-      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--rose-lt)">Damas</span>
-      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--silver-lt);margin-top:-8px">vestido</span>
-    </div>
+  <div class="dc-figures">
+    <figure class="dc-card">
+      <div class="dc-card-art">
+        <img src="assets/caballero.png" alt="Caballero, casual formal" loading="lazy">
+      </div>
+      <figcaption class="dc-card-cap">
+        <span class="dc-card-rol">Caballeros</span>
+        <span class="dc-card-txt">casual formal</span>
+      </figcaption>
+    </figure>
+
+    <figure class="dc-card">
+      <div class="dc-card-art">
+        <img src="assets/dama.png" alt="Dama, casual formal" loading="lazy">
+      </div>
+      <figcaption class="dc-card-cap">
+        <span class="dc-card-rol">Damas</span>
+        <span class="dc-card-txt">vestido</span>
+      </figcaption>
+    </figure>
   </div>
 
   <div class="dc-avoid" id="dcNote">
