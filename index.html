@@ -510,19 +510,8 @@ footer{background:#101013}
   inset:8px;border-color:rgba(232,180,168,.28);
 }
 
-.h-amp-clip{overflow:visible;line-height:1;margin:14px 0;position:relative}
-.h-amp{
-  font-family:'Italianno',cursive;
-  font-size:84px;
-  color:var(--olive);
-  display:block;
-  line-height:.8;
-  text-shadow:
-    0 2px 24px rgba(255,255,255,1),
-    0 0 40px rgba(201,204,209,.55),
-    0 2px 6px rgba(0,0,0,.25);
-  will-change:transform,opacity,filter;
-}
+
+
 
 /* Líneas de viento laterales — delgadas */
 .h-name-wind-line{
@@ -532,7 +521,7 @@ footer{background:#101013}
   opacity:0;
   animation:hWindLinePulse 5.5s ease-in-out infinite;
 }
-.h-name-wrap + .h-amp-clip + .h-name-wrap .h-name-wind-line{animation-delay:1.6s}
+.h-name-wrap + .h-name-wrap .h-name-wind-line{animation-delay:1.6s}
 @keyframes hWindLinePulse{
   0%,100%{opacity:0;transform:scaleX(.4)}
   50%{opacity:.9;transform:scaleX(1)}
@@ -1970,7 +1959,7 @@ body{background:var(--night);color:var(--paper)}
 }
 
 /* Rosa gold: nombres, script y acentos de la festejada */
-.h-name,.h-amp,.inv-date,.ft-dt,.rsvp-title em,
+.h-name,.inv-date,.ft-dt,.rsvp-title em,
 .inv-children,.pad-names,.gf-bc-holder,.lbl{
   background-image:linear-gradient(100deg,
     #B98679 0%, #CE9C8D 10%, #E8B4A8 20%, #F0C7BC 30%,
@@ -2087,7 +2076,7 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
 
 @media (prefers-reduced-motion:reduce){
   .ttl,.h-we,.ft-nms,.loc-name,.rsvp-title,.inv-lead,.alb-scan,.dc-main-label,
-  .cd-num,.vinyl-label-text,.h-name,.h-amp,.inv-date,.ft-dt,.rsvp-title em,
+  .cd-num,.vinyl-label-text,.h-name,.inv-date,.ft-dt,.rsvp-title em,
   .inv-children,.pad-names,.gf-bc-holder,.lbl,.rp-mono,.gline,.rp-star,.rp-arc{
     animation:none !important;background-position:center !important;
   }
@@ -2520,6 +2509,260 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   .sky-frame{clip-path:none !important}
 }
 
+
+/* ============================================================
+   AJUSTES · hero, vestimenta e itinerario
+   ============================================================ */
+
+/* — HERO: el halo circular baja y queda detrás del nombre — */
+.h-ov::after{display:none}
+.h-cnt::before{
+  content:'';position:absolute;z-index:-1;pointer-events:none;
+  left:50%;top:56%;transform:translate(-50%,-50%);
+  width:132%;max-width:440px;aspect-ratio:1;
+  background:radial-gradient(circle,
+    rgba(232,180,168,.26) 0%,
+    rgba(11,11,13,.55) 42%,
+    rgba(11,11,13,.28) 60%,
+    transparent 74%);
+}
+/* los anillos acompañan al nombre en vez de flotar en el centro */
+.h-rings{top:64%}
+
+/* — CÓDIGO DE VESTIMENTA — */
+/* el rosa del label, no el barrido plateado */
+.dc-main-label{
+  font-family:'Great Vibes',cursive !important;
+  font-size:44px !important;line-height:1.25;
+  background-image:linear-gradient(100deg,
+    #B98679 0%,#E8B4A8 18%,#FBE4DD 34%,#E8B4A8 50%,
+    #B98679 64%,#E8B4A8 84%,#B98679 100%) !important;
+  filter:drop-shadow(0 0 10px rgba(232,180,168,.45)) !important;
+}
+/* halo rosa detrás de las figuras: sin él las zonas oscuras
+   del dibujo se funden con el fondo negro */
+.dc-halo{
+  position:relative;display:inline-flex;align-items:flex-end;justify-content:center;
+  padding:10px 18px 0;
+}
+.dc-halo::before{
+  content:'';position:absolute;z-index:0;pointer-events:none;
+  left:50%;bottom:6%;transform:translateX(-50%);
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(240,199,188,.55) 0%,
+    rgba(232,180,168,.30) 38%,
+    rgba(232,180,168,.10) 60%,
+    transparent 76%);
+  filter:blur(6px);
+  animation:dcHalo 5s ease-in-out infinite;
+}
+@keyframes dcHalo{0%,100%{opacity:.75;transform:translateX(-50%) scale(.96)}50%{opacity:1;transform:translateX(-50%) scale(1.05)}}
+.dc-halo img{
+  position:relative;z-index:1;
+  height:220px;width:auto;display:block;
+  filter:drop-shadow(0 0 14px rgba(240,199,188,.55))
+         drop-shadow(0 6px 16px rgba(0,0,0,.5));
+}
+
+/* — ITINERARIO: estaciones como puntos, un solo tren — */
+.mtr-car-wrap{flex-shrink:0;width:52px;display:flex;align-items:center;justify-content:center}
+.mtr-stopdot{
+  width:13px;height:13px;border-radius:50%;
+  background:var(--silver-lt);
+  box-shadow:0 0 0 4px var(--night),0 0 0 6px rgba(201,204,209,.4),0 0 14px rgba(232,180,168,.5);
+  position:relative;
+}
+.mtr-stopdot::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(232,180,168,.6);
+  animation:mtrPing 2.8s ease-out infinite;
+}
+@keyframes mtrPing{0%{transform:scale(1);opacity:.8}100%{transform:scale(3.4);opacity:0}}
+
+.mtr-train{
+  position:absolute;z-index:4;width:46px;height:34px;
+  left:0;top:0;margin:-17px 0 0 -23px;   /* centrado en su punto */
+  overflow:visible;opacity:0;
+  filter:drop-shadow(0 0 12px rgba(232,180,168,.6));
+  transition:opacity .5s ease;
+}
+.mtr-train.is-riding{opacity:1}
+.mtr-bullet--a{background:linear-gradient(140deg,#FBE4DD,#E8B4A8 48%,#B98679)}
+.mtr-bullet--b{background:linear-gradient(140deg,#FFFFFF,#C9CCD1 48%,#8E9297)}
+
+@media (prefers-reduced-motion:reduce){
+  .dc-halo::before,.mtr-stopdot::after{animation:none}
+  .mtr-train{opacity:1}
+}
+
+
+/* ============================================================
+   MESA DE REGALOS · caja que se abre, confeti y tarjeta
+   ============================================================ */
+.gbx-stage{position:relative;margin:44px auto 0;max-width:560px;min-height:280px;
+  display:flex;align-items:center;justify-content:center}
+#gbx-confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.gbx-holder{position:relative;z-index:2;text-align:center}
+.gbx{position:relative;width:190px;cursor:pointer;background:none;border:none;padding:0;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.gbx:hover{transform:translateY(-8px) scale(1.03)}
+.gbx:focus-visible{outline:2px solid var(--rose);outline-offset:10px;border-radius:6px}
+.gbx.is-open{pointer-events:none}
+.gbx svg{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 18px 34px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(232,180,168,.28))}
+.gbx-lid{transform-origin:50% 100%;
+  transition:transform .6s cubic-bezier(.34,1.4,.5,1),opacity .55s ease}
+.gbx.is-open .gbx-lid{transform:translateY(-56px) rotate(-14deg);opacity:0}
+.gbx-cta{display:block;margin-top:22px;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.34em;text-transform:uppercase;padding-left:.34em;color:var(--rose-lt);
+  animation:gbxPulse 2.6s ease-in-out infinite;transition:opacity .4s}
+@keyframes gbxPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.gbx-cta.is-hidden{opacity:0;animation:none}
+
+/* — La tarjeta que se expande — */
+.gbx-backdrop{
+  position:fixed;inset:0;z-index:950;
+  background:rgba(6,6,8,.72);
+  backdrop-filter:blur(14px) saturate(1.05);-webkit-backdrop-filter:blur(14px) saturate(1.05);
+  opacity:0;pointer-events:none;transition:opacity .45s ease;
+  display:flex;align-items:center;justify-content:center;padding:clamp(16px,5vw,40px);
+}
+.gbx-backdrop.is-open{opacity:1;pointer-events:auto}
+body.gbx-locked{overflow:hidden}
+
+.gbx-card{
+  position:relative;width:100%;max-width:430px;
+  max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:linear-gradient(165deg,rgba(32,32,39,.97) 0%,rgba(14,14,18,.99) 100%);
+  border:1px solid rgba(232,180,168,.42);border-radius:14px;
+  padding:34px 24px 28px;
+  box-shadow:0 40px 100px rgba(0,0,0,.75),
+             0 0 60px rgba(232,180,168,.14),
+             inset 0 1px 0 rgba(255,255,255,.07);
+  opacity:0;transform:translateY(26px) scale(.93);
+  transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.gbx-backdrop.is-open .gbx-card{opacity:1;transform:none}
+/* filete interior, como una tarjeta impresa */
+.gbx-card::before{content:'';position:absolute;inset:8px;border-radius:9px;
+  border:1px solid rgba(201,204,209,.16);pointer-events:none}
+
+.gbx-close{
+  position:absolute;top:12px;right:12px;z-index:3;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(201,204,209,.35);background:rgba(20,20,25,.9);
+  color:var(--paper);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .3s,transform .3s;padding:0;
+}
+.gbx-close:hover{background:var(--rose);color:#14100F;transform:rotate(90deg)}
+.gbx-close svg{width:17px;height:17px}
+
+.gbx-card-top{text-align:center;margin-bottom:26px}
+.gbx-card-orn{width:170px;height:26px;margin:0 auto 12px;display:block}
+.gbx-eyebrow{font-family:'Inter',sans-serif;font-weight:600;font-size:11px;
+  letter-spacing:.34em;text-transform:uppercase;color:var(--rose-lt);padding-left:.34em}
+.gbx-ttl{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;margin-top:6px;
+  background-image:linear-gradient(100deg,#8E9297 0%,#C9CCD1 20%,#FFFFFF 36%,#C9CCD1 52%,#8E9297 68%,#C9CCD1 88%,#8E9297 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 5.5s linear infinite;
+}
+
+.gbx-bank{
+  position:relative;border:1px solid rgba(201,204,209,.2);border-radius:11px;
+  background:linear-gradient(150deg,rgba(232,180,168,.09),rgba(201,204,209,.05));
+  padding:20px 18px 16px;overflow:hidden;
+}
+.gbx-bank-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.gbx-chip{width:34px;height:25px;border-radius:5px;
+  background:linear-gradient(135deg,#F0C7BC,#B98679);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.gbx-bankname{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--silver-lt)}
+.gbx-field{margin-bottom:16px;text-align:left}
+.gbx-k{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--rose-lt);margin-bottom:5px}
+.gbx-holder{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;
+  font-weight:600;color:var(--paper);line-height:1.35}
+.gbx-row{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  padding:14px 14px;border:1px solid rgba(232,180,168,.34);border-radius:9px;
+  background:rgba(11,11,13,.55);cursor:pointer;min-height:64px;
+  transition:border-color .3s,background .3s;
+}
+.gbx-row:hover{border-color:var(--rose);background:rgba(232,180,168,.1)}
+.gbx-row-txt{flex:1;min-width:0}
+.gbx-num{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:17px;
+  letter-spacing:.06em;color:var(--paper);font-variant-numeric:tabular-nums}
+.gbx-copy-ico{flex-shrink:0;width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(232,180,168,.5);color:var(--rose-lt);
+  display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s}
+.gbx-copy-ico svg{width:16px;height:16px}
+.gbx-row.is-copied .gbx-copy-ico{background:var(--rose);color:#14100F}
+.gbx-foot{margin-top:14px;text-align:center;font-family:'Inter',sans-serif;
+  font-weight:500;font-size:13px;letter-spacing:.1em;color:var(--silver-lt);opacity:.8}
+
+/* ============================================================
+   LLUVIA DE SOBRES
+   ============================================================ */
+#sobres{position:relative;overflow:hidden;text-align:center;padding:76px 24px 84px;
+  background:
+    radial-gradient(100% 60% at 50% 30%,rgba(232,180,168,.15) 0%,transparent 68%),
+    linear-gradient(180deg,#0B0B0D 0%,#141117 52%,#0B0B0D 100%);
+}
+.env-rain{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.env-rain-item{position:absolute;top:-46px;will-change:transform;opacity:0}
+#sobres .env-stage{position:relative;z-index:1}
+.env-interactive{display:flex;flex-direction:column;align-items:center;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;outline:none;border:none;background:none;
+  padding:0;margin:30px auto 0;opacity:0}
+.env-body{perspective:700px;position:relative;width:min(258px,74vw);aspect-ratio:260/200;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.6))}
+.env-body svg.env-svg{width:100%;height:100%;display:block}
+.env-flap-wrap{position:absolute;top:23%;left:6.9%;width:86.2%;height:43%;
+  transform-origin:top center;transform-style:preserve-3d;backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;transition:transform .65s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;z-index:2}
+.env-interactive.open .env-flap-wrap{transform:rotateX(-175deg)}
+.env-seal{position:absolute;top:52%;left:50%;width:23%;aspect-ratio:1;
+  transform:translate(-50%,-50%);z-index:3;
+  transition:opacity .35s ease,transform .5s cubic-bezier(.4,0,.2,1);pointer-events:none;
+  filter:drop-shadow(0 0 10px rgba(232,180,168,.5))}
+.env-interactive.open .env-seal{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+.env-open-content{overflow:hidden;max-height:0;opacity:0;
+  transition:max-height .55s .3s ease,opacity .4s .38s ease;
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;
+  text-align:center;pointer-events:none}
+.env-interactive.open .env-open-content{max-height:320px;opacity:1;pointer-events:auto;margin-top:22px}
+.env-mailbox-icon{width:42px;height:42px;color:var(--rose);margin-top:6px}
+.env-title{
+  font-family:'Great Vibes',cursive;font-size:clamp(30px,8vw,38px);line-height:1.4;padding:.08em 0;
+  background-image:linear-gradient(100deg,#B98679 0%,#E8B4A8 20%,#FBE4DD 36%,#E8B4A8 52%,#B98679 68%,#E8B4A8 88%,#B98679 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 6s linear infinite;
+}
+.env-desc{font-family:'Inter',sans-serif;font-size:16px;font-weight:500;
+  color:var(--paper);line-height:1.6;max-width:320px;opacity:.92}
+.env-tap-hint{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--rose-lt);margin-top:20px;
+  opacity:0;transition:opacity .5s ease;position:relative;z-index:1}
+.env-tap-hint.show{opacity:.9;animation:envHintPulse2 2.4s ease-in-out infinite}
+.env-interactive.open ~ .env-tap-hint{opacity:0 !important;animation:none;pointer-events:none}
+@keyframes envHintPulse2{0%,100%{opacity:.55}50%{opacity:1}}
+.env-body.landed{animation:envBreathe 3.6s ease-in-out infinite}
+@keyframes envBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+
+@media (prefers-reduced-motion:reduce){
+  .env-body.landed,.env-tap-hint.show,.gbx-cta{animation:none !important}
+  .env-interactive{opacity:1 !important}
+}
+
   </style>
 </head>
 <body>
@@ -2621,7 +2864,6 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
       </div>
       <span class="h-name-wind-line"></span>
     </div>
-    <div class="h-amp-clip"><span class="h-amp" id="hAmp">·</span></div>
     <div class="h-name-wrap">
       <span class="h-name-wind-line"></span>
       <div class="h-clip">
@@ -2805,52 +3047,78 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
       <polyline class="mtr-rail mtr-rail--live" id="mtrLive" points="0,0"/>
     </svg>
 
-    <!-- PARADA 1 -->
+    <!-- Un solo tren: baja por la vía siguiendo la línea rosa -->
+    <svg class="mtr-train" id="mtrTrain" viewBox="0 0 46 34" aria-hidden="true">
+      <rect class="mtr-car-body" x="3" y="4" width="40" height="26" rx="7"/>
+      <rect class="mtr-car-win"  x="8" y="9"  width="12" height="9" rx="2"/>
+      <rect class="mtr-car-win"  x="26" y="9" width="12" height="9" rx="2"/>
+      <rect class="mtr-car-door" x="21.4" y="9" width="3.2" height="16" rx="1.2"/>
+      <circle class="mtr-car-lamp" cx="12" cy="25" r="2.1"/>
+      <circle class="mtr-car-lamp" cx="34" cy="25" r="2.1"/>
+    </svg>
+
     <div class="mtr-row">
       <div class="mtr-sign">
         <div class="mtr-sign-top">
-          <span class="mtr-bullet mtr-bullet--1">1</span>
-          <span class="mtr-stop">Misa de XV Años</span>
+          <span class="mtr-bullet mtr-bullet--b">1</span>
+          <span class="mtr-stop">Recepción de Invitados</span>
         </div>
-        <div class="mtr-sign-time">Por confirmar</div>
+        <div class="mtr-sign-time">16:00</div>
       </div>
-      <div class="mtr-car-wrap">
-        <svg class="mtr-car" viewBox="0 0 46 34" aria-hidden="true">
-          <rect class="mtr-car-body" x="3" y="4" width="40" height="26" rx="7"/>
-          <rect class="mtr-car-win"  x="8" y="9"  width="12" height="9" rx="2"/>
-          <rect class="mtr-car-win"  x="26" y="9" width="12" height="9" rx="2"/>
-          <rect class="mtr-car-door" x="21.4" y="9" width="3.2" height="16" rx="1.2"/>
-          <circle class="mtr-car-lamp" cx="12" cy="25" r="2.1"/>
-          <circle class="mtr-car-lamp" cx="34" cy="25" r="2.1"/>
-        </svg>
-      </div>
+      <div class="mtr-car-wrap"><span class="mtr-stopdot"></span></div>
       <div class="mtr-spacer"></div>
     </div>
 
-    <!-- PARADA 2 -->
     <div class="mtr-row mtr-row--r">
       <div class="mtr-sign">
         <div class="mtr-sign-top">
-          <span class="mtr-bullet mtr-bullet--2">2</span>
-          <span class="mtr-stop">Recepción</span>
+          <span class="mtr-bullet mtr-bullet--a">2</span>
+          <span class="mtr-stop">Misa de XV Años</span>
         </div>
-        <div class="mtr-sign-time">Por confirmar</div>
+        <div class="mtr-sign-time">17:00</div>
       </div>
-      <div class="mtr-car-wrap">
-        <svg class="mtr-car" viewBox="0 0 46 34" aria-hidden="true">
-          <rect class="mtr-car-body" x="3" y="4" width="40" height="26" rx="7"/>
-          <rect class="mtr-car-win"  x="8" y="9"  width="12" height="9" rx="2"/>
-          <rect class="mtr-car-win"  x="26" y="9" width="12" height="9" rx="2"/>
-          <rect class="mtr-car-door" x="21.4" y="9" width="3.2" height="16" rx="1.2"/>
-          <circle class="mtr-car-lamp" cx="12" cy="25" r="2.1"/>
-          <circle class="mtr-car-lamp" cx="34" cy="25" r="2.1"/>
-        </svg>
+      <div class="mtr-car-wrap"><span class="mtr-stopdot"></span></div>
+      <div class="mtr-spacer"></div>
+    </div>
+
+    <div class="mtr-row">
+      <div class="mtr-sign">
+        <div class="mtr-sign-top">
+          <span class="mtr-bullet mtr-bullet--b">3</span>
+          <span class="mtr-stop">Vals de Honor</span>
+        </div>
+        <div class="mtr-sign-time">19:00</div>
       </div>
+      <div class="mtr-car-wrap"><span class="mtr-stopdot"></span></div>
+      <div class="mtr-spacer"></div>
+    </div>
+
+    <div class="mtr-row mtr-row--r">
+      <div class="mtr-sign">
+        <div class="mtr-sign-top">
+          <span class="mtr-bullet mtr-bullet--a">4</span>
+          <span class="mtr-stop">Cena y Brindis</span>
+        </div>
+        <div class="mtr-sign-time">20:00</div>
+      </div>
+      <div class="mtr-car-wrap"><span class="mtr-stopdot"></span></div>
+      <div class="mtr-spacer"></div>
+    </div>
+
+    <div class="mtr-row">
+      <div class="mtr-sign">
+        <div class="mtr-sign-top">
+          <span class="mtr-bullet mtr-bullet--b">5</span>
+          <span class="mtr-stop">Fiesta y Sorpresas</span>
+        </div>
+        <div class="mtr-sign-time">21:30</div>
+      </div>
+      <div class="mtr-car-wrap"><span class="mtr-stopdot"></span></div>
       <div class="mtr-spacer"></div>
     </div>
   </div>
 
-  <p class="mtr-foot">Los horarios se confirmarán próximamente</p>
+  <p class="mtr-foot">Horarios tentativos &middot; se confirmarán próximamente</p>
 </section>
 
 
@@ -2886,37 +3154,90 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   <span class="lbl">Tu presencia es mi mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
   <div class="gline"></div>
-  <p class="gf-sub">Si deseas obsequiarme algo especial,<br>comparto contigo mis opciones.</p>
+  <p class="gf-sub">Si deseas obsequiarme algo especial,<br>toca el regalo para descubrirlo.</p>
 
-  <div class="gf-bankcard">
-    <div class="gf-bc-shine" aria-hidden="true"></div>
-    <div class="gf-bc-head">
-      <div class="gf-bc-chip" aria-hidden="true"></div>
-      <span class="gf-bc-badge">Scotiabank</span>
+  <div class="gbx-stage">
+    <canvas id="gbx-confetti" aria-hidden="true"></canvas>
+    <div class="gbx-holder">
+      <button class="gbx" id="gbx" type="button" aria-label="Abrir la mesa de regalos" aria-expanded="false" aria-controls="gbx-modal">
+        <svg viewBox="0 0 200 190" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gbxBody" x1="26" y1="72" x2="174" y2="176" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#202026"/><stop offset="1" stop-color="#0E0E12"/>
+            </linearGradient>
+            <linearGradient id="gbxRibbon" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#FBE4DD"/><stop offset=".5" stop-color="#E8B4A8"/><stop offset="1" stop-color="#B98679"/>
+            </linearGradient>
+            <linearGradient id="gbxLid" x1="16" y1="54" x2="184" y2="80" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#26262E"/><stop offset="1" stop-color="#141419"/>
+            </linearGradient>
+          </defs>
+          <rect x="26" y="72" width="148" height="104" rx="5" fill="url(#gbxBody)" stroke="rgba(201,204,209,.35)" stroke-width="1.3"/>
+          <rect x="88" y="72" width="24" height="104" fill="url(#gbxRibbon)"/>
+          <rect x="26" y="112" width="148" height="15" fill="url(#gbxRibbon)"/>
+          <g class="gbx-lid">
+            <rect x="16" y="54" width="168" height="26" rx="5" fill="url(#gbxLid)" stroke="rgba(201,204,209,.4)" stroke-width="1.3"/>
+            <rect x="88" y="54" width="24" height="26" fill="url(#gbxRibbon)"/>
+            <path d="M100 54 C100 40 84 26 70 32 C58 37 62 52 78 54 Z" fill="url(#gbxRibbon)" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
+            <path d="M100 54 C100 40 116 26 130 32 C142 37 138 52 122 54 Z" fill="url(#gbxRibbon)" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
+            <circle cx="100" cy="52" r="8" fill="#FBE4DD" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
+          </g>
+        </svg>
+      </button>
+      <span class="gbx-cta" id="gbx-cta">Toca el regalo</span>
     </div>
-    <p class="gf-bc-kicker">Transferencia bancaria</p>
-
-    <div class="gf-bc-field">
-      <span class="gf-bc-k">Titular de la cuenta</span>
-      <span class="gf-bc-holder">Renata Paola González Pérez</span>
-    </div>
-
-    <button class="gf-bc-row" onclick="copyVal('cuentaNum','CLABE')" type="button" aria-label="Copiar CLABE interbancaria">
-      <span class="gf-bc-row-txt">
-        <span class="gf-bc-k">CLABE interbancaria</span>
-        <span class="gf-bc-num" id="cuentaNum">0445 4003 9029 4230 58</span>
-      </span>
-      <svg class="gf-bc-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-    </button>
-
-    <p class="gf-bc-foot">✦ &nbsp; Toca la CLABE para copiarla &nbsp; ✦</p>
   </div>
+</section>
 
-  <!-- Lluvia de sobres -->
-  <div style="margin-top:32px;text-align:center;padding:28px 20px;background:linear-gradient(180deg,rgba(232,180,168,.14) 0%,rgba(255,255,255,.5) 100%);border:1px solid rgba(201,204,209,.24);border-radius:16px;max-width:400px;margin-left:auto;margin-right:auto;">
-    <p style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--olive);margin-bottom:14px;">Lluvia de sobres</p>
-    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--olive)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 14px;display:block"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;line-height:1.5;color:var(--cream);">El día del evento habrá <em>lluvia de sobres</em>.<br>Tu detalle será recibido con mucho cariño.</p>
+
+<!-- ═══════════════ LLUVIA DE SOBRES ═══════════════ -->
+<section id="sobres">
+  <div class="env-rain" id="envRain" aria-hidden="true"></div>
+  <div class="env-stage">
+    <span class="lbl">Celebra conmigo</span>
+    <h2 class="ttl">Lluvia de Sobres</h2>
+    <div class="gline"></div>
+
+    <button class="env-interactive" id="envGift" type="button" aria-label="Sobre — toca para abrir" aria-expanded="false">
+      <div class="env-body" id="envGiftBody">
+        <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="envPaperRP" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1A1A20"/><stop offset="100%" stop-color="#26262E"/>
+            </linearGradient>
+          </defs>
+          <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#envPaperRP)" stroke="rgba(201,204,209,.45)" stroke-width="1.4"/>
+          <path d="M18 184 L130 110 L242 184" stroke="rgba(232,180,168,.4)" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="env-flap-wrap" aria-hidden="true">
+          <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%;display:block">
+            <defs>
+              <linearGradient id="envFlapRP" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stop-color="#22222A"/><stop offset="100%" stop-color="#2E2E38"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 0 L112 86 L224 0 Z" fill="url(#envFlapRP)" stroke="rgba(201,204,209,.45)" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <svg class="env-seal" viewBox="0 0 60 60" aria-hidden="true">
+          <circle cx="30" cy="30" r="28" fill="#E8B4A8"/>
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#B98679" stroke-width="2" opacity=".7"/>
+          <circle cx="30" cy="30" r="21.5" fill="none" stroke="#FBE4DD" stroke-width="1.1" opacity=".85"/>
+          <text x="30" y="38" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="24" fill="#5A3830">RP</text>
+        </svg>
+      </div>
+      <div class="env-open-content" aria-live="polite">
+        <svg class="env-mailbox-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="8" y="22" width="36" height="24" rx="5"/>
+          <path d="M8 30 Q26 38 44 30"/>
+          <rect x="18" y="8" width="16" height="16" rx="2"/>
+          <path d="M18 8 Q26 3 34 8"/>
+        </svg>
+        <p class="env-title">Lluvia de Sobres</p>
+        <p class="env-desc">El día del evento habrá lluvia de sobres.<br>Tu detalle será recibido con mucho cariño.</p>
+      </div>
+    </button>
+    <p class="env-tap-hint" id="envGiftHint">Toca el sobre</p>
   </div>
 </section>
 
@@ -2951,20 +3272,20 @@ body,.inv-quote,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   <h2 class="ttl">Código de Vestimenta</h2>
   <div class="gline"></div>
 
-  <p class="dc-main-label" style="font-family:'Great Vibes',cursive;font-size:38px;color:var(--olive);text-align:center;margin:16px 0 8px">Casual Formal</p>
-  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--olive)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#E8EAED;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
+  <p class="dc-main-label" style="text-align:center;margin:16px 0 8px">Casual Formal</p>
+  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#E8EAED;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
 
   <div class="dc-figures" style="display:flex;align-items:center;justify-content:center;gap:30px;margin:28px auto;max-width:380px">
     <div class="dc-fig" style="display:flex;flex-direction:column;align-items:center;gap:14px;flex:1">
-      <img src="assets/caballero.png" alt="Caballero, casual formal" loading="lazy" style="height:220px;width:auto;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.22))">
-      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--olive)">Caballeros</span>
-      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,.65);margin-top:-8px">casual formal</span>
+      <span class="dc-halo"><img src="assets/caballero.png" alt="Caballero, casual formal" loading="lazy"></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--rose-lt)">Caballeros</span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--silver-lt);margin-top:-8px">casual formal</span>
     </div>
     <div style="width:1px;height:180px;background:linear-gradient(to bottom,transparent,var(--olive-lt),transparent)" aria-hidden="true"></div>
     <div class="dc-fig" style="display:flex;flex-direction:column;align-items:center;gap:14px;flex:1">
-      <img src="assets/dama.png" alt="Dama, casual formal" loading="lazy" style="height:220px;width:auto;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.22))">
-      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--olive)">Damas</span>
-      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,.65);margin-top:-8px">vestido</span>
+      <span class="dc-halo"><img src="assets/dama.png" alt="Dama, casual formal" loading="lazy"></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;letter-spacing:1px;color:var(--rose-lt)">Damas</span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--silver-lt);margin-top:-8px">vestido</span>
     </div>
   </div>
 
@@ -3205,7 +3526,7 @@ function launchPage() {
      (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
   [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
    heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
-   initSkyline, initMetro, initDateHero].forEach(function (fn) {
+   initSkyline, initMetro, initDateHero, initGiftBox, initEnvRain].forEach(function (fn) {
     try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
   });
   setInterval(countdown, 1000);
@@ -3306,7 +3627,7 @@ window.addEventListener('scroll', () => {
 function heroAnim() {
   // Estados iniciales
   gsap.set(['#hWe','#hDiv','#hLine','#hDate','#hScroll'], { opacity: 0 });
-  gsap.set(['#hN1','#hN2','#hAmp'], {
+  gsap.set(['#hN1','#hN2'], {
     opacity: 0, y: -30, scale: 1.35,
     filter: 'blur(10px)', transformOrigin: 'center center'
   });
@@ -3339,8 +3660,7 @@ function heroAnim() {
     .to('#hWe',    { opacity: 1, duration: .7, ease: 'power2.out' }, .1)
     .to('#hDiv',   { opacity: 1, duration: .5, ease: 'power2.out' }, .3)
     .add(drop('#hN1', '#rip1'), .55)
-    .add(drop('#hAmp', '#rip1'), 1.2)
-    .add(drop('#hN2', '#rip2'), 1.55)
+    .add(drop('#hN2', '#rip2'), 1.15)
     .to('#hLine',  { opacity: .7, duration: .6, ease: 'power2.out' }, 2.6)
     .to('#hDate',  { opacity: 1, duration: .7, ease: 'power2.out' }, 2.75)
     .to('#hScroll',{ opacity: 1, duration: .5, ease: 'power2.out' }, 3.1);
@@ -4301,6 +4621,242 @@ function initSkyline(){
   });
 }
 
+
+/* ============================================================
+   MESA DE REGALOS · caja que se abre + confeti + tarjeta
+   ============================================================ */
+function initGiftBox(){
+  var box    = document.getElementById('gbx');
+  var cta    = document.getElementById('gbx-cta');
+  var modal  = document.getElementById('gbx-modal');
+  var closeB = document.getElementById('gbx-close');
+  var copyB  = document.getElementById('gbx-copy');
+  var canvas = document.getElementById('gbx-confetti');
+  if(!box || !modal) return;
+
+  /* El modal se saca al <body>: las secciones tienen fondos y
+     transformaciones que recortarían un position:fixed. */
+  if(modal.parentElement !== document.body) document.body.appendChild(modal);
+
+  /* ---------- Confeti ---------- */
+  function burst(){
+    if(!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var stage = canvas.parentElement;
+    var W = stage.offsetWidth, H = stage.offsetHeight;
+    if(!W || !H) return;
+    canvas.width = W*dpr; canvas.height = H*dpr;
+    ctx.scale(dpr, dpr);
+
+    var colors = ['#E8B4A8','#F0C7BC','#FBE4DD','#C9CCD1','#E8EAED','#B98679','#FFFFFF'];
+    var parts = [];
+    var cx = W/2, cy = H/2;
+    var n = window.innerWidth < 520 ? 70 : 120;
+    for(var i=0;i<n;i++){
+      var a  = (Math.PI*2*i/n) + (i%7)*0.11;
+      var sp = 3.4 + (i%11)*0.62;
+      parts.push({
+        x:cx, y:cy,
+        vx: Math.cos(a)*sp*(0.6+(i%5)*0.14),
+        vy: Math.sin(a)*sp*(0.6+(i%3)*0.2) - 3.6,
+        w: 5+(i%4)*2.4, h: 3+(i%3)*2,
+        rot:(i%360)*0.0175, vr:((i%2?1:-1))*(0.06+(i%5)*0.02),
+        c: colors[i%colors.length], life:1
+      });
+    }
+    var t0 = null;
+    function frame(ts){
+      if(t0 === null) t0 = ts;
+      var el = (ts - t0)/1000;
+      ctx.clearRect(0,0,W,H);
+      var alive = false;
+      for(var i=0;i<parts.length;i++){
+        var pt = parts[i];
+        pt.vy += 0.14; pt.vx *= 0.992;
+        pt.x += pt.vx; pt.y += pt.vy; pt.rot += pt.vr;
+        pt.life = Math.max(0, 1 - el/2.6);
+        if(pt.life > 0 && pt.y < H+40){
+          alive = true;
+          ctx.save();
+          ctx.globalAlpha = pt.life;
+          ctx.translate(pt.x, pt.y);
+          ctx.rotate(pt.rot);
+          ctx.fillStyle = pt.c;
+          ctx.fillRect(-pt.w/2, -pt.h/2, pt.w, pt.h);
+          ctx.restore();
+        }
+      }
+      if(alive) requestAnimationFrame(frame); else ctx.clearRect(0,0,W,H);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- Bloqueo de scroll compatible con iOS ---------- */
+  var savedY = 0, isOpen = false;
+  function lock(){
+    savedY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = (-savedY)+'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.classList.add('gbx-locked');
+  }
+  function unlock(){
+    document.body.classList.remove('gbx-locked');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedY);
+  }
+
+  function openGift(){
+    if(isOpen) return;
+    isOpen = true;
+    box.classList.add('is-open');
+    box.setAttribute('aria-expanded','true');
+    if(cta) cta.classList.add('is-hidden');
+    burst();
+    setTimeout(function(){
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden','false');
+      lock();
+      if(closeB) closeB.focus();
+    }, 260);
+  }
+  function closeGift(){
+    if(!isOpen) return;
+    isOpen = false;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    unlock();
+    setTimeout(function(){
+      box.classList.remove('is-open');
+      box.setAttribute('aria-expanded','false');
+      if(cta) cta.classList.remove('is-hidden');
+      box.focus();
+    }, 420);
+  }
+
+  box.addEventListener('click', openGift);
+  if(closeB) closeB.addEventListener('click', closeGift);
+  modal.addEventListener('click', function(e){ if(e.target === modal) closeGift(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && isOpen) closeGift();
+  });
+
+  if(copyB) copyB.addEventListener('click', function(){
+    var t = document.getElementById('gbxClabe');
+    if(!t) return;
+    var val = t.textContent.replace(/\s+/g,'');
+    function done(){
+      copyB.classList.add('is-copied');
+      setTimeout(function(){ copyB.classList.remove('is-copied'); }, 1800);
+      if(typeof showToast === 'function') showToast('CLABE copiada');
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(val).then(done, done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = val; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+
+  gsap.fromTo('.gbx-holder', {opacity:0, y:34}, {opacity:1, y:0, duration:1,
+    ease:'power3.out', scrollTrigger:{trigger:'.gbx-stage', start:'top 88%', once:true}});
+}
+
+/* ============================================================
+   LLUVIA DE SOBRES · caen hasta que la sección se centra,
+   ahí aterriza uno y se puede abrir
+   ============================================================ */
+function initEnvRain(){
+  var sec  = document.getElementById('sobres');
+  var rain = document.getElementById('envRain');
+  var btn  = document.getElementById('envGift');
+  var body = document.getElementById('envGiftBody');
+  var hint = document.getElementById('envGiftHint');
+  if(!sec || !rain || !btn) return;
+
+  var raining = true, landed = false, spawnCall = null, alive = 0;
+  var MAX_ALIVE = 18;
+
+  function makeEnvelope(){
+    if(alive >= MAX_ALIVE) return;
+    alive++;
+    var el = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    el.setAttribute('viewBox','0 0 34 24');
+    el.setAttribute('class','env-rain-item');
+    var w = 16 + Math.random()*16;
+    el.style.width = w+'px';
+    el.style.height = (w*24/34)+'px';
+    el.style.left = (Math.random()*100)+'%';
+    el.innerHTML = '<rect x="1" y="1" width="32" height="22" rx="2.5" fill="#1E1E25" stroke="#E8B4A8" stroke-width="1.2"/>'+
+                   '<path d="M1 1 L17 13 L33 1" fill="none" stroke="#E8B4A8" stroke-width="1.2" stroke-linejoin="round"/>';
+    rain.appendChild(el);
+    var H = sec.offsetHeight + 80, dur = 5 + Math.random()*4;
+    function kill(){ if(el.parentNode){ el.remove(); alive--; } }
+    gsap.timeline({onComplete:kill})
+      .fromTo(el, {y:-46, x:0, rotation:(Math.random()-.5)*50, opacity:0},
+                  {y:H, x:(Math.random()-.5)*70, rotation:(Math.random()-.5)*160,
+                   duration:dur, ease:'none'}, 0)
+      .fromTo(el, {opacity:0}, {opacity:.75, duration:dur*.18, ease:'power1.out'}, 0)
+      .to(el, {opacity:0, duration:dur*.25, ease:'power1.in'}, dur*.75);
+  }
+
+  /* Spawn por el ticker de GSAP y no setInterval: se pausa con la pestaña
+     en segundo plano, así no se acumulan sobres. */
+  function scheduleSpawn(){
+    spawnCall = gsap.delayedCall(.52, function(){
+      if(!raining) return;
+      makeEnvelope();
+      scheduleSpawn();
+    });
+  }
+  function startRain(){
+    for(var i=0;i<7;i++) gsap.delayedCall(i*.26, makeEnvelope);
+    scheduleSpawn();
+  }
+  function stopRain(){
+    raining = false;
+    if(spawnCall) spawnCall.kill();
+    gsap.to(rain, {opacity:0, duration:1.1, ease:'power2.out',
+      onComplete:function(){ rain.innerHTML=''; alive=0; }});
+  }
+
+  function land(){
+    if(landed) return;
+    landed = true;
+    stopRain();
+    gsap.fromTo(btn, {opacity:0, y:-150, rotation:-12, scale:.82},
+      {opacity:1, y:0, rotation:0, scale:1, duration:1.15, ease:'back.out(1.5)',
+       onComplete:function(){
+         if(body) body.classList.add('landed');
+         if(hint) hint.classList.add('show');
+       }});
+  }
+
+  btn.addEventListener('click', function(){
+    var open = btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  startRain();
+  /* 'center 55%' y no 'center center': el reveal genérico desplaza 28px
+     las secciones aún no visibles y el umbral exacto nunca se alcanza. */
+  ScrollTrigger.create({trigger:sec, start:'center 55%', once:true,
+    onEnter:land, onEnterBack:land});
+  /* respaldo: si el trigger no llega a dispararse, aterriza igual */
+  ScrollTrigger.create({trigger:sec, start:'top 60%', once:true, onEnter:function(){
+    gsap.delayedCall(2.4, land);
+  }});
+}
+
 /* ============================================================
    ITINERARIO METRO · traza la vía y hace avanzar el tren
    El contenido vive oculto hasta que se abre el sobre, así que
@@ -4311,7 +4867,7 @@ function drawRail(){
   var wrap = document.getElementById('mtr');
   if(!wrap) return false;
   var wrapRect = wrap.getBoundingClientRect();
-  if(wrapRect.height < 40) return false;          // aún oculto
+  if(wrapRect.height < 40) return false;          // aún oculto tras el sobre
 
   var pts = [];
   wrap.querySelectorAll('.mtr-car-wrap').forEach(function(cw){
@@ -4320,7 +4876,7 @@ function drawRail(){
   });
   if(pts.length < 2) return false;
 
-  /* prolongar la vía arriba y abajo: el tren viene y sigue de largo */
+  /* la vía entra por arriba y sigue de largo por abajo */
   var first = pts[0].split(','), last = pts[pts.length-1].split(',');
   pts.unshift(first[0] + ',0');
   pts.push(last[0] + ',' + wrapRect.height);
@@ -4330,13 +4886,37 @@ function drawRail(){
     var e = document.getElementById(id); if(e) e.setAttribute('points', d);
   });
 
-  var live = document.getElementById('mtrLive');
-  var len = live.getTotalLength() || 600;
-  if(window.__mtrTween) window.__mtrTween.scrollTrigger.kill();
+  var live  = document.getElementById('mtrLive');
+  var train = document.getElementById('mtrTrain');
+  var len   = live.getTotalLength() || 600;
+
+  if(window.__mtrTween && window.__mtrTween.scrollTrigger) window.__mtrTween.scrollTrigger.kill();
   gsap.set(live, {strokeDasharray: len, strokeDashoffset: len});
+
+  /* El tren viaja sobre la propia polilínea: getPointAtLength da la
+     posición exacta y el punto siguiente da el ángulo de la tangente,
+     así toma las curvas del zigzag en vez de ir de lado. */
+  function placeTrain(prog){
+    if(!train) return;
+    var l = len * Math.max(0, Math.min(1, prog));
+    var pt = live.getPointAtLength(l);
+    var nx = live.getPointAtLength(Math.min(len, l + 6));
+    var ang = Math.atan2(nx.y - pt.y, nx.x - pt.x) * 180 / Math.PI - 90;
+    train.style.left = pt.x + 'px';
+    train.style.top  = pt.y + 'px';
+    train.style.transform = 'rotate(' + ang.toFixed(1) + 'deg)';
+  }
+  placeTrain(0);
+
   window.__mtrTween = gsap.to(live, {
     strokeDashoffset: 0, ease: 'none',
-    scrollTrigger: {trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1}
+    scrollTrigger: {
+      trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1,
+      onUpdate: function(self){
+        placeTrain(self.progress);
+        if(train) train.classList.toggle('is-riding', self.progress > 0.01 && self.progress < 0.995);
+      }
+    }
   });
   return true;
 }
@@ -4344,34 +4924,25 @@ function drawRail(){
 function initMetro(){
   var wrap = document.getElementById('mtr');
   if(!wrap) return;
-  var cars = wrap.querySelectorAll('.mtr-car');
   var rows = wrap.querySelectorAll('.mtr-row');
 
-  cars.forEach(function(car, i){
-    var flip = rows[i].classList.contains('mtr-row--r');
-    gsap.to(car, {
-      opacity: 1, scale: 1, scaleX: flip ? -1 : 1,
-      duration: .6, ease: 'back.out(2.1)',
-      scrollTrigger: {trigger: rows[i], start: 'top 84%', toggleActions: 'play none none none'}
-    });
-  });
   rows.forEach(function(row){
+    var dot  = row.querySelector('.mtr-stopdot');
     var sign = row.querySelector('.mtr-sign');
-    var dir = row.classList.contains('mtr-row--r') ? 26 : -26;
+    var dir  = row.classList.contains('mtr-row--r') ? 26 : -26;
+    gsap.fromTo(dot, {scale: 0, opacity: 0},
+      {scale: 1, opacity: 1, duration: .55, ease: 'back.out(2.2)',
+       scrollTrigger: {trigger: row, start: 'top 84%', once: true}});
     gsap.fromTo(sign, {x: dir, opacity: 0},
       {x: 0, opacity: 1, duration: .9, ease: 'power2.out',
        scrollTrigger: {trigger: row, start: 'top 86%'}});
   });
 
   drawRail();
-  /* el sobre puede tardar: reintenta mientras la sección siga sin medidas */
-  if(window.ResizeObserver){
-    new ResizeObserver(function(){ drawRail(); }).observe(wrap);
-  }
+  /* el sobre retrasa el layout: reintenta hasta tener medidas reales */
+  if(window.ResizeObserver) new ResizeObserver(function(){ drawRail(); }).observe(wrap);
   var tries = 0;
-  var iv = setInterval(function(){
-    if(drawRail() || ++tries > 40) clearInterval(iv);
-  }, 500);
+  var iv = setInterval(function(){ if(drawRail() || ++tries > 40) clearInterval(iv); }, 500);
   window.addEventListener('resize', function(){
     clearTimeout(window.__mtrRz);
     window.__mtrRz = setTimeout(function(){ drawRail(); ScrollTrigger.refresh(); }, 220);
@@ -4410,5 +4981,48 @@ function initDateHero(){
 
 
 </script>
+
+<!-- MODAL · datos de transferencia -->
+<div class="gbx-backdrop" id="gbx-modal" role="dialog" aria-modal="true" aria-labelledby="gbx-modal-ttl" aria-hidden="true">
+  <div class="gbx-card">
+    <button class="gbx-close" id="gbx-close" type="button" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="gbx-card-top">
+      <svg class="gbx-card-orn" viewBox="0 0 200 30" fill="none" aria-hidden="true">
+        <path d="M10 15 Q55 3 100 15 Q145 27 190 15" stroke="rgba(232,180,168,.75)" stroke-width="1" fill="none"/>
+        <circle cx="100" cy="15" r="3.4" fill="#E8B4A8"/>
+      </svg>
+      <p class="gbx-eyebrow">Con todo mi cariño</p>
+      <h3 class="gbx-ttl" id="gbx-modal-ttl">Transferencia</h3>
+    </div>
+
+    <div class="gbx-bank">
+      <div class="gbx-bank-head">
+        <span class="gbx-chip" aria-hidden="true"></span>
+        <span class="gbx-bankname">Scotiabank</span>
+      </div>
+
+      <div class="gbx-field">
+        <span class="gbx-k">Titular de la cuenta</span>
+        <span class="gbx-holder">Renata Paola González Pérez</span>
+      </div>
+
+      <button class="gbx-row" id="gbx-copy" type="button" aria-label="Copiar CLABE interbancaria">
+        <span class="gbx-row-txt">
+          <span class="gbx-k">CLABE interbancaria</span>
+          <span class="gbx-num" id="gbxClabe">044 540 03902942305 8</span>
+        </span>
+        <span class="gbx-copy-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </span>
+      </button>
+
+      <p class="gbx-foot">Toca la CLABE para copiarla</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
