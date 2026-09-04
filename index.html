@@ -331,12 +331,12 @@ footer{background:#101013}
   line-height:1.9;letter-spacing:.3px;
 }
 .inv-quote{
-  font-family:'Great Vibes',cursive;
-  font-weight:400;
-  font-size:clamp(26px,7vw,34px);
-  color:var(--olive);
-  line-height:1.5;margin-top:28px;
-  max-width:320px;margin-left:auto;margin-right:auto;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:500;
+  font-size:clamp(19px,4.8vw,23px);
+  color:var(--paper);
+  line-height:1.62;margin-top:28px;letter-spacing:.2px;
+  max-width:34ch;margin-left:auto;margin-right:auto;
   text-align:center;
 }
 .inv-date{
@@ -2812,6 +2812,78 @@ body.gbx-locked{overflow:hidden}
   .dc-card-txt{font-size:10px;letter-spacing:2px}
 }
 
+
+/* ============================================================
+   AJUSTES DEL CLIENTE
+   ============================================================ */
+
+/* — Rosa más presente en los textos —
+   El degradado anterior subía hasta #FBE4DD y sobre el fondo negro
+   ese pico se leía como blanco: el rosa "se perdía". Bajamos la
+   luminosidad del pico y subimos la saturación, conservando el
+   mismo matiz del sello del sobre. */
+.h-name,.h-amp,.inv-date,.ft-dt,.rsvp-title em,
+.inv-children,.pad-names,.gf-bc-holder,.lbl{
+  background-image:linear-gradient(100deg,
+    #A85D4B 0%,  #C4735D 10%, #DD8A72 20%, #EC9E86 30%,
+    #F4B39D 38%, #EC9E86 46%, #DD8A72 56%, #C4735D 68%,
+    #DD8A72 80%, #EC9E86 90%, #A85D4B 100%) !important;
+  filter:drop-shadow(0 0 9px rgba(224,138,114,.45)) !important;
+}
+.date-h em,.date-num{
+  background-image:linear-gradient(100deg,
+    #A85D4B 0%,  #C4735D 12%, #DD8A72 24%, #EC9E86 34%,
+    #F4B39D 42%, #DD8A72 56%, #C4735D 70%,
+    #DD8A72 84%, #A85D4B 100%) !important;
+}
+/* el monograma del hero mantiene su mezcla rosa/plata, sin lavarse */
+.rp-mono{
+  background-image:linear-gradient(120deg,
+    #A85D4B 0%, #DD8A72 18%, #F4B39D 32%, #EC9E86 46%,
+    #C9CCD1 58%, #F4F6F8 68%, #C9CCD1 78%, #DD8A72 92%, #A85D4B 100%) !important;
+}
+/* acentos sólidos: un punto más vivos */
+:root{
+  --rose:      #E79A88;
+  --rose-lt:   #F2B5A2;
+  --rose-dp:   #A85D4B;
+}
+
+/* — Paleta sugerida — */
+.dc-palette{
+  max-width:420px;margin:34px auto 8px;padding:22px 18px 20px;
+  border-radius:16px;
+  border:1px solid rgba(201,204,209,.22);
+  background:linear-gradient(160deg,rgba(28,28,33,.9),rgba(14,14,17,.94));
+  box-shadow:0 14px 38px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.dc-pal-ttl{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:21px;letter-spacing:.5px;color:var(--rose-lt);margin-bottom:4px;
+}
+.dc-pal-sub{
+  font-family:'Inter',sans-serif;font-weight:500;font-size:13px;
+  letter-spacing:1.4px;color:var(--paper);opacity:.8;margin-bottom:18px;
+}
+.dc-pal-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px 8px;
+}
+.dc-pal-item{display:flex;flex-direction:column;align-items:center;gap:9px}
+.dc-pal-dot{
+  width:52px;height:52px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 6px 16px rgba(0,0,0,.55), inset 0 2px 4px rgba(255,255,255,.28);
+}
+.dc-pal-nm{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:11px;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--paper);
+  text-align:center;line-height:1.3;
+}
+@media (max-width:360px){
+  .dc-pal-dot{width:44px;height:44px}
+  .dc-pal-nm{font-size:10px;letter-spacing:1.2px}
+}
+
   </style>
 </head>
 <body>
@@ -2838,7 +2910,7 @@ body.gbx-locked{overflow:hidden}
 
 <!-- AUDIO -->
 <audio id="bgMusic" loop preload="none">
-  <source src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-renata-paola-gonzalez/cancion.mp3" type="audio/mpeg">
+  <source src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-renata-paola-gonzalez/cancion2.mp3" type="audio/mpeg">
 </audio>
 
 <!-- MUSIC BTN — disco de vinil -->
@@ -3344,6 +3416,29 @@ body.gbx-locked{overflow:hidden}
         <span class="dc-card-txt">vestido</span>
       </figcaption>
     </figure>
+  </div>
+
+  <div class="dc-palette">
+    <p class="dc-pal-ttl">Paleta sugerida</p>
+    <p class="dc-pal-sub">Tonos que acompañan la noche del evento</p>
+    <div class="dc-pal-grid">
+      <div class="dc-pal-item">
+        <span class="dc-pal-dot" style="background:linear-gradient(150deg,#2A2A30,#101014)"></span>
+        <span class="dc-pal-nm">Negro</span>
+      </div>
+      <div class="dc-pal-item">
+        <span class="dc-pal-dot" style="background:linear-gradient(150deg,#E4D8C4,#D4C5B2)"></span>
+        <span class="dc-pal-nm">Champagne</span>
+      </div>
+      <div class="dc-pal-item">
+        <span class="dc-pal-dot" style="background:linear-gradient(150deg,#F7F2EA,#EFE8DF)"></span>
+        <span class="dc-pal-nm">Marfil</span>
+      </div>
+      <div class="dc-pal-item">
+        <span class="dc-pal-dot" style="background:linear-gradient(150deg,#2C4C78,#1E3A5F)"></span>
+        <span class="dc-pal-nm">Marino</span>
+      </div>
+    </div>
   </div>
 
   <div class="dc-avoid" id="dcNote">
@@ -4148,15 +4243,22 @@ function tryAutoMusic() {
   const p = musicEl.play();
   if (p && typeof p.catch === 'function') {
     p.catch(() => {
+      /* El navegador bloquea el audio hasta que haya un gesto del
+         usuario: no hay forma de saltarse eso. Enganchamos todos los
+         gestos posibles para que arranque en el primer contacto —
+         en la práctica, el toque para abrir el sobre. */
+      const EVS = ['pointerdown','click','touchstart','touchend','keydown','scroll','wheel'];
       const onFirst = () => {
         startMusic();
-        document.removeEventListener('click', onFirst);
-        document.removeEventListener('touchstart', onFirst);
-        document.removeEventListener('scroll', onFirst);
+        EVS.forEach(function(ev){ document.removeEventListener(ev, onFirst, true); });
       };
-      document.addEventListener('click', onFirst);
-      document.addEventListener('touchstart', onFirst, { passive: true });
-      document.addEventListener('scroll', onFirst);
+      EVS.forEach(function(ev){
+        document.addEventListener(ev, onFirst, {capture:true, passive:true});
+      });
+      /* y un reintento al volver a la pestaña */
+      document.addEventListener('visibilitychange', function(){
+        if(!document.hidden && musicEl && musicEl.paused) startMusic();
+      });
     });
   }
 }
@@ -4973,7 +5075,7 @@ function drawRail(){
   window.__mtrTween = gsap.to(live, {
     strokeDashoffset: 0, ease: 'none',
     scrollTrigger: {
-      trigger: '#itinerary', start: 'top 72%', end: 'bottom 62%', scrub: 1,
+      trigger: '#itinerary', start: 'top 88%', end: 'bottom 18%', scrub: 2.4,
       onUpdate: function(self){
         placeTrain(self.progress);
         if(train) train.classList.toggle('is-riding', self.progress > 0.01 && self.progress < 0.995);
