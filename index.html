@@ -3839,7 +3839,8 @@ function launchPage() {
      (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
   [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
    heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
-   initSkyline, initMetro, initDateHero, initGiftBox, initEnvRain].forEach(function (fn) {
+   initSkyline, initMetro, initDateHero, initGiftBox, initEnvRain,
+   initDressLooks].forEach(function (fn) {
     try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
   });
   setInterval(countdown, 1000);
