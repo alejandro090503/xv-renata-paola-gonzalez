@@ -2750,66 +2750,27 @@ body.gbx-locked{overflow:hidden}
    perdían (el glow no bastaba), así que el lienzo va en rosa
    claro y el contraste lo da la propia tarjeta.
    ============================================================ */
-.dc-figures{
-  display:grid;grid-template-columns:1fr 1fr;gap:16px;
-  max-width:420px;margin:30px auto 0;padding:0 4px;
-}
-.dc-card{
-  margin:0;display:flex;flex-direction:column;
-  border-radius:16px;overflow:hidden;
-  border:1px solid rgba(232,180,168,.5);
-  background:linear-gradient(168deg,#FBE4DD 0%,#F0C7BC 52%,#E3AFA2 100%);
-  box-shadow:0 16px 40px rgba(0,0,0,.5),
-             0 0 26px rgba(232,180,168,.22),
-             inset 0 1px 0 rgba(255,255,255,.6);
-}
+
+
 /* lienzo de la figura */
-.dc-card-art{
-  position:relative;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:18px 10px 0;min-height:196px;
-}
+
 /* viñeta suave para que la figura no flote sobre un plano liso */
-.dc-card-art::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 68% 58% at 50% 74%,
-    rgba(255,255,255,.6) 0%, transparent 66%);
-}
+
 /* sombra de apoyo en el suelo */
-.dc-card-art::after{
-  content:'';position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
-  width:64%;height:12px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(120,72,62,.34) 0%,transparent 70%);
-  filter:blur(2px);
-}
-.dc-card-art img{
-  position:relative;z-index:1;
-  height:186px;width:auto;display:block;
-  filter:drop-shadow(0 6px 10px rgba(90,56,48,.28));
-}
+
+
 
 /* pie de la tarjeta */
-.dc-card-cap{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:12px 8px 15px;
-  background:linear-gradient(180deg,rgba(90,56,48,.10),rgba(90,56,48,.20));
-  border-top:1px solid rgba(255,255,255,.45);
-}
-.dc-card-rol{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:19px;font-weight:600;letter-spacing:.5px;color:#4A2C25;
-}
-.dc-card-txt{
-  font-family:'Inter',sans-serif;font-weight:700;font-size:11px;
-  letter-spacing:2.6px;text-transform:uppercase;color:#6B4038;
-}
+
+
+
 
 @media (max-width:360px){
-  .dc-figures{gap:11px}
-  .dc-card-art{min-height:168px;padding:14px 6px 0}
-  .dc-card-art img{height:158px}
-  .dc-card-rol{font-size:17px}
-  .dc-card-txt{font-size:10px;letter-spacing:2px}
+  
+  
+  
+  
+  
 }
 
 
@@ -2999,7 +2960,7 @@ body.gbx-locked{overflow:hidden}
 }
 /* la X va en la esquina superior derecha de la imagen */
 .dc-viewer-close{
-  position:absolute;top:-16px;right:-16px;z-index:2;
+  position:absolute;top:12px;right:12px;z-index:2;
   width:44px;height:44px;border-radius:50%;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   color:#2A1410;border:1px solid rgba(255,255,255,.5);
@@ -3010,7 +2971,7 @@ body.gbx-locked{overflow:hidden}
 .dc-viewer-close:hover{transform:scale(1.08) rotate(90deg)}
 .dc-viewer-close svg{width:20px;height:20px}
 @media (max-width:420px){
-  .dc-viewer-close{top:-14px;right:-8px;width:40px;height:40px}
+  .dc-viewer-close{top:9px;right:9px;width:40px;height:40px}
 }
 @media (prefers-reduced-motion:reduce){
   .dc-look,.dc-look-arrow,.dc-script{animation:none !important}
