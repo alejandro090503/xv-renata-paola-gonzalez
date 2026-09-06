@@ -2884,6 +2884,138 @@ body.gbx-locked{overflow:hidden}
   .dc-pal-nm{font-size:10px;letter-spacing:1.2px}
 }
 
+
+/* ============================================================
+   VESTIMENTA · cabecera editorial + botones de looks
+   ============================================================ */
+.dc-eyebrow{
+  font-family:'Inter',sans-serif !important;font-weight:600 !important;
+  font-size:12px !important;letter-spacing:.62em !important;
+  text-transform:uppercase;padding-left:.62em;
+}
+.dc-script{
+  font-family:'Great Vibes',cursive;font-weight:400;
+  font-size:clamp(52px,15vw,86px);line-height:1.06;margin:6px 0 2px;
+  background-image:linear-gradient(100deg,
+    #A85D4B 0%, #C4735D 12%, #DD8A72 24%, #F4B39D 36%,
+    #FFD9CB 44%, #EC9E86 54%, #DD8A72 66%, #C4735D 78%,
+    #EC9E86 90%, #A85D4B 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 6s linear infinite;
+  padding-left:.14em;padding-right:.14em;
+  margin-left:-.14em;margin-right:-.14em;
+  filter:drop-shadow(0 4px 16px rgba(0,0,0,.55)) drop-shadow(0 0 12px rgba(232,138,114,.4));
+}
+.dc-main-label{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(19px,5vw,25px);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rose-lt);
+  text-align:center;margin:18px auto 6px;max-width:22ch;line-height:1.4;
+  -webkit-text-fill-color:initial;background-image:none;animation:none;
+}
+
+/* — Botones de looks — */
+.dc-looks{
+  display:flex;flex-direction:column;gap:12px;
+  max-width:400px;margin:26px auto 0;padding:0 4px;
+}
+.dc-look{
+  display:flex;align-items:center;gap:14px;width:100%;
+  padding:15px 16px;cursor:pointer;
+  border-radius:14px;
+  border:1px solid rgba(232,154,136,.5);
+  background:linear-gradient(120deg,rgba(232,154,136,.18),rgba(201,204,209,.1));
+  box-shadow:0 10px 26px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.1);
+  transition:transform .22s var(--spring), box-shadow .22s var(--smooth),
+             border-color .22s var(--smooth), background .22s var(--smooth);
+  -webkit-tap-highlight-color:transparent;
+  /* respiración sutil: invita a tocarlo */
+  animation:dcLookBreathe 3.4s ease-in-out infinite;
+}
+.dc-looks .dc-look:nth-child(2){animation-delay:1.7s}
+@keyframes dcLookBreathe{
+  0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.45), 0 0 0 0 rgba(232,154,136,0), inset 0 1px 0 rgba(255,255,255,.1)}
+  50%    {box-shadow:0 10px 26px rgba(0,0,0,.45), 0 0 22px 2px rgba(232,154,136,.3), inset 0 1px 0 rgba(255,255,255,.1)}
+}
+.dc-look:hover,.dc-look:focus-visible{
+  transform:translateY(-3px);
+  border-color:rgba(244,179,157,.85);
+  background:linear-gradient(120deg,rgba(232,154,136,.3),rgba(201,204,209,.16));
+  outline:none;
+}
+.dc-look:active{transform:translateY(-1px) scale(.985)}
+.dc-look:focus-visible{box-shadow:0 0 0 3px rgba(244,179,157,.55)}
+
+.dc-look-ico{
+  flex:0 0 auto;width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#2A1410;
+  background:linear-gradient(140deg,#F4B39D,#E79A88 52%,#A85D4B);
+  box-shadow:0 4px 12px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.dc-look-ico svg{width:24px;height:24px}
+.dc-look-txt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex:1;text-align:left}
+.dc-look-rol{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:21px;color:var(--paper);line-height:1.15;
+}
+.dc-look-cta{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:11.5px;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--rose-lt);
+}
+.dc-look-arrow{
+  flex:0 0 auto;width:22px;height:22px;color:var(--rose-lt);
+  animation:dcArrowNudge 1.9s ease-in-out infinite;
+}
+.dc-look-arrow svg{width:100%;height:100%}
+@keyframes dcArrowNudge{0%,100%{transform:translateX(0);opacity:.65}50%{transform:translateX(4px);opacity:1}}
+
+/* — Visor a pantalla completa — */
+.dc-viewer{
+  position:fixed;inset:0;z-index:9997;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(8,8,10,.82);
+  backdrop-filter:blur(16px) saturate(.9);
+  -webkit-backdrop-filter:blur(16px) saturate(.9);
+  opacity:0;transition:opacity .3s var(--smooth);
+}
+.dc-viewer.on{opacity:1}
+.dc-viewer-fig{
+  margin:0;position:relative;max-width:min(94vw,620px);
+  transform:scale(.94);transition:transform .34s var(--spring);
+}
+.dc-viewer.on .dc-viewer-fig{transform:scale(1)}
+.dc-viewer-fig img{
+  display:block;width:100%;height:auto;max-height:76vh;object-fit:contain;
+  border-radius:14px;background:#fff;
+  box-shadow:0 24px 70px rgba(0,0,0,.72), 0 0 0 1px rgba(232,154,136,.4);
+}
+.dc-viewer-fig figcaption{
+  margin-top:14px;text-align:center;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:2.6px;text-transform:uppercase;color:var(--rose-lt);
+}
+/* la X va en la esquina superior derecha de la imagen */
+.dc-viewer-close{
+  position:absolute;top:-16px;right:-16px;z-index:2;
+  width:44px;height:44px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#2A1410;border:1px solid rgba(255,255,255,.5);
+  background:linear-gradient(140deg,#F4B39D,#E79A88 55%,#A85D4B);
+  box-shadow:0 8px 22px rgba(0,0,0,.6);
+  transition:transform .2s var(--spring);
+}
+.dc-viewer-close:hover{transform:scale(1.08) rotate(90deg)}
+.dc-viewer-close svg{width:20px;height:20px}
+@media (max-width:420px){
+  .dc-viewer-close{top:-14px;right:-8px;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  .dc-look,.dc-look-arrow,.dc-script{animation:none !important}
+}
+
   </style>
 </head>
 <body>
@@ -2909,7 +3041,7 @@ body.gbx-locked{overflow:hidden}
 <div id="prog"></div>
 
 <!-- AUDIO -->
-<audio id="bgMusic" loop preload="none">
+<audio id="bgMusic" loop preload="metadata" playsinline>
   <source src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-renata-paola-gonzalez/cancion2.mp3" type="audio/mpeg">
 </audio>
 
@@ -3389,33 +3521,50 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 9. DRESS CODE ════════════════════ -->
 <section id="dresscode">
-  <span class="lbl">Vestimenta</span>
-  <h2 class="ttl">Código de Vestimenta</h2>
+  <span class="lbl dc-eyebrow">Etiqueta</span>
+  <h2 class="dc-script">Dress Code</h2>
   <div class="gline"></div>
 
-  <p class="dc-main-label" style="text-align:center;margin:16px 0 8px">Casual Formal</p>
+  <p class="dc-main-label">Casual Formal &middot; Elegancia Nocturna</p>
   <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#E8EAED;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
 
-  <div class="dc-figures">
-    <figure class="dc-card">
-      <div class="dc-card-art">
-        <img src="assets/caballero.png" decoding="async" alt="Caballero, casual formal">
-      </div>
-      <figcaption class="dc-card-cap">
-        <span class="dc-card-rol">Caballeros</span>
-        <span class="dc-card-txt">casual formal</span>
-      </figcaption>
-    </figure>
+  <div class="dc-looks">
+    <button class="dc-look" type="button" data-look="caballeros"
+            aria-label="Ver ideas de vestimenta para caballeros">
+      <span class="dc-look-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3l4 3 4-3 3 2.2c1.2.9 1.9 2.3 1.9 3.8V21H3V9c0-1.5.7-2.9 1.9-3.8L8 3z"/>
+          <path d="M12 6v15"/><path d="M9.4 4.2L12 9l2.6-4.8"/>
+        </svg>
+      </span>
+      <span class="dc-look-txt">
+        <span class="dc-look-rol">Caballeros</span>
+        <span class="dc-look-cta">Ver ideas</span>
+      </span>
+      <span class="dc-look-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </span>
+    </button>
 
-    <figure class="dc-card">
-      <div class="dc-card-art">
-        <img src="assets/dama.png" decoding="async" alt="Dama, casual formal">
-      </div>
-      <figcaption class="dc-card-cap">
-        <span class="dc-card-rol">Damas</span>
-        <span class="dc-card-txt">vestido</span>
-      </figcaption>
-    </figure>
+    <button class="dc-look" type="button" data-look="damas"
+            aria-label="Ver ideas de vestimenta para damas">
+      <span class="dc-look-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3h6l-1.4 5.2L21 21H3l7.4-12.8L9 3z"/><path d="M10.6 8.2h2.8"/>
+        </svg>
+      </span>
+      <span class="dc-look-txt">
+        <span class="dc-look-rol">Damas</span>
+        <span class="dc-look-cta">Ver ideas</span>
+      </span>
+      <span class="dc-look-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </span>
+    </button>
   </div>
 
   <div class="dc-palette">
@@ -3450,6 +3599,18 @@ body.gbx-locked{overflow:hidden}
         <span class="dc-av-nm">Rosa malva</span>
       </div>
     </div>
+  </div>
+
+  <div class="dc-viewer" id="dcViewer" role="dialog" aria-modal="true"
+       aria-label="Ideas de vestimenta" hidden>
+    <button class="dc-viewer-close" id="dcViewerClose" type="button" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="dc-viewer-fig">
+      <img id="dcViewerImg" alt="">
+      <figcaption id="dcViewerCap"></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -4225,8 +4386,7 @@ if (musicEl) {
 
 function startMusic() {
   if (!musicEl) return;
-  const p = musicEl.play();
-  if (p && typeof p.catch === 'function') p.catch(() => {});
+  unlockMusic();
 }
 
 if (musicBtn) {
@@ -4238,32 +4398,55 @@ if (musicBtn) {
 }
 
 // Autoplay: intenta al cargar; si el navegador lo bloquea, arranca en la primera interacción
-function tryAutoMusic() {
+/* Arranque de la música.
+   Los navegadores no permiten sonido sin un gesto del usuario, así que:
+   1) se intenta el autoplay al cargar (funciona si el navegador lo permite);
+   2) pase lo que pase, se arma el desbloqueo en el primer gesto — y el
+      primero siempre es el toque sobre el sobre.
+   El intento va DENTRO del gesto, que es lo que exige iOS. */
+var __musicArmed = false;
+
+function unlockMusic() {
   if (!musicEl) return;
-  const p = musicEl.play();
+  try { musicEl.muted = false; musicEl.volume = 1; } catch (e) {}
+  try { musicEl.load(); } catch (e) {}
+  var p = musicEl.play();
   if (p && typeof p.catch === 'function') {
-    p.catch(() => {
-      /* El navegador bloquea el audio hasta que haya un gesto del
-         usuario: no hay forma de saltarse eso. Enganchamos todos los
-         gestos posibles para que arranque en el primer contacto —
-         en la práctica, el toque para abrir el sobre. */
-      const EVS = ['pointerdown','click','touchstart','touchend','keydown','scroll','wheel'];
-      const onFirst = () => {
-        startMusic();
-        EVS.forEach(function(ev){ document.removeEventListener(ev, onFirst, true); });
-      };
-      EVS.forEach(function(ev){
-        document.addEventListener(ev, onFirst, {capture:true, passive:true});
-      });
-      /* y un reintento al volver a la pestaña */
-      document.addEventListener('visibilitychange', function(){
-        if(!document.hidden && musicEl && musicEl.paused) startMusic();
-      });
+    p.catch(function () {
+      /* si aún no hay datos, reintenta en cuanto los haya */
+      musicEl.addEventListener('canplay', function () {
+        musicEl.play().catch(function () {});
+      }, { once: true });
     });
   }
 }
-if (musicEl && musicEl.readyState >= 2) tryAutoMusic();
-else if (musicEl) musicEl.addEventListener('canplay', tryAutoMusic, { once: true });
+
+function armMusicUnlock() {
+  if (__musicArmed || !musicEl) return;
+  __musicArmed = true;
+  var EVS = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown', 'scroll', 'wheel'];
+  var onFirst = function () {
+    unlockMusic();
+    if (!musicEl.paused) {
+      EVS.forEach(function (ev) { document.removeEventListener(ev, onFirst, true); });
+    }
+  };
+  EVS.forEach(function (ev) {
+    document.addEventListener(ev, onFirst, { capture: true, passive: true });
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && musicEl.paused) unlockMusic();
+  });
+}
+
+function tryAutoMusic() {
+  if (!musicEl) return;
+  armMusicUnlock();          // siempre, aunque el autoplay funcione
+  var p = musicEl.play();
+  if (p && typeof p.catch === 'function') p.catch(function () {});
+}
+
+if (musicEl) tryAutoMusic();
 
 /* ── RSVP — PANEL DE INVITADOS (diseño boda-jennifer) ── */
 (function(){
@@ -5143,6 +5326,50 @@ function initDateHero(){
 }
 
 
+
+
+/* ============================================================
+   VESTIMENTA · visor de looks
+   ============================================================ */
+function initDressLooks(){
+  var viewer = document.getElementById('dcViewer');
+  if(!viewer) return;
+  var img   = document.getElementById('dcViewerImg');
+  var cap   = document.getElementById('dcViewerCap');
+  var close = document.getElementById('dcViewerClose');
+  var LOOKS = {
+    caballeros:{src:'assets/look-caballeros.jpg', cap:'Caballeros · Casual formal',
+                alt:'Ideas de vestimenta casual formal para caballeros'},
+    damas:     {src:'assets/look-damas.jpg',      cap:'Damas · Casual formal',
+                alt:'Ideas de vestimenta casual formal para damas'}
+  };
+  var lastFocus = null;
+
+  function open(key){
+    var d = LOOKS[key]; if(!d) return;
+    lastFocus = document.activeElement;
+    img.src = d.src; img.alt = d.alt; cap.textContent = d.cap;
+    viewer.removeAttribute('hidden');
+    requestAnimationFrame(function(){ viewer.classList.add('on'); });
+    document.body.style.overflow = 'hidden';
+    close.focus();
+  }
+  function hide(){
+    viewer.classList.remove('on');
+    document.body.style.overflow = '';
+    setTimeout(function(){ viewer.setAttribute('hidden',''); }, 320);
+    if(lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.dc-look').forEach(function(btn){
+    btn.addEventListener('click', function(){ open(btn.dataset.look); });
+  });
+  close.addEventListener('click', hide);
+  viewer.addEventListener('click', function(e){ if(e.target === viewer) hide(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && viewer.classList.contains('on')) hide();
+  });
+}
 
 </script>
 
