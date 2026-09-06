@@ -3915,9 +3915,9 @@ function initEnvelope() {
       gsap.set(flash, { opacity: 1 });
       runNyCollage(revealPage);
     };
-    window.__flashFallback = setTimeout(alCollage, 2200);
+    window.__flashFallback = setTimeout(alCollage, 1500);
     gsap.to(flash, {
-      opacity: 1, duration: 1.2, ease: 'power2.inOut',
+      opacity: 1, duration: .9, ease: 'power2.inOut',
       onComplete: alCollage
     });
   };
@@ -3951,7 +3951,7 @@ function initEnvelope() {
       if (flashing) return;
       const d = vid.duration;
       if (!d || isNaN(d) || !isFinite(d)) return;
-      if (vid.currentTime >= d - 2.2) triggerFlash();
+      if (vid.currentTime >= d - 3.4) triggerFlash();
     });
 
     // Fallback: si 'timeupdate' no cumple a tiempo
