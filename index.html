@@ -3889,6 +3889,8 @@ function initEnvelope() {
     screen.style.display = 'none';
     wrap.classList.add('visible');
     launchPage();
+    /* por si el fade de abajo no llegara a correr */
+    setTimeout(function () { if (flash) flash.style.display = 'none'; }, 2000);
     // Disolución del flash revelando la invitación
     gsap.to(flash, {
       opacity: 0, duration: 1.2, ease: 'power2.out', delay: .05,
@@ -3899,14 +3901,24 @@ function initEnvelope() {
   const triggerFlash = () => {
     if (flashing) return;
     flashing = true;
-    /* Funde a negro, congela el video y entrega el turno al collage */
+    /* Funde a negro, congela el video y entrega el turno al collage.
+       El paso NO puede depender solo del onComplete de GSAP: si la
+       animación se retrasa o no corre, el invitado se quedaría
+       atrapado en el sobre. Por eso va con temporizador de respaldo. */
+    var pasado = false;
+    var alCollage = function () {
+      if (pasado) return;
+      pasado = true;
+      clearTimeout(window.__flashFallback);
+      try { vid.pause(); } catch (e) {}
+      screen.style.display = 'none';
+      gsap.set(flash, { opacity: 1 });
+      runNyCollage(revealPage);
+    };
+    window.__flashFallback = setTimeout(alCollage, 2200);
     gsap.to(flash, {
       opacity: 1, duration: 1.2, ease: 'power2.inOut',
-      onComplete: function () {
-        try { vid.pause(); } catch (e) {}
-        screen.style.display = 'none';
-        runNyCollage(revealPage);
-      }
+      onComplete: alCollage
     });
   };
 
