@@ -119,7 +119,7 @@ section{padding:64px 22px}
 }
 #env-flash{
   position:fixed;inset:0;z-index:9999;
-  background:#fff;opacity:0;pointer-events:none;
+  background:#000;opacity:0;pointer-events:none;
   will-change:opacity;
 }
 @media(prefers-reduced-motion:reduce){
@@ -2978,6 +2978,54 @@ body.gbx-locked{overflow:hidden}
   .dc-look,.dc-look-arrow,.dc-script{animation:none !important}
 }
 
+
+/* ============================================================
+   COLLAGE DE NUEVA YORK
+   Cuando el video del sobre está por terminar, la pantalla se
+   funde a negro y las postales de la ciudad entran una a una en
+   grande; cada una se acomoda después en su sitio hasta armar
+   el collage. Luego todo se disuelve sobre la invitación.
+   ============================================================ */
+#nyCollage{
+  position:fixed;inset:0;z-index:9998;
+  background:#000;opacity:0;pointer-events:none;
+  display:none;
+}
+#nyCollage.on{display:block}
+.nyc-stage{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:min(94vw,760px);height:min(88vh,900px);
+}
+.nyc-pic{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  opacity:0;will-change:transform,opacity;
+  border-radius:8px;overflow:hidden;
+  background:#0B0B0D;
+  border:2px solid rgba(255,255,255,.9);
+  box-shadow:0 18px 46px rgba(0,0,0,.85);
+}
+.nyc-pic img{
+  display:block;width:100%;height:100%;object-fit:cover;
+}
+/* brillo rosado que recorre la postal al entrar */
+.nyc-pic::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 35%,rgba(244,179,157,.32) 50%,transparent 65%);
+  opacity:0;
+}
+.nyc-cap{
+  position:absolute;left:50%;bottom:5%;transform:translateX(-50%);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:12px;
+  letter-spacing:.52em;text-transform:uppercase;color:rgba(244,179,157,.92);
+  padding-left:.52em;opacity:0;white-space:nowrap;
+  text-shadow:0 2px 12px rgba(0,0,0,.9);
+}
+@media (max-width:420px){
+  .nyc-cap{font-size:10.5px;letter-spacing:.36em}
+}
+
   </style>
 </head>
 <body>
@@ -2995,6 +3043,11 @@ body.gbx-locked{overflow:hidden}
   <div id="env-tap-hint">Toca para abrir</div>
 </div>
 <div id="env-flash" aria-hidden="true"></div>
+
+<!-- COLLAGE DE NUEVA YORK · entre el sobre y la invitación -->
+<div id="nyCollage" aria-hidden="true">
+  <div class="nyc-stage" id="nycStage"></div>
+</div>
 
 <!-- MAIN WRAP (oculto hasta abrir sobre) -->
 <div class="main-wrap">
@@ -3846,9 +3899,14 @@ function initEnvelope() {
   const triggerFlash = () => {
     if (flashing) return;
     flashing = true;
+    /* Funde a negro, congela el video y entrega el turno al collage */
     gsap.to(flash, {
-      opacity: 1, duration: 1.6, ease: 'power2.inOut',
-      onComplete: revealPage
+      opacity: 1, duration: 1.2, ease: 'power2.inOut',
+      onComplete: function () {
+        try { vid.pause(); } catch (e) {}
+        screen.style.display = 'none';
+        runNyCollage(revealPage);
+      }
     });
   };
 
@@ -3881,7 +3939,7 @@ function initEnvelope() {
       if (flashing) return;
       const d = vid.duration;
       if (!d || isNaN(d) || !isFinite(d)) return;
-      if (vid.currentTime >= d - 2) triggerFlash();
+      if (vid.currentTime >= d - 2.2) triggerFlash();
     });
 
     // Fallback: si 'timeupdate' no cumple a tiempo
@@ -5333,6 +5391,107 @@ function initDressLooks(){
     if(e.key === 'Escape' && viewer.classList.contains('on')) hide();
   });
 }
+
+
+/* ============================================================
+   COLLAGE DE NUEVA YORK
+   Cada postal entra grande y centrada, se sostiene un instante
+   y vuela a su lugar quedando por detrás de la siguiente.
+   ============================================================ */
+var NY_PICS = [
+  {f:'ny1.jpg',  x:17, y:11, w:30, r:-7, cap:'Wall Street'},
+  {f:'ny2.jpg',  x:50, y:8,  w:29, r:4,  cap:'Charging Bull'},
+  {f:'ny3.jpg',  x:82, y:14, w:27, r:8,  cap:'The Vessel'},
+  {f:'ny4.jpg',  x:14, y:36, w:28, r:6,  cap:'Flatiron'},
+  {f:'ny5.jpg',  x:47, y:33, w:31, r:-5, cap:'Central Park'},
+  {f:'ny6.jpg',  x:81, y:40, w:27, r:7,  cap:'Manhattan'},
+  {f:'ny7.jpg',  x:16, y:62, w:28, r:-8, cap:'Manhattan Bridge'},
+  {f:'ny8.jpg',  x:48, y:60, w:30, r:3,  cap:'Times Square'},
+  {f:'ny9.jpg',  x:82, y:66, w:27, r:-6, cap:'Brooklyn Bridge'},
+  {f:'ny10.jpg', x:40, y:86, w:29, r:9,  cap:'Lady Liberty'}
+];
+
+/* Precarga: si las postales no están listas, el collage se ve vacío */
+function preloadNy(){
+  NY_PICS.forEach(function(p){
+    var i = new Image();
+    i.src = 'assets/ny/' + p.f;
+    p._img = i;
+  });
+}
+
+function runNyCollage(done){
+  var layer = document.getElementById('nyCollage');
+  var stage = document.getElementById('nycStage');
+  if(!layer || !stage || !window.gsap){ done(); return; }
+
+  layer.classList.add('on');
+  gsap.set(layer, {opacity:1});
+  stage.innerHTML = '';
+
+  var sw = stage.clientWidth, sh = stage.clientHeight;
+  var cap = document.createElement('div');
+  cap.className = 'nyc-cap';
+  layer.appendChild(cap);
+
+  /* tamaño de la postal cuando está grande al centro */
+  var bigW = Math.min(sw * 0.74, sh * 0.5);
+
+  var nodes = NY_PICS.map(function(p, i){
+    var el = document.createElement('div');
+    el.className = 'nyc-pic';
+    var fw = sw * p.w / 100;
+    el.style.width  = fw + 'px';
+    el.style.height = (fw * 1.34) + 'px';
+    el.style.left = p.x + '%';
+    el.style.top  = p.y + '%';
+    el.style.zIndex = 10 + i;
+    var img = document.createElement('img');
+    img.src = 'assets/ny/' + p.f; img.alt = '';
+    el.appendChild(img);
+    stage.appendChild(el);
+    return {el:el, img:img, fw:fw, p:p};
+  });
+
+  var tl = gsap.timeline({
+    onComplete: function(){
+      gsap.to(layer, {
+        opacity:0, duration:1.1, ease:'power2.out',
+        onComplete: function(){ layer.classList.remove('on'); done(); }
+      });
+    }
+  });
+
+  nodes.forEach(function(n, i){
+    var el = n.el, p = n.p;
+    /* desplazamiento desde su sitio final hasta el centro del escenario */
+    var cx = sw * p.x / 100, cy = sh * p.y / 100;
+    var dx = sw / 2 - cx, dy = sh / 2 - cy;
+    var sc = bigW / n.fw;
+
+    gsap.set(el, {x:dx, y:dy, scale:sc, rotation:0, opacity:0, zIndex:10 + i});
+
+    var at = i * 0.52;
+    /* entra grande */
+    tl.to(el, {opacity:1, duration:.34, ease:'power2.out'}, at)
+      .fromTo(el, {scale:sc * 1.1}, {scale:sc, duration:.55, ease:'power3.out'}, at)
+      /* destello rosado sobre la postal */
+      .fromTo(el.querySelector('img'), {filter:'brightness(1.35)'},
+              {filter:'brightness(1)', duration:.6, ease:'power2.out'}, at)
+      /* el nombre del lugar acompaña a la postal */
+      .to(cap, {opacity:0, duration:.14, ease:'none',
+                onComplete:function(){ cap.textContent = p.cap; }}, at)
+      .to(cap, {opacity:1, duration:.3, ease:'power2.out'}, at + .16)
+      /* y se acomoda en su lugar, detrás de la que viene */
+      .to(el, {x:0, y:0, scale:1, rotation:p.r, duration:.72, ease:'power2.inOut'},
+          at + .52);
+  });
+
+  /* el collage completo se sostiene un momento */
+  tl.to(cap, {opacity:0, duration:.4, ease:'power2.out'}, '>-0.1');
+  tl.to(stage, {scale:1.04, duration:1.5, ease:'power1.inOut'}, '<-0.6');
+}
+preloadNy();
 
 </script>
 
