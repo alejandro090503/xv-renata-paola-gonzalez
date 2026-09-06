@@ -5453,14 +5453,30 @@ function runNyCollage(done){
     return {el:el, img:img, fw:fw, p:p};
   });
 
-  var tl = gsap.timeline({
-    onComplete: function(){
-      gsap.to(layer, {
-        opacity:0, duration:1.1, ease:'power2.out',
-        onComplete: function(){ layer.classList.remove('on'); done(); }
-      });
-    }
-  });
+  /* Red de seguridad: pase lo que pase con la animación, la
+     invitación tiene que aparecer. Si la timeline no termina a
+     tiempo, cerramos por temporizador. */
+  var entregado = false;
+  function entregar(){
+    if(entregado) return;
+    entregado = true;
+    clearTimeout(window.__nycFallback);
+    gsap.to(layer, {
+      opacity:0, duration:1.1, ease:'power2.out',
+      onComplete: function(){ layer.classList.remove('on'); done(); }
+    });
+    /* y si ni ese fade corre, se cierra igual */
+    setTimeout(function(){
+      if(layer.classList.contains('on')){
+        gsap.set(layer, {opacity:0});
+        layer.classList.remove('on');
+        done();
+      }
+    }, 1600);
+  }
+  window.__nycFallback = setTimeout(entregar, 12000);
+
+  var tl = gsap.timeline({onComplete: entregar});
 
   nodes.forEach(function(n, i){
     var el = n.el, p = n.p;
@@ -5471,7 +5487,7 @@ function runNyCollage(done){
 
     gsap.set(el, {x:dx, y:dy, scale:sc, rotation:0, opacity:0, zIndex:10 + i});
 
-    var at = i * 0.52;
+    var at = i * 0.44;
     /* entra grande */
     tl.to(el, {opacity:1, duration:.34, ease:'power2.out'}, at)
       .fromTo(el, {scale:sc * 1.1}, {scale:sc, duration:.55, ease:'power3.out'}, at)
@@ -5484,7 +5500,7 @@ function runNyCollage(done){
       .to(cap, {opacity:1, duration:.3, ease:'power2.out'}, at + .16)
       /* y se acomoda en su lugar, detrás de la que viene */
       .to(el, {x:0, y:0, scale:1, rotation:p.r, duration:.72, ease:'power2.inOut'},
-          at + .52);
+          at + .5);
   });
 
   /* el collage completo se sostiene un momento */
