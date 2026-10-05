@@ -3026,6 +3026,87 @@ body.gbx-locked{overflow:hidden}
   .nyc-cap{font-size:10.5px;letter-spacing:.36em}
 }
 
+
+/* ============================================================
+   DRESS CODE v3 · título legible + carrusel de ideas
+   ============================================================ */
+#dresscode{text-align:center}
+#dresscode .lbl,#dresscode .gline{margin-left:auto;margin-right:auto}
+.dc-title{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-style:normal;
+  font-size:clamp(40px,11vw,62px);line-height:1.12;letter-spacing:.04em;
+  text-align:center;margin:8px auto 4px;display:block;
+  background-image:linear-gradient(100deg,
+    #A85D4B 0%, #C4735D 12%, #DD8A72 24%, #F4B39D 36%,
+    #FFD9CB 44%, #EC9E86 54%, #DD8A72 66%, #C4735D 78%,
+    #EC9E86 90%, #A85D4B 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:silverSweep 6s linear infinite;
+  filter:drop-shadow(0 4px 14px rgba(0,0,0,.5));
+}
+.dc-main-label,.dc-sub{text-align:center !important;margin-left:auto !important;margin-right:auto !important}
+.dc-looks{margin-left:auto;margin-right:auto}
+
+/* Visor */
+.dc-viewer{
+  position:fixed;inset:0;z-index:100000;
+  display:flex;align-items:center;justify-content:center;padding:18px;
+  background:rgba(8,8,10,.8);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  opacity:0;transition:opacity .28s ease;
+}
+.dc-viewer.on{opacity:1}
+.dcv-box{
+  position:relative;width:min(92vw,460px);
+  border-radius:18px;overflow:hidden;
+  background:linear-gradient(170deg,#1C1A1D 0%,#121114 100%);
+  border:1px solid rgba(232,154,136,.45);
+  box-shadow:0 26px 70px rgba(0,0,0,.75);
+  padding:16px 0 14px;
+}
+.dcv-head{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:21px;color:var(--rose-lt);text-align:center;margin:2px 56px 12px;
+}
+.dcv-track{display:flex;transition:transform .42s cubic-bezier(.25,.8,.25,1);touch-action:pan-y}
+.dcv-slide{
+  flex:0 0 100%;margin:0;height:min(62vh,520px);
+  display:flex;align-items:center;justify-content:center;padding:0 16px;
+}
+.dcv-slide img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:12px}
+.dcv-slide.is-foto img{background:#fff}
+/* los dibujos van sobre lienzo rosa: sobre negro se perdían */
+.dcv-slide.is-dibujo img{
+  height:100%;width:auto;padding:18px 34px;
+  background:radial-gradient(ellipse 70% 60% at 50% 60%,#FFF1EC 0%,#F6CFC3 60%,#E9B2A3 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);
+}
+.dcv-cap{
+  margin:12px 16px 8px;text-align:center;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:1.6px;text-transform:uppercase;color:var(--paper);
+}
+.dcv-dots{display:flex;justify-content:center;gap:9px}
+.dcv-dot{
+  width:9px;height:9px;border-radius:50%;padding:0;cursor:pointer;
+  border:1px solid rgba(244,179,157,.7);background:transparent;
+  transition:transform .2s,background .2s;
+}
+.dcv-dot.on{background:var(--rose);transform:scale(1.25)}
+.dcv-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:42px;height:42px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#2A1410;border:1px solid rgba(255,255,255,.5);
+  background:linear-gradient(140deg,#F4B39D,#E79A88 55%,#A85D4B);
+  box-shadow:0 6px 18px rgba(0,0,0,.55);
+}
+.dcv-nav svg{width:20px;height:20px}
+.dcv-prev{left:8px}.dcv-next{right:8px}
+.dc-viewer-close{position:absolute;top:10px;right:10px;z-index:4}
+
   </style>
 </head>
 <body>
@@ -3458,56 +3539,7 @@ body.gbx-locked{overflow:hidden}
 </section>
 
 
-<!-- ═══════════════ LLUVIA DE SOBRES ═══════════════ -->
-<section id="sobres">
-  <div class="env-rain" id="envRain" aria-hidden="true"></div>
-  <div class="env-stage">
-    <span class="lbl">Celebra conmigo</span>
-    <h2 class="ttl">Lluvia de Sobres</h2>
-    <div class="gline"></div>
 
-    <button class="env-interactive" id="envGift" type="button" aria-label="Sobre — toca para abrir" aria-expanded="false">
-      <div class="env-body" id="envGiftBody">
-        <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="envPaperRP" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stop-color="#1A1A20"/><stop offset="100%" stop-color="#26262E"/>
-            </linearGradient>
-          </defs>
-          <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#envPaperRP)" stroke="rgba(201,204,209,.45)" stroke-width="1.4"/>
-          <path d="M18 184 L130 110 L242 184" stroke="rgba(232,180,168,.4)" stroke-width="1" fill="none"/>
-        </svg>
-        <div class="env-flap-wrap" aria-hidden="true">
-          <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%;display:block">
-            <defs>
-              <linearGradient id="envFlapRP" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0%" stop-color="#22222A"/><stop offset="100%" stop-color="#2E2E38"/>
-              </linearGradient>
-            </defs>
-            <path d="M0 0 L112 86 L224 0 Z" fill="url(#envFlapRP)" stroke="rgba(201,204,209,.45)" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <svg class="env-seal" viewBox="0 0 60 60" aria-hidden="true">
-          <circle cx="30" cy="30" r="28" fill="#E8B4A8"/>
-          <circle cx="30" cy="30" r="28" fill="none" stroke="#B98679" stroke-width="2" opacity=".7"/>
-          <circle cx="30" cy="30" r="21.5" fill="none" stroke="#FBE4DD" stroke-width="1.1" opacity=".85"/>
-          <text x="30" y="38" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="24" fill="#5A3830">RP</text>
-        </svg>
-      </div>
-      <div class="env-open-content" aria-live="polite">
-        <svg class="env-mailbox-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <rect x="8" y="22" width="36" height="24" rx="5"/>
-          <path d="M8 30 Q26 38 44 30"/>
-          <rect x="18" y="8" width="16" height="16" rx="2"/>
-          <path d="M18 8 Q26 3 34 8"/>
-        </svg>
-        <p class="env-title">Lluvia de Sobres</p>
-        <p class="env-desc">El día del evento habrá lluvia de sobres.<br>Tu detalle será recibido con mucho cariño.</p>
-      </div>
-    </button>
-    <p class="env-tap-hint" id="envGiftHint">Toca el sobre</p>
-  </div>
-</section>
 
 
 <!-- ═══════════════ 8. ÁLBUM COMPARTIDO ══════════════ -->
@@ -3537,11 +3569,11 @@ body.gbx-locked{overflow:hidden}
 <!-- ═══════════════ 9. DRESS CODE ════════════════════ -->
 <section id="dresscode">
   <span class="lbl dc-eyebrow">Etiqueta</span>
-  <h2 class="dc-script">Dress Code</h2>
+  <h2 class="dc-title">Dress Code</h2>
   <div class="gline"></div>
 
   <p class="dc-main-label">Casual Formal &middot; Elegancia Nocturna</p>
-  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#E8EAED;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
+  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#D4C5B2;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
 
   <div class="dc-looks">
     <button class="dc-look" type="button" data-look="caballeros"
@@ -3618,14 +3650,24 @@ body.gbx-locked{overflow:hidden}
 
   <div class="dc-viewer" id="dcViewer" role="dialog" aria-modal="true"
        aria-label="Ideas de vestimenta" hidden>
-    <button class="dc-viewer-close" id="dcViewerClose" type="button" aria-label="Cerrar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-           stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <figure class="dc-viewer-fig">
-      <img id="dcViewerImg" alt="">
-      <figcaption id="dcViewerCap"></figcaption>
-    </figure>
+    <div class="dcv-box">
+      <button class="dc-viewer-close" id="dcViewerClose" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="dcv-head" id="dcvHead"></p>
+      <div class="dcv-track" id="dcvTrack"></div>
+      <button class="dcv-nav dcv-prev" id="dcvPrev" type="button" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="dcv-nav dcv-next" id="dcvNext" type="button" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <p class="dcv-cap" id="dcvCap"></p>
+      <div class="dcv-dots" id="dcvDots"></div>
+    </div>
   </div>
 </section>
 
@@ -3854,7 +3896,7 @@ function launchPage() {
      (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
   [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
    heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
-   initSkyline, initMetro, initDateHero, initGiftBox, initEnvRain,
+   initSkyline, initMetro, initDateHero, initGiftBox,
    initDressLooks].forEach(function (fn) {
     try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
   });
@@ -5146,91 +5188,6 @@ function initGiftBox(){
     ease:'power3.out', scrollTrigger:{trigger:'.gbx-stage', start:'top 88%', once:true}});
 }
 
-/* ============================================================
-   LLUVIA DE SOBRES · caen hasta que la sección se centra,
-   ahí aterriza uno y se puede abrir
-   ============================================================ */
-function initEnvRain(){
-  var sec  = document.getElementById('sobres');
-  var rain = document.getElementById('envRain');
-  var btn  = document.getElementById('envGift');
-  var body = document.getElementById('envGiftBody');
-  var hint = document.getElementById('envGiftHint');
-  if(!sec || !rain || !btn) return;
-
-  var raining = true, landed = false, spawnCall = null, alive = 0;
-  var MAX_ALIVE = 18;
-
-  function makeEnvelope(){
-    if(alive >= MAX_ALIVE) return;
-    alive++;
-    var el = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    el.setAttribute('viewBox','0 0 34 24');
-    el.setAttribute('class','env-rain-item');
-    var w = 16 + Math.random()*16;
-    el.style.width = w+'px';
-    el.style.height = (w*24/34)+'px';
-    el.style.left = (Math.random()*100)+'%';
-    el.innerHTML = '<rect x="1" y="1" width="32" height="22" rx="2.5" fill="#1E1E25" stroke="#E8B4A8" stroke-width="1.2"/>'+
-                   '<path d="M1 1 L17 13 L33 1" fill="none" stroke="#E8B4A8" stroke-width="1.2" stroke-linejoin="round"/>';
-    rain.appendChild(el);
-    var H = sec.offsetHeight + 80, dur = 5 + Math.random()*4;
-    function kill(){ if(el.parentNode){ el.remove(); alive--; } }
-    gsap.timeline({onComplete:kill})
-      .fromTo(el, {y:-46, x:0, rotation:(Math.random()-.5)*50, opacity:0},
-                  {y:H, x:(Math.random()-.5)*70, rotation:(Math.random()-.5)*160,
-                   duration:dur, ease:'none'}, 0)
-      .fromTo(el, {opacity:0}, {opacity:.75, duration:dur*.18, ease:'power1.out'}, 0)
-      .to(el, {opacity:0, duration:dur*.25, ease:'power1.in'}, dur*.75);
-  }
-
-  /* Spawn por el ticker de GSAP y no setInterval: se pausa con la pestaña
-     en segundo plano, así no se acumulan sobres. */
-  function scheduleSpawn(){
-    spawnCall = gsap.delayedCall(.52, function(){
-      if(!raining) return;
-      makeEnvelope();
-      scheduleSpawn();
-    });
-  }
-  function startRain(){
-    for(var i=0;i<7;i++) gsap.delayedCall(i*.26, makeEnvelope);
-    scheduleSpawn();
-  }
-  function stopRain(){
-    raining = false;
-    if(spawnCall) spawnCall.kill();
-    gsap.to(rain, {opacity:0, duration:1.1, ease:'power2.out',
-      onComplete:function(){ rain.innerHTML=''; alive=0; }});
-  }
-
-  function land(){
-    if(landed) return;
-    landed = true;
-    stopRain();
-    gsap.fromTo(btn, {opacity:0, y:-150, rotation:-12, scale:.82},
-      {opacity:1, y:0, rotation:0, scale:1, duration:1.15, ease:'back.out(1.5)',
-       onComplete:function(){
-         if(body) body.classList.add('landed');
-         if(hint) hint.classList.add('show');
-       }});
-  }
-
-  btn.addEventListener('click', function(){
-    var open = btn.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  startRain();
-  /* 'center 55%' y no 'center center': el reveal genérico desplaza 28px
-     las secciones aún no visibles y el umbral exacto nunca se alcanza. */
-  ScrollTrigger.create({trigger:sec, start:'center 55%', once:true,
-    onEnter:land, onEnterBack:land});
-  /* respaldo: si el trigger no llega a dispararse, aterriza igual */
-  ScrollTrigger.create({trigger:sec, start:'top 60%', once:true, onEnter:function(){
-    gsap.delayedCall(2.4, land);
-  }});
-}
 
 /* ============================================================
    ITINERARIO METRO · traza la vía y hace avanzar el tren
@@ -5362,46 +5319,98 @@ function initDateHero(){
 
 
 /* ============================================================
-   VESTIMENTA · visor de looks
+   VESTIMENTA · carrusel de ideas por botón
+   El visor se muda al body: dentro de la sección (que tiene
+   transform por el reveal) el position:fixed quedaba atrapado y
+   el visor no aparecía al tocar "Ver ideas".
    ============================================================ */
 function initDressLooks(){
   var viewer = document.getElementById('dcViewer');
   if(!viewer) return;
-  var img   = document.getElementById('dcViewerImg');
-  var cap   = document.getElementById('dcViewerCap');
+  if(viewer.parentNode !== document.body) document.body.appendChild(viewer);
+
+  var track = document.getElementById('dcvTrack');
+  var head  = document.getElementById('dcvHead');
+  var cap   = document.getElementById('dcvCap');
+  var dots  = document.getElementById('dcvDots');
   var close = document.getElementById('dcViewerClose');
+  var prev  = document.getElementById('dcvPrev');
+  var next  = document.getElementById('dcvNext');
+
   var LOOKS = {
-    caballeros:{src:'assets/look-caballeros.jpg', cap:'Caballeros · Casual formal',
-                alt:'Ideas de vestimenta casual formal para caballeros'},
-    damas:     {src:'assets/look-damas.jpg',      cap:'Damas · Casual formal',
-                alt:'Ideas de vestimenta casual formal para damas'}
+    caballeros: {head:'Caballeros · Casual formal', items:[
+      {src:'assets/look-caballeros.jpg', cap:'Inspiración', foto:true},
+      {src:'assets/looks/cab-1.png', cap:'Chaleco y pantalón de vestir'},
+      {src:'assets/looks/cab-2.png', cap:'Traje en tono arena'},
+      {src:'assets/looks/cab-3.png', cap:'Traje oscuro'}
+    ]},
+    damas: {head:'Damas · Casual formal', items:[
+      {src:'assets/look-damas.jpg', cap:'Inspiración', foto:true},
+      {src:'assets/looks/dama-1.png', cap:'Vestido en marfil'},
+      {src:'assets/looks/dama-2.png', cap:'Vestido marino'},
+      {src:'assets/looks/dama-3.png', cap:'Vestido champagne'}
+    ]}
   };
-  var lastFocus = null;
+  var items = [], idx = 0, lastFocus = null;
+
+  function render(){
+    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    cap.textContent = items[idx].cap + '  ·  ' + (idx + 1) + ' / ' + items.length;
+    [].forEach.call(dots.children, function(d, i){ d.classList.toggle('on', i === idx); });
+  }
+  function go(i){ idx = (i + items.length) % items.length; render(); }
 
   function open(key){
-    var d = LOOKS[key]; if(!d) return;
-    lastFocus = document.activeElement;
-    img.src = d.src; img.alt = d.alt; cap.textContent = d.cap;
+    var L = LOOKS[key]; if(!L) return;
+    items = L.items; idx = 0; lastFocus = document.activeElement;
+    head.textContent = L.head;
+    track.innerHTML = ''; dots.innerHTML = '';
+    items.forEach(function(it, i){
+      var sl = document.createElement('figure');
+      sl.className = 'dcv-slide' + (it.foto ? ' is-foto' : ' is-dibujo');
+      var im = document.createElement('img');
+      im.src = it.src; im.alt = L.head + ' — ' + it.cap; im.decoding = 'async';
+      sl.appendChild(im); track.appendChild(sl);
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'dcv-dot';
+      d.setAttribute('aria-label', 'Ver idea ' + (i + 1));
+      d.addEventListener('click', function(){ go(i); });
+      dots.appendChild(d);
+    });
+    render();
     viewer.removeAttribute('hidden');
-    requestAnimationFrame(function(){ viewer.classList.add('on'); });
+    viewer.classList.add('on');            // sin depender de rAF
     document.body.style.overflow = 'hidden';
     close.focus();
   }
   function hide(){
     viewer.classList.remove('on');
     document.body.style.overflow = '';
-    setTimeout(function(){ viewer.setAttribute('hidden',''); }, 320);
-    if(lastFocus) lastFocus.focus();
+    setTimeout(function(){ viewer.setAttribute('hidden',''); }, 300);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
   document.querySelectorAll('.dc-look').forEach(function(btn){
-    btn.addEventListener('click', function(){ open(btn.dataset.look); });
+    btn.addEventListener('click', function(e){ e.preventDefault(); open(btn.dataset.look); });
   });
   close.addEventListener('click', hide);
+  prev.addEventListener('click', function(e){ e.stopPropagation(); go(idx - 1); });
+  next.addEventListener('click', function(e){ e.stopPropagation(); go(idx + 1); });
   viewer.addEventListener('click', function(e){ if(e.target === viewer) hide(); });
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && viewer.classList.contains('on')) hide();
+    if(!viewer.classList.contains('on')) return;
+    if(e.key === 'Escape') hide();
+    if(e.key === 'ArrowLeft') go(idx - 1);
+    if(e.key === 'ArrowRight') go(idx + 1);
   });
+  /* deslizar con el dedo */
+  var x0 = null;
+  track.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    if(x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if(Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+  }, {passive:true});
 }
 
 
