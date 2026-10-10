@@ -3107,6 +3107,30 @@ body.gbx-locked{overflow:hidden}
 .dcv-prev{left:8px}.dcv-next{right:8px}
 .dc-viewer-close{position:absolute;top:10px;right:10px;z-index:4}
 
+
+/* ============================================================
+   TIPOGRAFÍA FORMAL en textos descriptivos
+   Great Vibes quedaba ilegible en frases largas (dress code,
+   nombres de padres y padrinos). Va en Cormorant Garamond; la
+   script se queda solo en acentos cortos.
+   ============================================================ */
+#dresscode .dc-main-label,
+#invite .inv-children,
+#padrinos .pad-names{
+  font-family:'Cormorant Garamond',serif !important;
+  font-style:normal !important;font-weight:600 !important;
+  line-height:1.4 !important;text-align:center !important;
+}
+#dresscode .dc-main-label{
+  font-size:clamp(17px,4.6vw,22px) !important;
+  letter-spacing:.16em !important;text-transform:uppercase;
+  max-width:26ch;margin:14px auto 6px !important;
+  color:var(--rose-lt) !important;-webkit-text-fill-color:var(--rose-lt) !important;
+  background:none !important;filter:none !important;animation:none !important;
+}
+#invite .inv-children{font-size:clamp(21px,5.6vw,26px) !important;letter-spacing:.03em !important}
+#padrinos .pad-names{font-size:clamp(20px,5.4vw,24px) !important;letter-spacing:.03em !important}
+
   </style>
 </head>
 <body>
