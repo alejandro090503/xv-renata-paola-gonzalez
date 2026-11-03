@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Elysium Invitaciones//XV Renata Paola//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:xv-renata-paola-20270403@elysium
+DTSTAMP:20261103T120000Z
+DTSTART;TZID=America/Mexico_City:20270403T180000
+DTEND;TZID=America/Mexico_City:20270404T020000
+SUMMARY:XV Años de Renata Paola
+LOCATION:Hotel Villa Béjar\, Av. Domingo Diez 2350\, Chamilpa\, Cuernavaca\, Mor.
+DESCRIPTION:Misa y Recepción. Horarios por confirmar.
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana son los XV de Renata Paola
+END:VALARM
+END:VEVENT
+END:VCALENDAR

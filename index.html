@@ -3131,6 +3131,112 @@ body.gbx-locked{overflow:hidden}
 #invite .inv-children{font-size:clamp(21px,5.6vw,26px) !important;letter-spacing:.03em !important}
 #padrinos .pad-names{font-size:clamp(20px,5.4vw,24px) !important;letter-spacing:.03em !important}
 
+
+/* ============================================================
+   AJUSTES DEL CLIENTE · nov 2026
+   Secciones clave sobre tarjeta clara para que el texto no se
+   pierda en el negro (invitación, celebración, regalos, pie).
+   ============================================================ */
+:root{--card-ink:#3B1A24;--card-ink2:#6B4038;--card-bg:#FBF6F3}
+
+/* — Tarjeta clara con doble filete rosa — */
+#invite .inv-wrap,#location .loc-card,#footer .ft-card{
+  background:var(--card-bg) !important;
+  border:1px solid rgba(168,93,75,.35) !important;
+  border-radius:18px !important;
+  box-shadow:0 22px 50px rgba(0,0,0,.55),inset 0 0 0 7px var(--card-bg),inset 0 0 0 8px rgba(221,138,114,.55) !important;
+  padding:38px 24px !important;max-width:400px;margin:0 auto;
+}
+#invite .inv-wrap *,#location .loc-card *,#footer .ft-card *{
+  -webkit-text-fill-color:currentColor !important;background-image:none !important;
+  animation:none !important;filter:none !important;color:var(--card-ink) !important;
+}
+#invite .inv-lead,#location .loc-type,#location .loc-time-tag,#footer .ft-dt{color:#A85D4B !important;font-weight:600 !important}
+#invite .inv-date,#location .loc-name,#footer .ft-nms{color:#A85D4B !important}
+#location .loc-name{font-family:'Cormorant Garamond',serif !important;font-weight:600 !important;font-size:clamp(28px,8vw,36px) !important}
+#location .loc-addr{color:var(--card-ink2) !important;line-height:1.5 !important}
+#location .loc-card .btn{color:#fff !important;-webkit-text-fill-color:#fff !important;
+  background:linear-gradient(120deg,#A85D4B,#DD8A72) !important;border:none !important}
+#location .loc-card .btn *{color:#fff !important}
+#location .loc-wave{display:none}
+.gline{opacity:1}
+
+/* — Texto de la invitación: tipografía más juvenil — */
+#invite .inv-quote{
+  font-family:'Playfair Display',serif !important;font-style:italic !important;font-weight:400 !important;
+  font-size:clamp(19px,5vw,22px) !important;line-height:1.6 !important;color:var(--card-ink) !important;
+}
+#invite .inv-lead--pad{margin-top:22px}
+#invite .inv-children--pad{font-size:20px !important}
+
+/* — Guarda la fecha — */
+.cal-btns{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto}
+.cal-btn{display:flex !important;align-items:center;justify-content:center;gap:10px;
+  padding:16px 22px !important;border-radius:50px !important;font-size:15px !important}
+
+/* — Mesa de regalos — */
+.gf-lvp{
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  max-width:360px;margin:26px auto 22px;padding:30px 20px 24px;border-radius:18px;
+  overflow:hidden;text-decoration:none;isolation:isolate;
+  border:1px solid rgba(244,179,157,.55);box-shadow:0 20px 48px rgba(0,0,0,.6);
+}
+.gf-lvp-bg{position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(40,20,22,.35) 0%,rgba(40,20,22,.72) 100%),url('assets/ny/ny6.jpg') center 30%/cover no-repeat}
+.gf-lvp-mono{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;line-height:1;color:#F4B39D;letter-spacing:-.06em}
+.gf-lvp-ttl{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;letter-spacing:.06em;text-transform:uppercase;color:#FFF1EC;margin-top:6px}
+.gf-lvp-brand{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;letter-spacing:.42em;padding-left:.42em;text-transform:uppercase;color:#F4B39D;
+  border-top:1px solid rgba(244,179,157,.6);border-bottom:1px solid rgba(244,179,157,.6);padding-top:4px;padding-bottom:4px;margin-top:6px}
+.gf-lvp-no{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px;color:#FFF1EC;margin-top:10px;letter-spacing:.02em}
+.gf-lvp-no small{font-size:.5em;letter-spacing:.1em}
+.gf-lvp-cta{margin-top:14px;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:2.6px;text-transform:uppercase;
+  color:#2A1410;background:linear-gradient(120deg,#F4B39D,#DD8A72);padding:10px 22px;border-radius:40px}
+.gf-card{
+  max-width:360px;margin:0 auto;padding:30px 22px 26px;border-radius:18px;text-align:center;
+  background:var(--card-bg);color:var(--card-ink);
+  box-shadow:0 20px 48px rgba(0,0,0,.55),inset 0 0 0 7px var(--card-bg),inset 0 0 0 8px rgba(221,138,114,.55);
+}
+.gf-card-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;line-height:1.55;color:var(--card-ink2);margin-bottom:14px}
+.gf-card-ttl{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;letter-spacing:.24em;padding-left:.24em;text-transform:uppercase;color:#A85D4B}
+.gf-card-ico{width:70px;height:auto;margin:12px auto 6px;color:var(--card-ink);display:block}
+.gf-card-sep{width:60%;height:1px;margin:20px auto;background:linear-gradient(90deg,transparent,rgba(168,93,75,.6),transparent)}
+.gf-clabe{display:flex;flex-direction:column;gap:4px;align-items:center;margin:10px auto 0;padding:12px 18px;border-radius:12px;
+  border:1px dashed rgba(168,93,75,.5);background:transparent;cursor:pointer;color:var(--card-ink)}
+.gf-k{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.8px;color:var(--card-ink2)}
+.gf-v{font-family:'Inter',sans-serif;font-weight:700;font-size:18px;letter-spacing:1.4px;color:var(--card-ink)}
+.gf-copy{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A85D4B;margin-top:4px}
+
+/* — Dress code — */
+.dc-avoid-ttl{font-family:'Cormorant Garamond',serif !important;font-weight:600 !important;font-size:20px !important;line-height:1.3 !important}
+.dc-avoid-sub{font-family:'Inter',sans-serif !important;font-style:normal !important;font-weight:500 !important;font-size:14px !important;line-height:1.5 !important;color:var(--paper) !important;opacity:.92 !important}
+.dc-avoid-sub--cab{margin-top:18px !important}
+.dc-avoid-swatches{flex-wrap:wrap;gap:14px 18px !important;justify-content:center}
+.dc-av{width:76px !important}
+.dc-av-nm{text-align:center;line-height:1.3}
+.dc-pal-grid{grid-template-columns:repeat(5,1fr) !important}
+@media (max-width:380px){.dc-pal-grid{grid-template-columns:repeat(3,1fr) !important}}
+
+/* — RSVP — */
+.rsvp-teens{margin-top:14px !important;font-weight:600 !important;color:var(--rose-lt) !important}
+
+
+/* — Pie — */
+#footer .ft-card{padding:28px 22px 30px !important}
+#footer .ft-note{opacity:1 !important;font-size:15px !important;color:var(--card-ink2) !important;line-height:1.6 !important}
+#footer .ft-nms{font-family:'Great Vibes',cursive !important}
+.ft-photo{margin:-10px -10px 18px;border-radius:12px;overflow:hidden;aspect-ratio:4/5}
+.ft-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+
+/* — Galería: flechas + desliza sola — */
+#gallery{position:relative}
+.sky-nav{position:relative;z-index:6;display:flex;justify-content:space-between;
+  width:min(100%,520px);margin:18px auto -8px;padding:0 14px;pointer-events:none}
+.sky-arrow{pointer-events:auto;width:44px;height:44px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:#2A1410;border:1px solid rgba(255,255,255,.5);
+  background:linear-gradient(140deg,#F4B39D,#E79A88 55%,#A85D4B);box-shadow:0 6px 16px rgba(0,0,0,.55)}
+.sky-arrow svg{width:20px;height:20px}
+.sky-strip{scroll-behavior:smooth;touch-action:pan-x pan-y}
+
   </style>
 </head>
 <body>
@@ -3263,8 +3369,10 @@ body.gbx-locked{overflow:hidden}
     <span class="inv-orn" aria-hidden="true">✦ · ✦</span>
     <p class="inv-lead">Con la bendición de mis padres</p>
     <p class="inv-children">Yordy R. González Pujol<br>Guadalupe del C. Pérez Orozco</p>
+    <p class="inv-lead inv-lead--pad">Mis padrinos</p>
+    <p class="inv-children inv-children--pad">Por confirmar</p>
     <div class="gline" style="margin:24px auto"></div>
-    <p class="inv-quote">Hoy la niña de ayer se convierte en la mujer que soñé ser, y quiero celebrarlo rodeada de quienes más quiero. Me llenaría de felicidad contar con tu presencia en este día tan especial.</p>
+    <p class="inv-quote">Ha llegado el momento de celebrar mis XV. Entre sueños, luces y momentos inolvidables, te invito a ser parte de la noche más especial de mi historia.</p>
     <p class="inv-date">el 3 de Abril de 2027</p>
   </div>
 </section>
@@ -3285,7 +3393,7 @@ body.gbx-locked{overflow:hidden}
     </div>
 
     <p class="loc-type">✦  Misa &amp; Recepción</p>
-    <h3 class="loc-name">Por confirmar</h3>
+    <h3 class="loc-name">Hotel Villa Béjar</h3>
 
     <div class="loc-times">
       <div class="loc-time-item">
@@ -3299,8 +3407,8 @@ body.gbx-locked{overflow:hidden}
       </div>
     </div>
 
-    <p class="loc-addr">Cuernavaca · Morelos</p>
-    <a href="https://maps.app.goo.gl/jHy3tP9E9SRYcAmx8?g_st=iw"
+    <p class="loc-addr">Av. Domingo Diez 2350, Chamilpa<br>Cuernavaca · Morelos</p>
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Villa+B%C3%A9jar+Cuernavaca+Morelos"
        target="_blank" rel="noopener" class="btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
       Ver en GPS / Google Maps
@@ -3395,12 +3503,17 @@ body.gbx-locked{overflow:hidden}
   <h2 class="ttl" style="font-size:26px">Guarda la Fecha</h2>
   <div class="gline"></div>
   <p class="cal-sub">Agrega mis XV años a tu calendario<br>para no perderte ni un momento.</p>
-  <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+A%C3%B1os+de+Renata+Paola&dates=20270403T180000/20270404T040000&details=Misa+y+Recepci%C3%B3n+%C2%B7+Horarios+por+confirmar&location=Cuernavaca%2C+Morelos"
-     target="_blank" rel="noopener" id="calBtn"
-     class="btn btn-olive" style="max-width:340px;margin:0 auto;display:flex;padding:18px 24px;font-size:15px;font-weight:400;letter-spacing:1px;border-radius:50px;box-shadow:0 6px 28px rgba(232,180,168,.35);animation:calPulse 2.5s ease-in-out infinite">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Guardar la Fecha
-  </a>
+  <div class="cal-btns">
+    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=XV+A%C3%B1os+de+Renata+Paola&amp;dates=20270403T180000/20270404T040000&amp;details=Misa+y+Recepci%C3%B3n.+Horarios+por+confirmar.&amp;location=Hotel+Villa+B%C3%A9jar%2C+Av.+Domingo+Diez+2350%2C+Cuernavaca%2C+Mor.&amp;ctz=America%2FMexico_City"
+       target="_blank" rel="noopener" class="btn btn-olive cal-btn" id="calBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Google Calendar
+    </a>
+    <a href="assets/xv-renata-paola.ics" download="XV-Renata-Paola.ics" class="btn cal-btn" id="calBtnApple">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.7.9-.8 0-2-.9-3.2-.9-1.7 0-3.2 1-4.1 2.4-1.8 3-.5 7.5 1.2 10 .8 1.2 1.8 2.6 3.1 2.5 1.3-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-4zM14 5.3c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.3z"/></svg>
+      Apple Calendar
+    </a>
+  </div>
 </section>
 
 
@@ -3496,30 +3609,7 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 6. PADRINOS ══════════════════════ -->
-<section id="padrinos">
-  <span class="lbl">Con la bendición de</span>
-  <h2 class="ttl">Mis Padrinos</h2>
-  <div class="gline"></div>
-  <p class="pad-intro">Quienes me acompañan y bendicen<br>en este paso tan importante.</p>
 
-  <div class="pad-list">
-    <div class="pad-card">
-      <div class="pad-ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="6"/><circle cx="15" cy="14" r="6"/><path d="M9 4.5 L7.5 7 L10.5 7 Z" fill="var(--olive)" stroke="none"/><path d="M15 4.5 L13.5 7 L16.5 7 Z" fill="var(--olive)" stroke="none"/></svg>
-      </div>
-      <p class="pad-role">Padrinos de Honor</p>
-      <p class="pad-names">Por confirmar</p>
-    </div>
-
-    <div class="pad-card">
-      <div class="pad-ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12 C8 8 3 9 3 13 C3 16 7 17 9 13 C11 9 13 9 15 13 C17 17 21 16 21 13 C21 9 16 8 12 12 Z"/></svg>
-      </div>
-      <p class="pad-role">Padrinos</p>
-      <p class="pad-names">Por confirmar</p>
-    </div>
-  </div>
-</section>
 
 
 <!-- ═══════════════ 7. MESA DE REGALOS ═══════════════ -->
@@ -3527,38 +3617,43 @@ body.gbx-locked{overflow:hidden}
   <span class="lbl">Tu presencia es mi mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
   <div class="gline"></div>
-  <p class="gf-sub">Si deseas obsequiarme algo especial,<br>toca el regalo para descubrirlo.</p>
+  <p class="gf-sub">Si deseas obsequiarme algo especial,<br>aquí tienes mis opciones.</p>
 
-  <div class="gbx-stage">
-    <canvas id="gbx-confetti" aria-hidden="true"></canvas>
-    <div class="gbx-holder">
-      <button class="gbx" id="gbx" type="button" aria-label="Abrir la mesa de regalos" aria-expanded="false" aria-controls="gbx-modal">
-        <svg viewBox="0 0 200 190" fill="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="gbxBody" x1="26" y1="72" x2="174" y2="176" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#202026"/><stop offset="1" stop-color="#0E0E12"/>
-            </linearGradient>
-            <linearGradient id="gbxRibbon" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#FBE4DD"/><stop offset=".5" stop-color="#E8B4A8"/><stop offset="1" stop-color="#B98679"/>
-            </linearGradient>
-            <linearGradient id="gbxLid" x1="16" y1="54" x2="184" y2="80" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#26262E"/><stop offset="1" stop-color="#141419"/>
-            </linearGradient>
-          </defs>
-          <rect x="26" y="72" width="148" height="104" rx="5" fill="url(#gbxBody)" stroke="rgba(201,204,209,.35)" stroke-width="1.3"/>
-          <rect x="88" y="72" width="24" height="104" fill="url(#gbxRibbon)"/>
-          <rect x="26" y="112" width="148" height="15" fill="url(#gbxRibbon)"/>
-          <g class="gbx-lid">
-            <rect x="16" y="54" width="168" height="26" rx="5" fill="url(#gbxLid)" stroke="rgba(201,204,209,.4)" stroke-width="1.3"/>
-            <rect x="88" y="54" width="24" height="26" fill="url(#gbxRibbon)"/>
-            <path d="M100 54 C100 40 84 26 70 32 C58 37 62 52 78 54 Z" fill="url(#gbxRibbon)" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
-            <path d="M100 54 C100 40 116 26 130 32 C142 37 138 52 122 54 Z" fill="url(#gbxRibbon)" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
-            <circle cx="100" cy="52" r="8" fill="#FBE4DD" stroke="rgba(185,134,121,.9)" stroke-width="1.1"/>
-          </g>
-        </svg>
-      </button>
-      <span class="gbx-cta" id="gbx-cta">Toca el regalo</span>
-    </div>
+  <!-- Liverpool -->
+  <a class="gf-lvp" href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60041904"
+     target="_blank" rel="noopener" aria-label="Abrir la mesa de regalos Liverpool número 60041904">
+    <span class="gf-lvp-bg" aria-hidden="true"></span>
+    <span class="gf-lvp-mono">RP</span>
+    <span class="gf-lvp-ttl">Mesa de Regalos</span>
+    <span class="gf-lvp-brand">Liverpool</span>
+    <span class="gf-lvp-no"><small>No.</small> 60041904</span>
+    <span class="gf-lvp-cta">Ver mi mesa</span>
+  </a>
+
+  <!-- Lluvia de sobres + transferencia -->
+  <div class="gf-card">
+    <p class="gf-card-txt">En la entrada de la fiesta encontrarás una cajita donde podrás depositarlo.</p>
+    <p class="gf-card-ttl">Lluvia de sobres</p>
+    <svg class="gf-card-ico" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+      <rect x="8" y="14" width="34" height="22" rx="2" transform="rotate(-12 25 25)"/>
+      <path d="M8 16l17 12 17-12" transform="rotate(-12 25 25)"/>
+      <rect x="24" y="10" width="34" height="22" rx="2" transform="rotate(10 41 21)"/>
+      <path d="M24 12l17 12 17-12" transform="rotate(10 41 21)"/>
+    </svg>
+
+    <div class="gf-card-sep" aria-hidden="true"></div>
+
+    <p class="gf-card-ttl">Transferencia</p>
+    <svg class="gf-card-ico" viewBox="0 0 64 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+      <rect x="6" y="6" width="44" height="28" rx="4"/><path d="M6 14h44"/><path d="M12 26h12"/>
+      <rect x="16" y="12" width="44" height="28" rx="4" fill="#FBF6F3"/><path d="M16 20h44"/><path d="M22 32h12"/>
+    </svg>
+    <button class="gf-clabe" type="button" onclick="copyVal('gfClabe','CLABE')" aria-label="Copiar CLABE interbancaria">
+      <span class="gf-k">CLABE · Scotiabank</span>
+      <span class="gf-v" id="gfClabe">044540039029423058</span>
+      <span class="gf-k">Titular: Renata Paola González Pérez</span>
+      <span class="gf-copy">Toca para copiar</span>
+    </button>
   </div>
 </section>
 
@@ -3596,8 +3691,8 @@ body.gbx-locked{overflow:hidden}
   <h2 class="dc-title">Dress Code</h2>
   <div class="gline"></div>
 
-  <p class="dc-main-label">Casual Formal &middot; Elegancia Nocturna</p>
-  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.<br>Tono sugerido: <strong style="color:var(--rose-lt)">beige arena</strong> <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#D4C5B2;border:1px solid rgba(0,0,0,.3);vertical-align:-2px"></span></p>
+  <p class="dc-main-label">Casual Formal</p>
+  <p class="dc-sub" style="margin-top:6px">Ayúdanos a crear un ambiente especial<br>vistiéndote acorde a la ocasión.</p>
 
   <div class="dc-looks">
     <button class="dc-look" type="button" data-look="caballeros"
@@ -3639,7 +3734,7 @@ body.gbx-locked{overflow:hidden}
   </div>
 
   <div class="dc-palette">
-    <p class="dc-pal-ttl">Paleta sugerida</p>
+    <p class="dc-pal-ttl">Tonalidades de la noche</p>
     <p class="dc-pal-sub">Tonos que acompañan la noche del evento</p>
     <div class="dc-pal-grid">
       <div class="dc-pal-item">
@@ -3658,17 +3753,26 @@ body.gbx-locked{overflow:hidden}
         <span class="dc-pal-dot" style="background:linear-gradient(150deg,#2C4C78,#1E3A5F)"></span>
         <span class="dc-pal-nm">Marino</span>
       </div>
+      <div class="dc-pal-item">
+        <span class="dc-pal-dot" style="background:linear-gradient(150deg,#9EA2A8,#6E7278)"></span>
+        <span class="dc-pal-nm">Gris</span>
+      </div>
     </div>
   </div>
 
   <div class="dc-avoid" id="dcNote">
-    <p class="dc-avoid-ttl">Por favor evitar</p>
-    <p class="dc-avoid-sub">Este tono está reservado para la quinceañera</p>
+    <p class="dc-avoid-ttl">Tonalidades reservadas para la quinceañera</p>
+    <p class="dc-avoid-sub">Cualquier tipo de rosa, amarillo suave, lila y azul celeste.</p>
     <div class="dc-avoid-swatches">
-      <div class="dc-av">
-        <span class="dc-av-dot" style="background:#b87faf"></span>
-        <span class="dc-av-nm">Rosa malva</span>
-      </div>
+      <div class="dc-av"><span class="dc-av-dot" style="background:linear-gradient(150deg,#F4B9C8,#E0879E)"></span><span class="dc-av-nm">Rosa</span></div>
+      <div class="dc-av"><span class="dc-av-dot" style="background:#C9A8E0"></span><span class="dc-av-nm">Lila romántico</span></div>
+      <div class="dc-av"><span class="dc-av-dot" style="background:#A9CDEE"></span><span class="dc-av-nm">Celeste sereno</span></div>
+      <div class="dc-av"><span class="dc-av-dot" style="background:#F6D57E"></span><span class="dc-av-nm">Amarillo suave</span></div>
+    </div>
+    <p class="dc-avoid-sub dc-avoid-sub--cab">En el caso de caballeros: arena y gris.</p>
+    <div class="dc-avoid-swatches">
+      <div class="dc-av"><span class="dc-av-dot" style="background:#D4C5B2"></span><span class="dc-av-nm">Arena</span></div>
+      <div class="dc-av"><span class="dc-av-dot" style="background:#8E9297"></span><span class="dc-av-nm">Gris</span></div>
     </div>
   </div>
 
@@ -3748,6 +3852,10 @@ body.gbx-locked{overflow:hidden}
   </div>
 
   <!-- Avenida de torres-fotografía -->
+  <div class="sky-nav">
+    <button class="sky-arrow" id="skyPrev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="sky-arrow" id="skyNext" type="button" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
   <div class="sky-strip" id="skyStrip">
     <div class="sky-tower sky-tower--h1">
       <div class="sky-crown" aria-hidden="true"></div>
@@ -3806,14 +3914,7 @@ body.gbx-locked{overflow:hidden}
 <!-- ═══════════════ 12. RSVP ═════════════════════════ -->
 <section id="rsvp">
   <!-- Mensaje: solo adultos (antes de la confirmación) -->
-  <div class="rsvp-adults" id="rsvpAdults">
-    <div class="rsvp-adults-line" aria-hidden="true"></div>
-    <p class="rsvp-adults-lbl">✦  Solo adultos  ✦</p>
-    <p class="rsvp-adults-msg">
-      Por el estilo del evento y el espacio, no podremos contar con la presencia de niños.<br>
-      Gracias por su comprensión.
-    </p>
-  </div>
+
 
   <div class="rsvp-card">
     <!-- Esquinas decorativas -->
@@ -3837,9 +3938,9 @@ body.gbx-locked{overflow:hidden}
       </svg>
 
       <div class="eyebrow">Confirmación de asistencia</div>
-      <h2 class="rsvp-title">Tu presencia lo <em>significa</em> todo</h2>
-      <p class="rsvp-text">Por favor confírmanos tu asistencia antes del <strong>8 de Marzo de 2027</strong>. Me hará muy feliz saber que estarás conmigo.</p>
-      <p class="rsvp-text" style="margin-top:14px;font-weight:400;opacity:.85;">Esta invitación es solo para las personas mencionadas en ella. Gracias.</p>
+      <h2 class="rsvp-title">¡Quiero compartir este momento <em>tan esperado</em> contigo!</h2>
+      <p class="rsvp-text">Por favor ayúdanos confirmando tu asistencia antes del <strong>8 de Marzo 2027</strong>.</p>
+      <p class="rsvp-text rsvp-teens">Evento solo para adolescentes y adultos.</p>
 
       <p id="rsvp-name-display" style="display:none;font-family:'Great Vibes',cursive;font-size:clamp(30px,7vw,44px);color:var(--olive);line-height:1.2;margin:18px auto 4px;"></p>
 
@@ -3881,11 +3982,15 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 13. FOOTER ═══════════════════════ -->
 <footer id="footer">
-  <div class="ft-orn">✦ · ✦ · ✦</div>
-  <div class="ft-nms">Renata Paola</div>
-  <div class="gline" style="margin-top:22px"></div>
-  <p class="ft-dt">03 · Abril · 2027</p>
-  <p class="ft-note">Cuernavaca · Morelos<br>Con cariño, Renata Paola</p>
+  <div class="ft-card">
+    <div class="ft-photo" id="ftPhoto" hidden><img src="assets/ft-foto.jpg" alt="Renata Paola en Nueva York"
+         onload="this.parentNode.hidden=false" onerror="this.parentNode.remove()"></div>
+    <div class="ft-orn">✦ · ✦ · ✦</div>
+    <div class="ft-nms">Renata Paola</div>
+    <div class="gline" style="margin-top:18px"></div>
+    <p class="ft-dt">03 · Abril · 2027</p>
+    <p class="ft-note">Cuernavaca · Morelos<br>Con cariño, Renata Paola</p>
+  </div>
 
   <div class="el-sep"></div>
   <a href="https://www.instagram.com/elysium.invitaciones/" target="_blank" rel="noopener" class="el-credit">
@@ -3920,7 +4025,7 @@ function launchPage() {
      (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
   [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
    heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
-   initSkyline, initMetro, initDateHero, initGiftBox,
+   initSkyline, initMetro, initDateHero,
    initDressLooks].forEach(function (fn) {
     try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
   });
@@ -5557,46 +5662,7 @@ preloadNy();
 </script>
 
 <!-- MODAL · datos de transferencia -->
-<div class="gbx-backdrop" id="gbx-modal" role="dialog" aria-modal="true" aria-labelledby="gbx-modal-ttl" aria-hidden="true">
-  <div class="gbx-card">
-    <button class="gbx-close" id="gbx-close" type="button" aria-label="Cerrar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
 
-    <div class="gbx-card-top">
-      <svg class="gbx-card-orn" viewBox="0 0 200 30" fill="none" aria-hidden="true">
-        <path d="M10 15 Q55 3 100 15 Q145 27 190 15" stroke="rgba(232,180,168,.75)" stroke-width="1" fill="none"/>
-        <circle cx="100" cy="15" r="3.4" fill="#E8B4A8"/>
-      </svg>
-      <p class="gbx-eyebrow">Con todo mi cariño</p>
-      <h3 class="gbx-ttl" id="gbx-modal-ttl">Transferencia</h3>
-    </div>
-
-    <div class="gbx-bank">
-      <div class="gbx-bank-head">
-        <span class="gbx-chip" aria-hidden="true"></span>
-        <span class="gbx-bankname">Scotiabank</span>
-      </div>
-
-      <div class="gbx-field">
-        <span class="gbx-k">Titular de la cuenta</span>
-        <span class="gbx-holder">Renata Paola González Pérez</span>
-      </div>
-
-      <button class="gbx-row" id="gbx-copy" type="button" aria-label="Copiar CLABE interbancaria">
-        <span class="gbx-row-txt">
-          <span class="gbx-k">CLABE interbancaria</span>
-          <span class="gbx-num" id="gbxClabe">044 540 03902942305 8</span>
-        </span>
-        <span class="gbx-copy-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        </span>
-      </button>
-
-      <p class="gbx-foot">Toca la CLABE para copiarla</p>
-    </div>
-  </div>
-</div>
 
 <script>
 /* ELYSIUM AUDIO v2 — el invitado entra y escucha la cancion.
@@ -5643,6 +5709,44 @@ preloadNy();
     document.addEventListener(ev,onGesture,{capture:true,passive:true});
   });
 })();
+
+/* ============================================================
+   GALERÍA · se desliza sola y con flechas (en iPhone el
+   arrastre horizontal no era evidente: "no corre la foto")
+   ============================================================ */
+(function(){
+  function init(){
+    var strip = document.getElementById('skyStrip');
+    if(!strip) return;
+    var towers = strip.querySelectorAll('.sky-tower');
+    if(!towers.length) return;
+    var idx = 0, timer = null;
+    function go(i){
+      idx = (i + towers.length) % towers.length;
+      var t = towers[idx];
+      strip.scrollTo({left: t.offsetLeft - (strip.clientWidth - t.offsetWidth)/2, behavior:'smooth'});
+    }
+    function auto(){ clearInterval(timer); timer = setInterval(function(){ go(idx + 1); }, 3200); }
+    var pv = document.getElementById('skyPrev'), nx = document.getElementById('skyNext');
+    if(pv) pv.addEventListener('click', function(){ go(idx - 1); auto(); });
+    if(nx) nx.addEventListener('click', function(){ go(idx + 1); auto(); });
+    /* si la persona arrastra, se respeta su posición */
+    strip.addEventListener('touchstart', function(){ clearInterval(timer); }, {passive:true});
+    strip.addEventListener('touchend', function(){
+      var c = strip.scrollLeft + strip.clientWidth/2, best = 0, bd = 1e9;
+      towers.forEach(function(t,i){ var d = Math.abs(t.offsetLeft + t.offsetWidth/2 - c); if(d < bd){ bd = d; best = i; } });
+      idx = best; auto();
+    }, {passive:true});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting) auto(); else clearInterval(timer); });
+      }).observe(strip);
+    }
+    setTimeout(auto, 4000);   // respaldo si el observer no dispara
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
 </script>
 </body>
 </html>
