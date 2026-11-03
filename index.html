@@ -3242,6 +3242,30 @@ body.gbx-locked{overflow:hidden}
 .dc-viewer[hidden]{display:none !important}
 .dc-viewer:not(.on){pointer-events:none}
 
+
+/* ============================================================
+   NUEVA YORK · estatua en la portada + puente entre secciones
+   ============================================================ */
+.h-liberty{
+  position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);
+  width:min(92vw,520px);height:auto;z-index:2;pointer-events:none;
+  opacity:.5;mix-blend-mode:screen;
+  -webkit-mask-image:linear-gradient(to top,transparent 0%,#000 30%);
+          mask-image:linear-gradient(to top,transparent 0%,#000 30%);
+  animation:hLibertyIn 2.4s ease-out .4s both;
+}
+@keyframes hLibertyIn{from{opacity:0;transform:translate(-50%,24px)}to{opacity:.5;transform:translate(-50%,0)}}
+#hero .h-cnt{position:relative;z-index:3}
+
+.ny-divider{display:flex;justify-content:center;padding:26px 0 6px;background:transparent;overflow:hidden}
+.ny-divider img{
+  width:min(84vw,420px);height:auto;opacity:.9;
+  filter:drop-shadow(0 0 10px rgba(231,154,136,.35));
+  clip-path:inset(0 100% 0 0);transition:clip-path 2.2s cubic-bezier(.4,0,.2,1);
+}
+.ny-divider.on img{clip-path:inset(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){.h-liberty{animation:none}.ny-divider img{clip-path:none}}
+
   </style>
 </head>
 <body>
@@ -3333,6 +3357,7 @@ body.gbx-locked{overflow:hidden}
 
   <div class="h-particles" id="hPart"></div>
 
+  <img class="h-liberty" src="assets/ny/estatua.png" alt="" aria-hidden="true">
   <div class="h-cnt" id="hCnt">
     <p class="h-we" id="hWe">Mis XV Años</p>
 
@@ -3384,6 +3409,7 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ UBICACIÓN (debajo del hero) ═══════════════ -->
+<div class="ny-divider" aria-hidden="true"><img src="assets/ny/puente.png" alt="" decoding="async"></div>
 <section id="location">
   <span class="lbl">¿Dónde y cuándo?</span>
   <h2 class="ttl">La Celebración</h2>
@@ -3618,6 +3644,7 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 7. MESA DE REGALOS ═══════════════ -->
+<div class="ny-divider" aria-hidden="true"><img src="assets/ny/puente.png" alt="" decoding="async"></div>
 <section id="gifts">
   <span class="lbl">Tu presencia es mi mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
@@ -3986,6 +4013,7 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 13. FOOTER ═══════════════════════ -->
+<div class="ny-divider" aria-hidden="true"><img src="assets/ny/puente.png" alt="" decoding="async"></div>
 <footer id="footer">
   <div class="ft-card">
     <div class="ft-photo" id="ftPhoto" hidden><img src="assets/ft-foto.jpg" alt="Renata Paola en Nueva York"
@@ -5748,6 +5776,23 @@ preloadNy();
       }).observe(strip);
     }
     setTimeout(auto, 4000);   // respaldo si el observer no dispara
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+/* Puente: se "dibuja" de izquierda a derecha al aparecer */
+(function(){
+  function init(){
+    var ds = document.querySelectorAll('.ny-divider');
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+      }, {threshold:.25});
+      ds.forEach(function(d){ io.observe(d); });
+    }
+    /* respaldo: que nunca se quede invisible */
+    setTimeout(function(){ ds.forEach(function(d){ d.classList.add('on'); }); }, 9000);
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
