@@ -3237,6 +3237,11 @@ body.gbx-locked{overflow:hidden}
 .sky-arrow svg{width:20px;height:20px}
 .sky-strip{scroll-behavior:smooth;touch-action:pan-x pan-y}
 
+
+/* el visor invisible bloqueaba toques en toda la página: display:flex anulaba [hidden] */
+.dc-viewer[hidden]{display:none !important}
+.dc-viewer:not(.on){pointer-events:none}
+
   </style>
 </head>
 <body>
