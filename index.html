@@ -4116,7 +4116,11 @@ function initEnvelope() {
       clearTimeout(window.__flashFallback);
       try { vid.pause(); } catch (e) {}
       screen.style.display = 'none';
-      gsap.set(flash, { opacity: 1 });
+      /* el collage ya trae su propio fondo negro: el flash (z 9999) debe
+         irse o tapa el collage entero y se ve pantalla negra varios segundos */
+      var nyc = document.getElementById('nyCollage');
+      if (nyc) { nyc.classList.add('on'); nyc.style.opacity = 1; }
+      flash.style.opacity = 0; flash.style.display = 'none';
       runNyCollage(revealPage);
     };
     window.__flashFallback = setTimeout(alCollage, 1500);
