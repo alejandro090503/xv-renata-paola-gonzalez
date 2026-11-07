@@ -2189,9 +2189,9 @@ body,.rsvp-text,.pad-intro,.gf-sub,.cal-sub,
   content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
     linear-gradient(180deg,var(--night) 0%,rgba(11,11,13,.35) 22%,rgba(11,11,13,.35) 78%,var(--night) 100%),
-    url('assets/gallery/hero-rp.jpg') center/cover no-repeat;
-  filter:grayscale(.5) contrast(1.05);
-  opacity:.5;
+    url('assets/grand-central.jpg') center 35%/cover no-repeat;
+  filter:none;
+  opacity:.62;
 }
 .dh-glow{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -3266,6 +3266,20 @@ body.gbx-locked{overflow:hidden}
 .ny-divider.on img{clip-path:inset(0 0 0 0)}
 @media (prefers-reduced-motion:reduce){.h-liberty{animation:none}.ny-divider img{clip-path:none}}
 
+
+/* ============================================================
+   PULIDO nov 7
+   ============================================================ */
+/* collage sin cuadros negros mientras decodifica la foto */
+.nyc-pic{background:transparent !important}
+.nyc-pic img{background:transparent}
+/* estatua como separador */
+.ny-divider--estatua img{width:min(62vw,280px);clip-path:inset(100% 0 0 0)}
+.ny-divider--estatua.on img{clip-path:inset(0 0 0 0)}
+/* TRANSFERENCIA cortada: el tracking no cabía en 360px */
+.gf-card-ttl{letter-spacing:.14em !important;padding-left:.14em !important;font-size:clamp(20px,6vw,24px) !important;white-space:nowrap}
+.gf-card{padding:28px 18px 24px !important}
+
   </style>
 </head>
 <body>
@@ -3474,7 +3488,6 @@ body.gbx-locked{overflow:hidden}
     </div>
 
     <div class="date-roman">III · IV · MMXXVII</div>
-    <p class="date-note">De la niña que fui a la mujer que soy · quince años de camino</p>
   </div>
 </section>
 
@@ -3644,7 +3657,7 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 7. MESA DE REGALOS ═══════════════ -->
-<div class="ny-divider" aria-hidden="true"><img src="assets/ny/puente.png" alt="" decoding="async"></div>
+<div class="ny-divider ny-divider--estatua" aria-hidden="true"><img src="assets/ny/estatua.png" alt="" decoding="async"></div>
 <section id="gifts">
   <span class="lbl">Tu presencia es mi mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
@@ -3664,17 +3677,6 @@ body.gbx-locked{overflow:hidden}
 
   <!-- Lluvia de sobres + transferencia -->
   <div class="gf-card">
-    <p class="gf-card-txt">En la entrada de la fiesta encontrarás una cajita donde podrás depositarlo.</p>
-    <p class="gf-card-ttl">Lluvia de sobres</p>
-    <svg class="gf-card-ico" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
-      <rect x="8" y="14" width="34" height="22" rx="2" transform="rotate(-12 25 25)"/>
-      <path d="M8 16l17 12 17-12" transform="rotate(-12 25 25)"/>
-      <rect x="24" y="10" width="34" height="22" rx="2" transform="rotate(10 41 21)"/>
-      <path d="M24 12l17 12 17-12" transform="rotate(10 41 21)"/>
-    </svg>
-
-    <div class="gf-card-sep" aria-hidden="true"></div>
-
     <p class="gf-card-ttl">Transferencia</p>
     <svg class="gf-card-ico" viewBox="0 0 64 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
       <rect x="6" y="6" width="44" height="28" rx="4"/><path d="M6 14h44"/><path d="M12 26h12"/>
@@ -5627,11 +5629,16 @@ function runNyCollage(done){
   var nodes = NY_PICS.map(function(p, i){
     var el = document.createElement('div');
     el.className = 'nyc-pic';
-    var fw = sw * p.w / 100;
+    /* tamaño que garantiza que las 10 quepan sin cortarse */
+    var fw = Math.min(sw * p.w / 100, sh * 0.24 / 1.34);
+    var fh = fw * 1.34, pad = 10 + fw * 0.12;           /* margen por la rotación */
+    var cx = Math.max(fw/2 + pad, Math.min(sw - fw/2 - pad, sw * p.x / 100));
+    var cy = Math.max(fh/2 + pad, Math.min(sh - fh/2 - pad, sh * p.y / 100));
+    p._cx = cx; p._cy = cy;
     el.style.width  = fw + 'px';
-    el.style.height = (fw * 1.34) + 'px';
-    el.style.left = p.x + '%';
-    el.style.top  = p.y + '%';
+    el.style.height = fh + 'px';
+    el.style.left = cx + 'px';
+    el.style.top  = cy + 'px';
     el.style.zIndex = 10 + i;
     var img = document.createElement('img');
     img.src = 'assets/ny/' + p.f; img.alt = '';
@@ -5668,7 +5675,7 @@ function runNyCollage(done){
   nodes.forEach(function(n, i){
     var el = n.el, p = n.p;
     /* desplazamiento desde su sitio final hasta el centro del escenario */
-    var cx = sw * p.x / 100, cy = sh * p.y / 100;
+    var cx = p._cx, cy = p._cy;
     var dx = sw / 2 - cx, dy = sh / 2 - cy;
     var sc = bigW / n.fw;
 
