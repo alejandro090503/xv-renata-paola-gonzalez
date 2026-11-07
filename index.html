@@ -3280,6 +3280,68 @@ body.gbx-locked{overflow:hidden}
 .gf-card-ttl{letter-spacing:.14em !important;padding-left:.14em !important;font-size:clamp(20px,6vw,24px) !important;white-space:nowrap}
 .gf-card{padding:28px 18px 24px !important}
 
+
+/* ============================================================
+   PULIDO VISUAL PREMIUM · revisión a 375px (nov 7)
+   ============================================================ */
+/* reveal de seguridad: estos nunca deben quedar ocultos */
+#gallery .lbl,#gallery .ttl,#calBtn,#calBtnApple{opacity:1 !important;visibility:visible !important}
+
+/* Portada: sin nombre (lo pidió el cliente); la estatua al pie, nítida */
+#hero .h-name-wrap,#hero .h-amp-clip,#hero .h-div,#hero #hLine{display:none !important}
+#hero .h-we{position:absolute;left:0;right:0;bottom:calc(min(92vw,520px)*.62);margin:0 !important;z-index:4;
+  text-shadow:0 2px 14px rgba(0,0,0,.85)}
+.h-liberty{opacity:.92 !important;mix-blend-mode:normal !important;bottom:0 !important;
+  filter:drop-shadow(0 0 16px rgba(0,0,0,.6)) drop-shadow(0 0 10px rgba(231,154,136,.25));
+  -webkit-mask-image:none !important;mask-image:none !important}
+@keyframes hLibertyIn{from{opacity:0;transform:translate(-50%,24px)}to{opacity:.92;transform:translate(-50%,0)}}
+#hero .h-ov{background:linear-gradient(180deg,rgba(11,11,13,.25) 0%,rgba(11,11,13,0) 30%,rgba(11,11,13,.15) 62%,rgba(11,11,13,.92) 100%) !important}
+#hero .h-ov::after{display:none !important}
+#hero .h-rings{display:none !important}
+
+/* Celebración */
+#location .loc-time-big small{font-family:'Inter',sans-serif !important;font-size:14px !important;
+  font-weight:600 !important;letter-spacing:.5px !important;white-space:nowrap}
+#location .loc-addr{font-family:'Cormorant Garamond',serif !important;font-size:19px !important;
+  letter-spacing:.02em !important;font-weight:600 !important}
+#location .loc-card .btn{padding:15px 22px !important;font-size:14px !important;letter-spacing:2px !important;white-space:nowrap}
+#location .loc-time-div{display:none}
+
+/* Mi gran día: el punto separador centrado entre las cifras */
+.date-block + .date-block::before{top:18% !important}
+
+/* Cuenta regresiva: etiquetas completas */
+#countdown .cd-lbl{font-size:9.5px !important;letter-spacing:1.2px !important}
+
+/* Mesa de regalos */
+.gf-lvp{text-align:center}
+.gf-lvp-ttl{font-size:clamp(22px,6.4vw,28px) !important;line-height:1.15;letter-spacing:.08em !important}
+.gf-v{font-size:clamp(15px,4.4vw,18px) !important;letter-spacing:.6px !important}
+
+/* Dress code: 5 tonos en una fila, 4 reservados en una fila */
+.dc-pal-grid{display:flex !important;flex-wrap:wrap;justify-content:center;gap:12px 6px !important}
+.dc-pal-item{width:58px}
+.dc-pal-dot{width:46px !important;height:46px !important}
+.dc-pal-nm{font-size:9.5px !important;letter-spacing:1px !important}
+.dc-av{width:64px !important}
+.dc-av-dot{width:40px !important;height:40px !important}
+.dc-av-nm{font-size:9.5px !important;letter-spacing:.8px !important}
+.dc-avoid-swatches{gap:12px 6px !important}
+
+/* Galería */
+.sky-hint{letter-spacing:2px !important;font-size:11px !important;padding:0 18px}
+
+/* RSVP */
+.rsvp-toggle-btn{background:transparent !important;color:var(--paper) !important;
+  border:1px solid rgba(231,154,136,.55) !important;font-family:'Cormorant Garamond',serif !important;
+  font-weight:600 !important;font-style:italic;font-size:17px !important}
+.rsvp-toggle-btn.rsvp-toggle-selected-yes,.rsvp-toggle-btn.rsvp-toggle-selected-no{
+  background:linear-gradient(120deg,#A85D4B,#DD8A72) !important;color:#fff !important;border-color:transparent !important}
+.rsvp-deadline{font-size:12px !important;letter-spacing:1.4px !important;white-space:nowrap}
+
+/* Pie: la fecha casi no se leía */
+#footer .ft-dt{color:#A85D4B !important;opacity:1 !important;font-size:13px !important;font-weight:600 !important;letter-spacing:.3em !important}
+
   </style>
 </head>
 <body>
@@ -3456,7 +3518,7 @@ body.gbx-locked{overflow:hidden}
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Villa+B%C3%A9jar+Cuernavaca+Morelos"
        target="_blank" rel="noopener" class="btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Ver en GPS / Google Maps
+      Ver ubicación
     </a>
 
     <div class="loc-wave loc-wave-bot" aria-hidden="true">
@@ -4059,7 +4121,7 @@ function launchPage() {
   /* Cada módulo va aislado: si uno falla, la invitación se muestra igual.
      (Un ReferenceError aquí dejaba toda la página en opacity 0.) */
   [addSectionWaves, addSectionMedals, addCorners, addWindOrns, addAuras,
-   heroAnim, spawnParticles, scrollAnims, countdown, ambientWind,
+   heroAnim, spawnParticles, scrollAnims, countdown,
    initSkyline, initMetro, initDateHero,
    initDressLooks].forEach(function (fn) {
     try { fn(); } catch (e) { console.error('launchPage:', fn.name, e); }
@@ -4465,11 +4527,7 @@ function scrollAnims() {
   });
 
   // Calendar button
-  gsap.from(['#calendar .cal-sub', '#calBtn'], {
-    opacity: 0, y: 18, scale: .96, duration: .65, stagger: .14,
-    ease: 'back.out(1.3)',
-    scrollTrigger: { trigger: '#calendar', start: 'top 84%', once: true }
-  });
+
 
   // Itinerario V3 — glow central + aparición de gemas (base boda-cristal)
   (function initItinerary(){
@@ -4558,11 +4616,7 @@ function scrollAnims() {
   });
 
   // Galería skyline — el encabezado entra antes que las torres
-  gsap.from('#gallery .lbl, #gallery .ttl, .sky-sub', {
-    opacity: 0, y: 22, stagger: .08,
-    duration: .9, ease: 'power3.out',
-    scrollTrigger: { trigger: '#gallery', start: 'top 82%', once: true }
-  });
+
 
   // RSVP card (diseño boda-jennifer)
   gsap.fromTo('.rsvp-card', { opacity: 0, y: 40, scale: .97 }, {
