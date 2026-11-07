@@ -3467,6 +3467,18 @@ body.gbx-locked{overflow:hidden}
 /* foto final: ella completa con la banca, menos cielo */
 .ft-photo{aspect-ratio:3/4 !important}
 .ft-photo img{object-position:center 88% !important}
+
+/* portada con la foto de West 34th: ella completa sobre el skyline */
+#hero .h-bg{bottom:20% !important;height:auto !important}
+#hero .h-bg img{object-position:center 46% !important;height:100% !important}
+#hero .h-ov{background:
+  linear-gradient(180deg,rgba(11,11,13,.30) 0%,rgba(11,11,13,0) 16%,rgba(11,11,13,0) 58%,
+                  rgba(11,11,13,.7) 74%,#0B0B0D 84%) !important}
+
+#hero .h-ov{background:
+  linear-gradient(180deg,rgba(11,11,13,.45) 0%,rgba(11,11,13,0) 18%,rgba(11,11,13,0) 56%,
+                  rgba(11,11,13,.75) 70%,#0B0B0D 79%) !important}
+#hero .h-we{top:max(12%,90px) !important;bottom:auto !important;font-size:14px !important;letter-spacing:.6em !important}
   </style>
 </head>
 <body>
@@ -3529,8 +3541,8 @@ body.gbx-locked{overflow:hidden}
 <section id="hero">
   <!-- Background photo (parallax target) -->
   <div class="h-bg" id="heroBg">
-    <img src="assets/gallery/hero-rp.jpg"
-         alt="Renata Paola" loading="eager" id="heroPic" style="object-position:62% center">
+    <img src="assets/gallery/hero-w34.jpg"
+         alt="Renata Paola en West 34th St, Nueva York" loading="eager" id="heroPic" style="object-position:center 30%">
   </div>
   <div class="h-ov"></div>
   <div class="h-frame"></div>
