@@ -3458,10 +3458,6 @@ body.gbx-locked{overflow:hidden}
   background:linear-gradient(180deg,rgba(231,154,136,0) 0%,rgba(231,154,136,.16) 40%,rgba(231,154,136,.10) 78%,rgba(231,154,136,0) 100%) !important}
 .sec-sky::after{content:'';position:absolute;inset:0}
 #countdown .sec-sky{bottom:8px !important;opacity:.6}
-
-#env-image{object-fit:cover;object-position:center 40%}
-#env-tap-hint{display:none !important}   /* la imagen ya dice "Toca para entrar" */
-
 /* foto final: ella completa con la banca, menos cielo */
 .ft-photo{aspect-ratio:3/4 !important}
 .ft-photo img{object-position:center 88% !important}
@@ -3477,8 +3473,8 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ENVELOPE OPENING SEQUENCE -->
 <div id="envelope-screen">
-  <img id="env-image" src="assets/entrada-metro.jpg" alt="Renata Paola XV · Toca para entrar">
-  <video id="env-video" muted playsinline preload="none"></video>
+  <img id="env-image" src="assets/envelope.jpg" alt="Sobre de invitación">
+  <video id="env-video" src="assets/envelope-open.mp4" muted playsinline preload="auto"></video>
   <div id="env-tap-hint">Toca para abrir</div>
 </div>
 <div id="env-flash" aria-hidden="true"></div>
@@ -4325,13 +4321,6 @@ function initEnvelope() {
   const openEnvelope = () => {
     if (opened) return;
     opened = true;
-
-    /* Entrada del metro: sin video del sobre, pasa directo al collage */
-    try { startMusic(); } catch (e) {}
-    gsap.to(hint, { opacity: 0, duration: .25 });
-    gsap.to(img, { scale: 1.08, duration: 1.1, ease: 'power2.in' });
-    triggerFlash();
-    return;
 
     // Desbloquea y arranca la música dentro del gesto (iOS/autoplay)
     try { startMusic(); } catch (e) {}
