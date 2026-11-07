@@ -3461,6 +3461,40 @@ body.gbx-locked{overflow:hidden}
 /* foto final: ella completa con la banca, menos cielo */
 .ft-photo{aspect-ratio:3/4 !important}
 .ft-photo img{object-position:center 88% !important}
+
+/* ============================================================
+   SOBRE RP · apertura animada en CSS
+   ============================================================ */
+#env-image{opacity:1 !important;transform:none !important;object-position:center}
+.env-half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;z-index:3;
+  transition:transform 1.25s cubic-bezier(.65,0,.25,1),filter 1.25s ease;will-change:transform}
+.env-half--l{left:0}.env-half--r{right:0}
+.env-half>div{position:absolute;top:0;bottom:0;width:200%;
+  background:url('assets/envelope-rp.jpg') center/cover no-repeat}
+.env-half--l>div{left:0}.env-half--r>div{right:0}
+/* luz dorada que sale de la abertura */
+.env-light{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;
+  background:radial-gradient(ellipse 34% 60% at 50% 50%,#FFF6E6 0%,#F7D9A8 28%,rgba(232,170,140,.55) 55%,rgba(11,11,13,0) 80%),#120E0C;
+  transition:opacity 1s ease}
+#env-tap-hint{z-index:5}
+/* 1) el sello brilla */
+.env-opening .env-half{filter:brightness(1.06)}
+.env-opening #env-tap-hint{opacity:0 !important;transition:opacity .3s}
+.env-opening::after{content:'';position:absolute;left:50%;top:50%;width:46vw;height:46vw;max-width:260px;max-height:260px;
+  transform:translate(-50%,-50%) scale(.6);z-index:4;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,236,220,.95) 0%,rgba(244,179,157,.55) 35%,rgba(244,179,157,0) 70%);
+  animation:envSealGlow 1.2s ease-out forwards}
+@keyframes envSealGlow{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}45%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.2)}}
+/* 2) se abre */
+.env-split .env-light{opacity:1}
+.env-split .env-half--l{transform:translateX(-102%)}
+.env-split .env-half--r{transform:translateX(102%)}
+@media (prefers-reduced-motion:reduce){.env-half{transition-duration:.01s}}
+
+
+.env-light{background:radial-gradient(ellipse 70% 62% at 50% 50%,#FFFBF2 0%,#FFE7C2 22%,#F4C39A 45%,#C98466 68%,#2A1712 100%) !important}
+.env-split .env-light{animation:envLightPulse 1.3s ease-in-out forwards}
+@keyframes envLightPulse{0%{filter:brightness(.8)}60%{filter:brightness(1.15)}100%{filter:brightness(1)}}
   </style>
 </head>
 <body>
@@ -3473,8 +3507,11 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ENVELOPE OPENING SEQUENCE -->
 <div id="envelope-screen">
-  <img id="env-image" src="assets/envelope.jpg" alt="Sobre de invitación">
-  <video id="env-video" src="assets/envelope-open.mp4" muted playsinline preload="auto"></video>
+  <img id="env-image" src="assets/envelope-rp.jpg" alt="Sobre de invitación con sello RP">
+  <video id="env-video" muted playsinline preload="none"></video>
+  <div class="env-light" aria-hidden="true"></div>
+  <div class="env-half env-half--l" aria-hidden="true"><div></div></div>
+  <div class="env-half env-half--r" aria-hidden="true"><div></div></div>
   <div id="env-tap-hint">Toca para abrir</div>
 </div>
 <div id="env-flash" aria-hidden="true"></div>
@@ -4321,6 +4358,15 @@ function initEnvelope() {
   const openEnvelope = () => {
     if (opened) return;
     opened = true;
+
+    /* Apertura animada del sobre (sin video): el sello brilla, el sobre
+       se abre hacia los lados soltando luz dorada y funde al collage.
+       Todo con temporizadores: no depende de que GSAP avance. */
+    try { startMusic(); } catch (e) {}
+    screen.classList.add('env-opening');
+    setTimeout(function () { screen.classList.add('env-split'); }, 650);
+    setTimeout(function () { triggerFlash(); }, 1900);
+    return;
 
     // Desbloquea y arranca la música dentro del gesto (iOS/autoplay)
     try { startMusic(); } catch (e) {}
