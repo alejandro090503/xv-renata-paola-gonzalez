@@ -3452,6 +3452,12 @@ body.gbx-locked{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){.sec-sky{animation:none}}
 
+
+/* skyline del fondo: más etéreo, flota y se disuelve arriba y abajo */
+.sec-sky{bottom:22px !important;filter:blur(3px) !important;opacity:.85;
+  background:linear-gradient(180deg,rgba(231,154,136,0) 0%,rgba(231,154,136,.16) 40%,rgba(231,154,136,.10) 78%,rgba(231,154,136,0) 100%) !important}
+.sec-sky::after{content:'';position:absolute;inset:0}
+#countdown .sec-sky{bottom:8px !important;opacity:.6}
   </style>
 </head>
 <body>
