@@ -3484,6 +3484,34 @@ body.gbx-locked{overflow:hidden}
 .h-skyline{left:72% !important}
 @keyframes hSkyIn{from{opacity:0;transform:translate(-50%,40px) scale(.94)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 #hero .h-we{opacity:1 !important;visibility:visible !important}
+
+/* ============================================================
+   PORTADA · nombre arriba en metal rosa, sin halo
+   ============================================================ */
+#hero .h-we{display:none !important}
+.h-top{position:absolute;left:0;right:0;top:max(7%,52px);z-index:4;text-align:center;pointer-events:none;
+  animation:hTopIn 1.6s cubic-bezier(.2,.7,.2,1) .3s both}
+@keyframes hTopIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.h-top-kicker{font-family:'Inter',sans-serif;font-weight:600;font-size:12px;letter-spacing:.6em;padding-left:.6em;
+  text-transform:uppercase;color:#F6E2DA;margin:0 0 6px}
+.h-top-name{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(46px,13.5vw,68px);line-height:1;letter-spacing:.02em;text-transform:uppercase;
+  background-image:linear-gradient(105deg,
+    #8C4A3C 0%,#B9705C 14%,#E5A08A 28%,#FFE6DC 38%,#F3B9A6 46%,#C77C66 58%,
+    #F0B29E 70%,#FFF0E9 78%,#D48C75 88%,#8C4A3C 100%);
+  background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:hTopSweep 6s ease-in-out infinite;
+  filter:none !important;text-shadow:none !important}
+.h-top-name span{display:block}
+@keyframes hTopSweep{0%{background-position:100% 0}50%{background-position:0 0}100%{background-position:100% 0}}
+.h-top-date{margin:10px 0 0;font-family:'Inter',sans-serif;font-weight:600;font-size:12px;letter-spacing:.42em;
+  padding-left:.42em;color:#F6E2DA}
+/* el texto se lee sobre la foto: oscurecemos solo la franja superior */
+#hero .h-ov{background:
+  linear-gradient(180deg,rgba(11,11,13,.78) 0%,rgba(11,11,13,.45) 22%,rgba(11,11,13,0) 36%,rgba(11,11,13,0) 56%,
+                  rgba(11,11,13,.75) 70%,#0B0B0D 79%) !important}
+@media (prefers-reduced-motion:reduce){.h-top,.h-top-name{animation:none}}
   </style>
 </head>
 <body>
@@ -3576,6 +3604,11 @@ body.gbx-locked{overflow:hidden}
   <div class="h-particles" id="hPart"></div>
 
   <div class="h-skyline" aria-hidden="true"><div class="h-skyline-metal"></div><div class="h-skyline-glow"></div></div>
+  <div class="h-top">
+    <p class="h-top-kicker">Mis XV Años</p>
+    <h1 class="h-top-name">Renata <span>Paola</span></h1>
+    <p class="h-top-date">03 · Abril · 2027</p>
+  </div>
   <div class="h-cnt" id="hCnt">
     <p class="h-we" id="hWe">Mis XV Años</p>
 
