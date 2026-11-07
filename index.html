@@ -3414,6 +3414,44 @@ body.gbx-locked{overflow:hidden}
 
 #hero .h-we{display:flex !important;flex-wrap:nowrap !important;gap:.55em;justify-content:center}
 #hero .h-we *{display:inline-block !important;white-space:nowrap}
+
+/* ============================================================
+   PORTADA · edificios al ras del borde inferior, más grande
+   ============================================================ */
+.h-skyline{width:min(118vw,640px) !important;
+  bottom:calc(min(118vw,640px) * -0.362) !important}   /* línea base del skyline = borde de la sección */
+.h-skyline::after{display:none !important}
+.h-skyline-metal{opacity:.78 !important}
+.h-skyline-glow{opacity:.22 !important}
+#hero{overflow:hidden}
+#hero .h-we{bottom:calc(min(118vw,640px) * .70) !important;font-size:13px !important}
+#hero .h-ov{background:
+  linear-gradient(180deg,rgba(11,11,13,.28) 0%,rgba(11,11,13,0) 20%,rgba(11,11,13,0) 38%,
+                  rgba(11,11,13,.55) 56%,rgba(11,11,13,.9) 74%,#0B0B0D 100%) !important}
+
+/* separador: estatua sola */
+.ny-divider--estatua img{width:auto !important;height:min(62vw,260px) !important}
+
+/* ============================================================
+   SKYLINE LEVITANDO EN LOS FONDOS · difuminado, parte del fondo
+   ============================================================ */
+#countdown,#calendar,#gifts,#dresscode,#rsvp{position:relative;isolation:isolate;overflow:hidden}
+.sec-sky{
+  position:absolute;left:50%;bottom:-6px;z-index:-1;pointer-events:none;
+  width:min(140vw,760px);aspect-ratio:536/221;transform:translateX(-50%);
+  -webkit-mask:url('assets/ny/skyline.png') center bottom/contain no-repeat;
+          mask:url('assets/ny/skyline.png') center bottom/contain no-repeat;
+  background:linear-gradient(180deg,rgba(231,154,136,.0) 0%,rgba(231,154,136,.20) 45%,rgba(231,154,136,.34) 100%);
+  filter:blur(1.6px);
+  animation:secSkyFloat 9s ease-in-out infinite;
+}
+#calendar .sec-sky,#rsvp .sec-sky{animation-delay:-4.5s;transform:translateX(-50%) scaleX(-1)}
+@keyframes secSkyFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -10px}
+}
+@media (prefers-reduced-motion:reduce){.sec-sky{animation:none}}
+
   </style>
 </head>
 <body>
@@ -3628,6 +3666,7 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 2. CUENTA REGRESIVA ══════════════ -->
 <section id="countdown">
+  <div class="sec-sky" aria-hidden="true"></div>
   <!-- ondas decorativas superiores -->
   <div class="cd-wave-top" aria-hidden="true">
     <svg viewBox="0 0 800 50" preserveAspectRatio="none">
@@ -3677,6 +3716,7 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 4. CALENDAR ══════════════════════ -->
 <section id="calendar">
+  <div class="sec-sky" aria-hidden="true"></div>
   <span class="lbl">No lo olvides</span>
   <h2 class="ttl" style="font-size:26px">Guarda la Fecha</h2>
   <div class="gline"></div>
@@ -3791,8 +3831,9 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 7. MESA DE REGALOS ═══════════════ -->
-<div class="ny-divider ny-divider--estatua" aria-hidden="true"><img src="assets/ny/estatua.png" alt="" decoding="async"></div>
+<div class="ny-divider ny-divider--estatua" aria-hidden="true"><img src="assets/ny/estatua-sola.png" alt="" decoding="async"></div>
 <section id="gifts">
+  <div class="sec-sky" aria-hidden="true"></div>
   <span class="lbl">Tu presencia es mi mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
   <div class="gline"></div>
@@ -3855,6 +3896,7 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 9. DRESS CODE ════════════════════ -->
 <section id="dresscode">
+  <div class="sec-sky" aria-hidden="true"></div>
   <span class="lbl dc-eyebrow">Etiqueta</span>
   <h2 class="dc-title">Dress Code</h2>
   <div class="gline"></div>
@@ -4081,6 +4123,7 @@ body.gbx-locked{overflow:hidden}
 
 <!-- ═══════════════ 12. RSVP ═════════════════════════ -->
 <section id="rsvp">
+  <div class="sec-sky" aria-hidden="true"></div>
   <!-- Mensaje: solo adultos (antes de la confirmación) -->
 
 
