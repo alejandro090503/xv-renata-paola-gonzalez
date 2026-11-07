@@ -3411,6 +3411,9 @@ body.gbx-locked{overflow:hidden}
 
 #hero .h-we{left:50% !important;right:auto !important;transform:translateX(-50%) !important;
   white-space:nowrap !important;width:max-content !important;padding-left:.55em}
+
+#hero .h-we{display:flex !important;flex-wrap:nowrap !important;gap:.55em;justify-content:center}
+#hero .h-we *{display:inline-block !important;white-space:nowrap}
   </style>
 </head>
 <body>
@@ -5713,12 +5716,12 @@ function initDressLooks(){
 var NY_PICS = [
   {f:'ny1.jpg',  x:19, y:13, w:29, r:-3,  cap:'Wall Street'},
   {f:'ny3.jpg',  x:81, y:13, w:29, r:3,   cap:'The Vessel'},
-  {f:'ny5.jpg',  x:50, y:31, w:35, r:0,   cap:'Central Park'},
+  {f:'ny5.jpg',  x:50, y:35, w:38, r:0,   cap:'Central Park'},
   {f:'ny2.jpg',  x:19, y:37, w:29, r:2,   cap:'Charging Bull'},
   {f:'ny4.jpg',  x:81, y:37, w:29, r:-2,  cap:'Flatiron'},
   {f:'ny7.jpg',  x:19, y:61, w:29, r:-2,  cap:'Manhattan Bridge'},
   {f:'ny6.jpg',  x:81, y:61, w:29, r:2,   cap:'Manhattan'},
-  {f:'ny8.jpg',  x:50, y:67, w:35, r:0,   cap:'Times Square'},
+  {f:'ny8.jpg',  x:50, y:65, w:38, r:0,   cap:'Times Square'},
   {f:'ny9.jpg',  x:19, y:85, w:29, r:3,   cap:'Brooklyn Bridge'},
   {f:'ny10.jpg', x:81, y:85, w:29, r:-3,  cap:'Lady Liberty'}
 ];
@@ -5753,7 +5756,7 @@ function runNyCollage(done){
     var el = document.createElement('div');
     el.className = 'nyc-pic';
     /* tamaño que garantiza que las 10 quepan sin cortarse */
-    var fw = Math.min(sw * p.w / 100, sh * (p.w > 30 ? 0.27 : 0.235) / 1.34);
+    var fw = Math.min(sw * p.w / 100, sh * (p.w > 30 ? 0.29 : 0.235) / 1.34);
     var fh = fw * 1.34, pad = 10 + fw * 0.12;           /* margen por la rotación */
     var cx = Math.max(fw/2 + pad, Math.min(sw - fw/2 - pad, sw * p.x / 100));
     var cy = Math.max(fh/2 + pad, Math.min(sh - fh/2 - pad, sh * p.y / 100));
