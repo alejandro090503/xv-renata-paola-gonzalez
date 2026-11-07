@@ -3348,6 +3348,54 @@ body.gbx-locked{overflow:hidden}
 .dc-pal-item{width:52px !important}
 .dc-pal-dot{width:42px !important;height:42px !important}
 .dc-pal-nm{font-size:8.5px !important;letter-spacing:.6px !important}
+
+/* ============================================================
+   PORTADA PREMIUM · la foto se funde a la noche y el skyline
+   aparece como silueta de rosa metálico, con un brillo que la
+   recorre y la base disuelta (sin bordes duros de PNG).
+   ============================================================ */
+#hero .h-liberty{display:none !important}
+#hero .h-ov{background:
+  linear-gradient(180deg,rgba(11,11,13,.30) 0%,rgba(11,11,13,0) 22%,rgba(11,11,13,0) 46%,
+                  rgba(11,11,13,.55) 64%,rgba(11,11,13,.92) 80%,#0B0B0D 100%) !important}
+.h-skyline{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;
+  width:min(100vw,560px);aspect-ratio:700/731;pointer-events:none;
+  animation:hSkyIn 2.6s cubic-bezier(.2,.7,.2,1) .5s both;
+}
+.h-skyline-metal,.h-skyline-glow{
+  position:absolute;inset:0;
+  -webkit-mask:url('assets/ny/estatua.png') center bottom/contain no-repeat;
+          mask:url('assets/ny/estatua.png') center bottom/contain no-repeat;
+}
+/* rosa metálico con barrido de luz */
+.h-skyline-metal{
+  background:linear-gradient(112deg,
+    #6E3A30 0%,#A85D4B 18%,#DD8A72 32%,#FFE1D6 42%,#F4B39D 48%,
+    #C4735D 60%,#7C4337 78%,#A85D4B 100%);
+  background-size:260% 100%;
+  animation:hSkySweep 7s ease-in-out infinite;
+  opacity:.9;
+}
+/* halo suave detrás */
+.h-skyline-glow{
+  background:#E79A88;filter:blur(18px);opacity:.28;transform:scale(1.02);
+}
+/* la base se disuelve en la noche: degradado encima */
+.h-skyline::after{
+  content:'';position:absolute;left:-10%;right:-10%;bottom:0;height:46%;
+  background:linear-gradient(180deg,rgba(11,11,13,0) 0%,rgba(11,11,13,.82) 62%,#0B0B0D 100%);
+}
+@keyframes hSkySweep{0%{background-position:100% 0}50%{background-position:0% 0}100%{background-position:100% 0}}
+@keyframes hSkyIn{from{opacity:0;transform:translate(-50%,40px) scale(.94)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+#hero .h-we{bottom:calc(min(100vw,560px)*.40) !important;z-index:4}
+#hero .h-scroll{z-index:5}
+@media (prefers-reduced-motion:reduce){.h-skyline,.h-skyline-metal{animation:none}}
+
+/* Collage: marco limpio y sombra suave para que se lea como álbum */
+.nyc-pic{border:3px solid #FBF6F3 !important;border-radius:4px !important;
+  box-shadow:0 14px 34px rgba(0,0,0,.7),0 0 0 1px rgba(231,154,136,.25) !important}
+
   </style>
 </head>
 <body>
@@ -3439,7 +3487,7 @@ body.gbx-locked{overflow:hidden}
 
   <div class="h-particles" id="hPart"></div>
 
-  <img class="h-liberty" src="assets/ny/estatua.png" alt="" aria-hidden="true">
+  <div class="h-skyline" aria-hidden="true"><div class="h-skyline-metal"></div><div class="h-skyline-glow"></div></div>
   <div class="h-cnt" id="hCnt">
     <p class="h-we" id="hWe">Mis XV Años</p>
 
@@ -5648,16 +5696,16 @@ function initDressLooks(){
    y vuela a su lugar quedando por detrás de la siguiente.
    ============================================================ */
 var NY_PICS = [
-  {f:'ny1.jpg',  x:17, y:11, w:30, r:-7, cap:'Wall Street'},
-  {f:'ny2.jpg',  x:50, y:8,  w:29, r:4,  cap:'Charging Bull'},
-  {f:'ny3.jpg',  x:82, y:14, w:27, r:8,  cap:'The Vessel'},
-  {f:'ny4.jpg',  x:14, y:36, w:28, r:6,  cap:'Flatiron'},
-  {f:'ny5.jpg',  x:47, y:33, w:31, r:-5, cap:'Central Park'},
-  {f:'ny6.jpg',  x:81, y:40, w:27, r:7,  cap:'Manhattan'},
-  {f:'ny7.jpg',  x:16, y:62, w:28, r:-8, cap:'Manhattan Bridge'},
-  {f:'ny8.jpg',  x:48, y:60, w:30, r:3,  cap:'Times Square'},
-  {f:'ny9.jpg',  x:82, y:66, w:27, r:-6, cap:'Brooklyn Bridge'},
-  {f:'ny10.jpg', x:40, y:86, w:29, r:9,  cap:'Lady Liberty'}
+  {f:'ny1.jpg',  x:19, y:13, w:29, r:-3,  cap:'Wall Street'},
+  {f:'ny3.jpg',  x:81, y:13, w:29, r:3,   cap:'The Vessel'},
+  {f:'ny5.jpg',  x:50, y:31, w:35, r:0,   cap:'Central Park'},
+  {f:'ny2.jpg',  x:19, y:37, w:29, r:2,   cap:'Charging Bull'},
+  {f:'ny4.jpg',  x:81, y:37, w:29, r:-2,  cap:'Flatiron'},
+  {f:'ny7.jpg',  x:19, y:61, w:29, r:-2,  cap:'Manhattan Bridge'},
+  {f:'ny6.jpg',  x:81, y:61, w:29, r:2,   cap:'Manhattan'},
+  {f:'ny8.jpg',  x:50, y:67, w:35, r:0,   cap:'Times Square'},
+  {f:'ny9.jpg',  x:19, y:85, w:29, r:3,   cap:'Brooklyn Bridge'},
+  {f:'ny10.jpg', x:81, y:85, w:29, r:-3,  cap:'Lady Liberty'}
 ];
 
 /* Precarga: si las postales no están listas, el collage se ve vacío */
@@ -5690,7 +5738,7 @@ function runNyCollage(done){
     var el = document.createElement('div');
     el.className = 'nyc-pic';
     /* tamaño que garantiza que las 10 quepan sin cortarse */
-    var fw = Math.min(sw * p.w / 100, sh * 0.24 / 1.34);
+    var fw = Math.min(sw * p.w / 100, sh * (p.w > 30 ? 0.27 : 0.235) / 1.34);
     var fh = fw * 1.34, pad = 10 + fw * 0.12;           /* margen por la rotación */
     var cx = Math.max(fw/2 + pad, Math.min(sw - fw/2 - pad, sw * p.x / 100));
     var cy = Math.max(fh/2 + pad, Math.min(sh - fh/2 - pad, sh * p.y / 100));
