@@ -3512,6 +3512,26 @@ body.gbx-locked{overflow:hidden}
   linear-gradient(180deg,rgba(11,11,13,.78) 0%,rgba(11,11,13,.45) 22%,rgba(11,11,13,0) 36%,rgba(11,11,13,0) 56%,
                   rgba(11,11,13,.75) 70%,#0B0B0D 79%) !important}
 @media (prefers-reduced-motion:reduce){.h-top,.h-top-name{animation:none}}
+
+/* ============================================================
+   TAXI DE NUEVA YORK · cruza de izquierda a derecha antes del cierre
+   ============================================================ */
+.ny-taxi-lane{position:relative;height:118px;overflow:hidden;margin:10px 0 0}
+.ny-taxi-road{position:absolute;left:0;right:0;bottom:22px;height:2px;
+  background:repeating-linear-gradient(90deg,rgba(244,179,157,.55) 0 26px,transparent 26px 48px);
+  animation:nyRoad 1.1s linear infinite}
+@keyframes nyRoad{to{background-position:-48px 0}}
+.ny-taxi{position:absolute;bottom:24px;left:0;height:78px;width:auto;
+  filter:drop-shadow(0 10px 10px rgba(0,0,0,.55));
+  animation:nyTaxi 7s cubic-bezier(.45,.05,.55,.95) infinite}
+@keyframes nyTaxi{
+  0%{transform:translateX(-140%) translateY(0)}
+  8%{transform:translateX(-90%) translateY(-1px)}
+  50%{transform:translateX(calc(50vw - 50%)) translateY(0)}
+  58%{transform:translateX(calc(50vw - 50%)) translateY(-1px)}   /* pausa breve al centro */
+  100%{transform:translateX(calc(100vw + 20%)) translateY(0)}
+}
+@media (prefers-reduced-motion:reduce){.ny-taxi{animation:none;left:50%;transform:translateX(-50%)}.ny-taxi-road{animation:none}}
   </style>
 </head>
 <body>
@@ -4322,7 +4342,11 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ 13. FOOTER ═══════════════════════ -->
-<div class="ny-divider" aria-hidden="true"><img src="assets/ny/puente.png" alt="" decoding="async"></div>
+<div class="ny-taxi-lane" aria-hidden="true">
+  <div class="ny-taxi-road"></div>
+  <img class="ny-taxi" src="assets/ny/taxi.png" alt="" decoding="async"
+       onerror="this.closest('.ny-taxi-lane').innerHTML='<div class=&quot;ny-divider on&quot;><img src=&quot;assets/ny/puente.png&quot; alt=&quot;&quot;></div>'">
+</div>
 <footer id="footer">
   <div class="ft-card">
     <div class="ft-photo" id="ftPhoto" hidden><img src="assets/ft-foto.jpg" alt="Renata Paola en Nueva York"
