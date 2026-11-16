@@ -1,3 +1,6 @@
 {
+  "redirects": [
+    { "source": "/album", "destination": "https://panel-invitados.vercel.app/subir/xv-renata-paola-gonzalez", "permanent": false }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
