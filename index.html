@@ -4955,7 +4955,7 @@ const musicEl  = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 
 if (musicEl) {
-  musicEl.addEventListener('play',  () => musicBtn && musicBtn.classList.add('is-playing'));
+  musicEl.addEventListener('play',  () => { window.__musicStarted = true; musicBtn && musicBtn.classList.add('is-playing'); });
   musicEl.addEventListener('pause', () => musicBtn && musicBtn.classList.remove('is-playing'));
 }
 
@@ -4967,8 +4967,8 @@ function startMusic() {
 if (musicBtn) {
   musicBtn.addEventListener('click', () => {
     if (!musicEl) return;
-    if (musicEl.paused) musicEl.play().catch(() => {});
-    else musicEl.pause();
+    if (musicEl.paused) { window.__userPaused = false; musicEl.play().catch(() => {}); }
+    else { window.__userPaused = true; musicEl.pause(); }
   });
 }
 
@@ -5001,6 +5001,10 @@ function armMusicUnlock() {
   __musicArmed = true;
   var EVS = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown', 'scroll', 'wheel'];
   var onFirst = function () {
+    if (window.__musicStarted || window.__userPaused) {
+      EVS.forEach(function (ev) { document.removeEventListener(ev, onFirst, true); });
+      return;
+    }
     unlockMusic();
     if (!musicEl.paused) {
       EVS.forEach(function (ev) { document.removeEventListener(ev, onFirst, true); });
@@ -5010,7 +5014,7 @@ function armMusicUnlock() {
     document.addEventListener(ev, onFirst, { capture: true, passive: true });
   });
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden && musicEl.paused) unlockMusic();
+    if (!document.hidden && musicEl.paused && !window.__musicStarted && !window.__userPaused) unlockMusic();
   });
 }
 
