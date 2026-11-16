@@ -3533,9 +3533,10 @@ body.gbx-locked{overflow:hidden}
   100%{transform:translateX(calc(100vw + 20%)) translateY(0)}
 }
 @media (prefers-reduced-motion:reduce){.ny-taxi{animation:none;left:50%;transform:translateX(-50%)}.ny-taxi-road{animation:none}}
-.inv-card-img{margin:30px auto 0;width:min(100%,340px);border-radius:10px;overflow:hidden;
+.inv-card-img{margin:0 auto;width:min(100%,400px);border-radius:10px;overflow:hidden;
   border:1px solid rgba(231,154,136,.35);box-shadow:0 18px 44px rgba(0,0,0,.6),0 0 0 4px rgba(231,154,136,.07)}
 .inv-card-img img{display:block;width:100%;height:auto}
+#invite.invite-img{background:none !important;border:0 !important;box-shadow:none !important;padding:36px 16px !important;min-height:0 !important}
   </style>
 </head>
 <body>
@@ -3669,18 +3670,8 @@ body.gbx-locked{overflow:hidden}
 
 
 <!-- ═══════════════ INVITACIÓN FAMILIAR ═══════════════ -->
-<section id="invite">
-  <div class="inv-wrap">
-    <span class="inv-orn" aria-hidden="true">✦ · ✦</span>
-    <p class="inv-lead">Con la bendición de mis padres</p>
-    <p class="inv-children">Yordy R. González Pujol<br>Guadalupe del C. Pérez Orozco</p>
-    <p class="inv-lead inv-lead--pad">Acompañantes de honor</p>
-    <p class="inv-children inv-children--pad">Carmen H. Orozco Vega<br>Marcos Antonio Perez Orozco</p>
-    <div class="gline" style="margin:24px auto"></div>
-    <p class="inv-quote">Ha llegado el momento de celebrar mis XV. Entre sueños, luces y momentos inolvidables, te invito a ser parte de la noche más especial de mi historia.</p>
-    <p class="inv-date">el 3 de Abril de 2027</p>
-    <figure class="inv-card-img"><img src="assets/padres-padrinos.jpg" alt="Invitación de Renata: con la bendición de mis padres y acompañantes de honor" loading="lazy" decoding="async"></figure>
-  </div>
+<section id="invite" class="invite-img">
+  <figure class="inv-card-img"><img src="assets/padres-padrinos.jpg" alt="Invitación de Renata: con la bendición de mis padres y acompañantes de honor" decoding="async"></figure>
 </section>
 
 
